@@ -11,7 +11,7 @@ export function PostList({ posts }: { posts: PostMeta[] }) {
   }
 
   return (
-    <div className="grid gap-4">
+    <div className="grid gap-6">
       {posts.map((post) => (
         <PostCard key={`${post.year}/${post.month}/${post.slug}`} post={post} />
       ))}
