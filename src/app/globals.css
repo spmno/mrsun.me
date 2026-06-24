@@ -141,57 +141,57 @@
   }
 }
 
-.prose_custom {
+.prose-custom {
   @apply text-foreground/90 leading-relaxed;
 }
-.prose_custom h1,
-.prose_custom h2,
-.prose_custom h3,
-.prose_custom h4 {
+.prose-custom h1,
+.prose-custom h2,
+.prose-custom h3,
+.prose-custom h4 {
   @apply font-bold mt-8 mb-4 text-foreground scroll-mt-20;
 }
-.prose_custom h1 { @apply text-3xl; }
-.prose_custom h2 { @apply text-2xl border-b border-border/50 pb-2; }
-.prose_custom h3 { @apply text-xl; }
-.prose_custom h4 { @apply text-lg; }
-.prose_custom p { @apply my-4; }
-.prose_custom a {
+.prose-custom h1 { @apply text-3xl; }
+.prose-custom h2 { @apply text-2xl border-b border-border/50 pb-2; }
+.prose-custom h3 { @apply text-xl; }
+.prose-custom h4 { @apply text-lg; }
+.prose-custom p { @apply my-4; }
+.prose-custom a {
   @apply text-primary hover:underline;
 }
-.prose_custom ul,
-.prose_custom ol { @apply my-4 pl-6; }
-.prose_custom ul { @apply list-disc; }
-.prose_custom ol { @apply list-decimal; }
-.prose_custom li { @apply my-1; }
-.prose_custom blockquote {
+.prose-custom ul,
+.prose-custom ol { @apply my-4 pl-6; }
+.prose-custom ul { @apply list-disc; }
+.prose-custom ol { @apply list-decimal; }
+.prose-custom li { @apply my-1; }
+.prose-custom blockquote {
   @apply border-l-4 border-primary/40 pl-4 italic text-muted-foreground my-6;
 }
-.prose_custom pre {
+.prose-custom pre {
   @apply rounded-xl border border-border/50 bg-muted/50 p-4 overflow-x-auto text-sm font-mono;
 }
-.prose_custom code {
+.prose-custom code {
   @apply rounded bg-muted px-1.5 py-0.5 text-sm font-mono;
 }
-.prose_custom pre code {
+.prose-custom pre code {
   @apply bg-transparent p-0;
 }
-.prose_custom table {
+.prose-custom table {
   @apply w-full border-collapse my-6;
 }
-.prose_custom th,
-.prose_custom td {
+.prose-custom th,
+.prose-custom td {
   @apply border border-border px-4 py-2 text-left;
 }
-.prose_custom th {
+.prose-custom th {
   @apply bg-muted font-semibold;
 }
-.prose_custom img {
+.prose-custom img {
   @apply rounded-xl border border-border/50 max-w-full h-auto;
 }
-.prose_custom hr {
+.prose-custom hr {
   @apply border-border/50 my-8;
 }
-.prose_custom input[type="checkbox"] {
+.prose-custom input[type="checkbox"] {
   @apply mr-2;
 }
 
