@@ -11,7 +11,7 @@ export function Navbar() {
     <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/80 backdrop-blur-xl">
       <div className="mx-auto max-w-5xl flex h-14 items-center justify-between px-4 sm:px-6">
         <div className="flex items-center gap-6">
-          <Link href="/" className="font-bold text-xl gradient-text">
+          <Link href="/" className="font-bold text-xl text-primary">
             {siteConfig.title}
           </Link>
           <nav className="hidden md:flex items-center gap-5">
