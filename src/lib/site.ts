@@ -1,8 +1,8 @@
 export const siteConfig = {
-  title: 'mrsun.me',
+  title: '程序员老孙',
   description: '探索技术之美，记录编程之旅',
   url: 'https://mrsun.me',
-  author: 'MrSun',
+  author: '程序员老孙',
   locale: 'zh-CN',
   nav: [
     { title: '首页', href: '/' },
@@ -11,10 +11,10 @@ export const siteConfig = {
     { title: '关于', href: '/about' },
   ],
   social: {
-    github: 'https://github.com/mrsun',
+    github: 'https://github.com/spmno',
   },
   giscus: {
-    repo: 'mrsun/mrsun.me' as `${string}/${string}`,
+    repo: 'spmno/mrsun.me' as `${string}/${string}`,
     repoId: '',
     category: 'Comments',
     categoryId: '',

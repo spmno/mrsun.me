@@ -1,4 +1,4 @@
-# mrsun.me
+# 程序员老孙
 
 基于 Next.js 16 + Tailwind CSS 4 + shadcn/ui 的极简深色科技风个人博客，静态导出部署到 EdgeOne Pages。
 
