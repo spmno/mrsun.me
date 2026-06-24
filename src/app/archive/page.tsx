@@ -18,7 +18,7 @@ export default function ArchivePage() {
   const groups = getArchiveGroups();
 
   return (
-    <div className="mx-auto max-w-3xl px-4 sm:px-6 py-8">
+    <div className="mx-auto max-w-5xl px-4 sm:px-6 py-8">
       <h1 className="text-3xl font-bold mb-8 gradient-text">归档</h1>
 
       {groups.length === 0 ? (

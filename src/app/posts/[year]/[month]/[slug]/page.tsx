@@ -46,7 +46,7 @@ export default async function PostPage({
     .slice(0, 3);
 
   return (
-    <article className="mx-auto max-w-3xl px-4 sm:px-6 py-8">
+    <article className="mx-auto max-w-5xl px-4 sm:px-6 py-8">
       <Link href="/">
         <Button variant="ghost" size="sm" className="mb-6 gap-1.5 text-muted-foreground">
           <ArrowLeft className="h-4 w-4" />
