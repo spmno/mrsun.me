@@ -15,9 +15,9 @@ export const siteConfig = {
   },
   giscus: {
     repo: 'spmno/mrsun.me' as `${string}/${string}`,
-    repoId: '',
-    category: 'Comments',
-    categoryId: '',
+    repoId: 'R_kgDOTDpWAg',
+    category: 'General',
+    categoryId: 'DIC_kwDOTDpWAs4C_yJB',
     mapping: 'pathname' as const,
     reactionsEnabled: '1' as const,
     emitMetadata: '0' as const,
