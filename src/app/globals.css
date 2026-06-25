@@ -146,7 +146,10 @@
 }
 
 .prose-custom {
-  @apply text-foreground/90 leading-relaxed;
+  @apply text-foreground/90;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 18px;
+  line-height: 1.8;
 }
 .prose-custom h1,
 .prose-custom h2,
@@ -158,7 +161,7 @@
 .prose-custom h2 { @apply text-2xl border-b border-border/50 pb-2; }
 .prose-custom h3 { @apply text-xl; }
 .prose-custom h4 { @apply text-lg; }
-.prose-custom p { @apply my-4; }
+.prose-custom p { @apply my-6; }
 .prose-custom a {
   @apply text-primary hover:underline;
 }
@@ -171,7 +174,9 @@
   @apply border-l-4 border-primary/40 pl-4 italic text-muted-foreground my-6;
 }
 .prose-custom pre {
-  @apply rounded-xl border border-border/50 bg-muted/50 p-4 overflow-x-auto text-sm font-mono;
+  @apply rounded-xl border border-border/50 p-4 overflow-x-auto text-sm font-mono;
+  background-color: #1E1E1E;
+  color: #e8e8e8;
 }
 .prose-custom code {
   @apply rounded bg-muted px-1.5 py-0.5 text-sm font-mono;
@@ -200,11 +205,11 @@
 }
 
 .hljs {
-  color: var(--foreground);
+  color: #e8e8e8;
 }
 .hljs-comment,
 .hljs-quote {
-  color: var(--muted-foreground);
+  color: oklch(0.60 0.015 250);
   font-style: italic;
 }
 .hljs-keyword,
@@ -212,7 +217,7 @@
 .hljs-literal,
 .hljs-section,
 .hljs-link {
-  color: oklch(0.65 0.22 264);
+  color: oklch(0.72 0.20 280);
 }
 .dark .hljs-keyword,
 .dark .hljs-selector-tag,
@@ -226,7 +231,7 @@
 .hljs-template-tag,
 .hljs-template-variable,
 .hljs-addition {
-  color: oklch(0.55 0.18 150);
+  color: oklch(0.68 0.18 150);
 }
 .dark .hljs-string,
 .dark .hljs-attr,
@@ -240,7 +245,7 @@
 .hljs-title,
 .hljs-class .hljs-title,
 .hljs-title.class_ {
-  color: oklch(0.60 0.15 200);
+  color: oklch(0.70 0.18 200);
 }
 .dark .hljs-built_in,
 .dark .hljs-type,
@@ -252,7 +257,7 @@
 .hljs-bullet,
 .hljs-variable,
 .hljs-meta {
-  color: oklch(0.65 0.20 30);
+  color: oklch(0.72 0.20 30);
 }
 .dark .hljs-number,
 .dark .hljs-symbol,
@@ -262,7 +267,7 @@
   color: oklch(0.72 0.20 30);
 }
 .hljs-deletion {
-  color: oklch(0.577 0.245 27.325);
+  color: oklch(0.704 0.191 22.216);
 }
 .hljs-emphasis {
   font-style: italic;

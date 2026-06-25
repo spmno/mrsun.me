@@ -6,8 +6,11 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { MarkdownRenderer } from '@/components/markdown-renderer';
 import { GiscusComments } from '@/components/giscus-comments';
+import { TableOfContents } from '@/components/table-of-contents';
+import { AuthorBio } from '@/components/author-bio';
 import { getAllPosts, getPost, getAllPostsMeta } from '@/lib/posts';
 import { generatePostMetadata } from '@/lib/seo';
+import { extractHeadings } from '@/lib/toc';
 
 export function generateStaticParams() {
   return getAllPosts().map((post) => ({
@@ -37,6 +40,8 @@ export default async function PostPage({
   const post = getPost(year, month, slug);
   if (!post) notFound();
 
+  const headings = extractHeadings(post.content);
+
   const related = getAllPostsMeta()
     .filter(
       (p) =>
@@ -46,7 +51,7 @@ export default async function PostPage({
     .slice(0, 3);
 
   return (
-    <article className="mx-auto max-w-5xl px-4 sm:px-6 py-8">
+    <div className="mx-auto max-w-7xl px-4 sm:px-6 py-8">
       <Link href="/">
         <Button variant="ghost" size="sm" className="mb-6 gap-1.5 text-muted-foreground">
           <ArrowLeft className="h-4 w-4" />
@@ -54,57 +59,80 @@ export default async function PostPage({
         </Button>
       </Link>
 
-      <header className="mb-8">
-        <h1 className="text-3xl sm:text-4xl font-bold mb-4">{post.title}</h1>
-        <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
-          <span className="flex items-center gap-1.5">
-            <Calendar className="h-4 w-4" />
-            {post.date}
-          </span>
-          <Link href={`/categories/${encodeURIComponent(post.category)}/`}>
-            <span className="flex items-center gap-1.5 hover:text-primary transition-colors">
-              <FolderOpen className="h-4 w-4" />
-              {post.category}
-            </span>
-          </Link>
-        </div>
-        {post.tags.length > 0 && (
-          <div className="flex flex-wrap gap-2 mt-4">
-            {post.tags.map((tag) => (
-              <Link key={tag} href={`/tags/${encodeURIComponent(tag)}/`}>
-                <Badge variant="secondary" className="hover:bg-accent transition-colors">
-                  <Tag className="h-2.5 w-2.5 mr-1" />
-                  {tag}
-                </Badge>
-              </Link>
-            ))}
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_3fr_1fr] gap-8 lg:gap-12">
+        <aside className="hidden lg:block">
+          <div className="sticky top-20">
+            <TableOfContents headings={headings} />
           </div>
-        )}
-      </header>
+        </aside>
 
-      <MarkdownRenderer content={post.content} />
+        <article className="min-w-0">
+          <div className="mx-auto max-w-[680px]">
+            <header className="mb-8">
+              <h1 className="text-3xl sm:text-4xl font-bold mb-4">{post.title}</h1>
+              <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+                <span className="flex items-center gap-1.5">
+                  <Calendar className="h-4 w-4" />
+                  {post.date}
+                </span>
+                <Link href={`/categories/${encodeURIComponent(post.category)}/`}>
+                  <span className="flex items-center gap-1.5 hover:text-primary transition-colors">
+                    <FolderOpen className="h-4 w-4" />
+                    {post.category}
+                  </span>
+                </Link>
+              </div>
+              {post.tags.length > 0 && (
+                <div className="flex flex-wrap gap-2 mt-4">
+                  {post.tags.map((tag) => (
+                    <Link key={tag} href={`/tags/${encodeURIComponent(tag)}/`}>
+                      <Badge variant="secondary" className="hover:bg-accent transition-colors">
+                        <Tag className="h-2.5 w-2.5 mr-1" />
+                        {tag}
+                      </Badge>
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </header>
 
-      {related.length > 0 && (
-        <section className="mt-16 pt-8 border-t border-border/50">
-          <h2 className="text-xl font-semibold mb-4">相关文章</h2>
-          <div className="grid gap-3">
-            {related.map((p) => (
-              <Link
-                key={`${p.year}/${p.month}/${p.slug}`}
-                href={`/posts/${p.year}/${p.month}/${p.slug}/`}
-                className="block p-4 rounded-xl border border-border/50 hover:border-primary/30 hover:bg-accent/30 transition-all"
-              >
-                <h3 className="font-medium group-hover:text-primary">{p.title}</h3>
-                <p className="text-sm text-muted-foreground mt-1">
-                  {p.date} · {p.category}
-                </p>
-              </Link>
-            ))}
+            <MarkdownRenderer content={post.content} />
           </div>
-        </section>
-      )}
+        </article>
 
-      <GiscusComments />
-    </article>
+        <aside className="hidden lg:block">
+          <div className="sticky top-20 space-y-6">
+            <AuthorBio />
+            {related.length > 0 && (
+              <section>
+                <h2 className="text-xs uppercase tracking-wider font-semibold text-foreground mb-3">
+                  相关文章
+                </h2>
+                <div className="space-y-3">
+                  {related.map((p) => (
+                    <Link
+                      key={`${p.year}/${p.month}/${p.slug}`}
+                      href={`/posts/${p.year}/${p.month}/${p.slug}/`}
+                      className="block group"
+                    >
+                      <h3 className="text-sm font-medium group-hover:text-primary transition-colors">
+                        {p.title}
+                      </h3>
+                      <p className="text-xs text-muted-foreground mt-1">
+                        {p.date} · {p.category}
+                      </p>
+                    </Link>
+                  ))}
+                </div>
+              </section>
+            )}
+          </div>
+        </aside>
+      </div>
+
+      <div className="mx-auto mt-16 max-w-[680px]">
+        <GiscusComments />
+      </div>
+    </div>
   );
 }
