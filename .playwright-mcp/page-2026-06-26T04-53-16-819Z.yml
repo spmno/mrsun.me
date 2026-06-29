@@ -1,0 +1,266 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4]:
+        - link "程序员老孙" [ref=e5] [cursor=pointer]:
+          - /url: /
+        - navigation [ref=e6]:
+          - link "首页" [ref=e7] [cursor=pointer]:
+            - /url: /
+            - text: 首页
+          - link "归档" [ref=e9] [cursor=pointer]:
+            - /url: /archive/
+          - link "搜索" [ref=e10] [cursor=pointer]:
+            - /url: /search/
+          - link "关于" [ref=e11] [cursor=pointer]:
+            - /url: /about/
+      - generic [ref=e12]:
+        - button "切换主题" [ref=e14]:
+          - img
+          - generic [ref=e15]: 切换主题
+        - link [ref=e16] [cursor=pointer]:
+          - /url: https://github.com/spmno
+          - img [ref=e17]
+  - main [ref=e21]:
+    - generic [ref=e22]:
+      - generic [ref=e23]:
+        - heading "程序员老孙" [level=1] [ref=e24]
+        - paragraph [ref=e25]: 探索技术之美，记录编程之旅
+        - link "搜索文章..." [ref=e26] [cursor=pointer]:
+          - /url: /search/
+          - img [ref=e27]
+          - text: 搜索文章...
+      - generic [ref=e30]:
+        - heading "最新文章" [level=2] [ref=e33]
+        - generic [ref=e34]:
+          - link "技术 技术 2026-06-24 Hello World - 欢迎来到我的博客 这是我的第一篇博客文章，介绍这个博客系统的技术选型和搭建过程。" [ref=e35] [cursor=pointer]:
+            - /url: /posts/2026/06/hello-world/
+            - generic [ref=e36]:
+              - generic [ref=e39]: 技术
+              - generic [ref=e40]:
+                - generic [ref=e41]:
+                  - generic [ref=e42]: 技术
+                  - generic [ref=e43]:
+                    - img [ref=e44]
+                    - text: 2026-06-24
+                - heading "Hello World - 欢迎来到我的博客" [level=3] [ref=e46]
+                - paragraph [ref=e47]: 这是我的第一篇博客文章，介绍这个博客系统的技术选型和搭建过程。
+          - link "教程 教程 2026-06-23 Next.js 16 静态导出完全指南 详解如何使用 Next.js 16 的静态导出功能构建一个完整的博客系统，包括动态路由、SEO 和部署配置。" [ref=e48] [cursor=pointer]:
+            - /url: /posts/2026/06/nextjs16-static-export-guide/
+            - generic [ref=e49]:
+              - generic [ref=e52]: 教程
+              - generic [ref=e53]:
+                - generic [ref=e54]:
+                  - generic [ref=e55]: 教程
+                  - generic [ref=e56]:
+                    - img [ref=e57]
+                    - text: 2026-06-23
+                - heading "Next.js 16 静态导出完全指南" [level=3] [ref=e59]
+                - paragraph [ref=e60]: 详解如何使用 Next.js 16 的静态导出功能构建一个完整的博客系统，包括动态路由、SEO 和部署配置。
+          - link "设计 设计 2026-06-22 打造极简深色科技风博客设计系统 从配色方案到组件设计，分享如何打造一个兼具美观与实用的深色科技风博客界面。" [ref=e61] [cursor=pointer]:
+            - /url: /posts/2026/06/dark-mode-design-system/
+            - generic [ref=e62]:
+              - generic [ref=e65]: 设计
+              - generic [ref=e66]:
+                - generic [ref=e67]:
+                  - generic [ref=e68]: 设计
+                  - generic [ref=e69]:
+                    - img [ref=e70]
+                    - text: 2026-06-22
+                - heading "打造极简深色科技风博客设计系统" [level=3] [ref=e72]
+                - paragraph [ref=e73]: 从配色方案到组件设计，分享如何打造一个兼具美观与实用的深色科技风博客界面。
+        - generic [ref=e74]:
+          - link "Linux Linux 2025-08-02 Linux系统服务终极指南！从配置到开机启动一条龙 手把手教你创建、配置Linux系统服务，实现程序开机自启动，告别手动重启烦恼" [ref=e75] [cursor=pointer]:
+            - /url: /posts/2025/08/linux-system-service-guide/
+            - generic [ref=e76]:
+              - generic [ref=e79]: Linux
+              - generic [ref=e80]:
+                - generic [ref=e81]:
+                  - generic [ref=e82]: Linux
+                  - generic [ref=e83]:
+                    - img [ref=e84]
+                    - text: 2025-08-02
+                - heading "Linux系统服务终极指南！从配置到开机启动一条龙" [level=3] [ref=e86]
+                - paragraph [ref=e87]: 手把手教你创建、配置Linux系统服务，实现程序开机自启动，告别手动重启烦恼
+          - link "AI AI 2025-07-16 白菜价玩转顶级AI！VSCode配置Kimi K2超详细指南 手把手教你如何在VSCode中配置Kimi K2模型，实现白菜价享用顶级AI能力" [ref=e88] [cursor=pointer]:
+            - /url: /posts/2025/07/kimi-k2-vscode/
+            - generic [ref=e89]:
+              - generic [ref=e92]: AI
+              - generic [ref=e93]:
+                - generic [ref=e94]:
+                  - generic [ref=e95]: AI
+                  - generic [ref=e96]:
+                    - img [ref=e97]
+                    - text: 2025-07-16
+                - heading "白菜价玩转顶级AI！VSCode配置Kimi K2超详细指南" [level=3] [ref=e99]
+                - paragraph [ref=e100]: 手把手教你如何在VSCode中配置Kimi K2模型，实现白菜价享用顶级AI能力
+      - generic [ref=e101]:
+        - generic [ref=e102]:
+          - generic [ref=e103]:
+            - link "Linux (5 篇)" [ref=e104] [cursor=pointer]:
+              - /url: /categories/Linux/
+              - heading "Linux" [level=2] [ref=e106]
+              - generic [ref=e107]: (5 篇)
+            - link "查看全部" [ref=e108] [cursor=pointer]:
+              - /url: /categories/Linux/
+              - text: 查看全部
+              - img [ref=e109]
+          - generic [ref=e111]:
+            - link "Linux Linux系统服务终极指南！从配置到开机启动一条龙 2025-08-02" [ref=e112] [cursor=pointer]:
+              - /url: /posts/2025/08/linux-system-service-guide/
+              - generic [ref=e113]:
+                - generic [ref=e116]: Linux
+                - generic [ref=e117]:
+                  - heading "Linux系统服务终极指南！从配置到开机启动一条龙" [level=3] [ref=e118]
+                  - paragraph [ref=e119]: 2025-08-02
+            - link "Linux 在Ubuntu上安装rtl8812ac驱动并使用Wireshark进行网络分析 2025-04-10" [ref=e120] [cursor=pointer]:
+              - /url: /posts/2025/04/ubuntu-rtl8812ac-wireshark/
+              - generic [ref=e121]:
+                - generic [ref=e124]: Linux
+                - generic [ref=e125]:
+                  - heading "在Ubuntu上安装rtl8812ac驱动并使用Wireshark进行网络分析" [level=3] [ref=e126]
+                  - paragraph [ref=e127]: 2025-04-10
+            - link "Linux 解决DrawIO在Ubuntu系统中的运行问题：详细故障排除指南 2025-01-20" [ref=e128] [cursor=pointer]:
+              - /url: /posts/2025/01/drawio_ubuntu_error/
+              - generic [ref=e129]:
+                - generic [ref=e132]: Linux
+                - generic [ref=e133]:
+                  - heading "解决DrawIO在Ubuntu系统中的运行问题：详细故障排除指南" [level=3] [ref=e134]
+                  - paragraph [ref=e135]: 2025-01-20
+            - link "Linux 解决Ubuntu 24.04字体安装问题与中文显示优化方案 2024-12-02" [ref=e136] [cursor=pointer]:
+              - /url: /posts/2024/12/ubuntu-font/
+              - generic [ref=e137]:
+                - generic [ref=e140]: Linux
+                - generic [ref=e141]:
+                  - heading "解决Ubuntu 24.04字体安装问题与中文显示优化方案" [level=3] [ref=e142]
+                  - paragraph [ref=e143]: 2024-12-02
+        - generic [ref=e144]:
+          - generic [ref=e145]:
+            - link "Rust (5 篇)" [ref=e146] [cursor=pointer]:
+              - /url: /categories/Rust/
+              - heading "Rust" [level=2] [ref=e148]
+              - generic [ref=e149]: (5 篇)
+            - link "查看全部" [ref=e150] [cursor=pointer]:
+              - /url: /categories/Rust/
+              - text: 查看全部
+              - img [ref=e151]
+          - generic [ref=e153]:
+            - link "Rust Rust日志优化：实现每日滚动记录与文件大小限制 2024-12-20" [ref=e154] [cursor=pointer]:
+              - /url: /posts/2024/12/rust_change_trace_strategy/
+              - generic [ref=e155]:
+                - generic [ref=e158]: Rust
+                - generic [ref=e159]:
+                  - heading "Rust日志优化：实现每日滚动记录与文件大小限制" [level=3] [ref=e160]
+                  - paragraph [ref=e161]: 2024-12-20
+            - link "Rust Actix框架：从SQLite迁移到PostgreSQL的完整指南 2024-12-18" [ref=e162] [cursor=pointer]:
+              - /url: /posts/2024/12/from-sqlite-to-postgres/
+              - generic [ref=e163]:
+                - generic [ref=e166]: Rust
+                - generic [ref=e167]:
+                  - heading "Actix框架：从SQLite迁移到PostgreSQL的完整指南" [level=3] [ref=e168]
+                  - paragraph [ref=e169]: 2024-12-18
+            - link "Rust 使用Reqwest库的最佳实践与解决方案：提升Rust HTTP请求效率 2024-09-23" [ref=e170] [cursor=pointer]:
+              - /url: /posts/2024/09/reqwest-experience/
+              - generic [ref=e171]:
+                - generic [ref=e174]: Rust
+                - generic [ref=e175]:
+                  - heading "使用Reqwest库的最佳实践与解决方案：提升Rust HTTP请求效率" [level=3] [ref=e176]
+                  - paragraph [ref=e177]: 2024-09-23
+            - link "在Rust中实现HTTP基本认证：完整指南与代码示例 在Rust中实现HTTP基本认证：完整指南与代码示例 2024-09-20" [ref=e178] [cursor=pointer]:
+              - /url: /posts/2024/09/rust-header-auth/
+              - generic [ref=e179]:
+                - img "在Rust中实现HTTP基本认证：完整指南与代码示例" [ref=e181]
+                - generic [ref=e182]:
+                  - heading "在Rust中实现HTTP基本认证：完整指南与代码示例" [level=3] [ref=e183]
+                  - paragraph [ref=e184]: 2024-09-20
+        - generic [ref=e185]:
+          - generic [ref=e186]:
+            - link "博客 (3 篇)" [ref=e187] [cursor=pointer]:
+              - /url: /categories/%E5%8D%9A%E5%AE%A2/
+              - heading "博客" [level=2] [ref=e189]
+              - generic [ref=e190]: (3 篇)
+            - link "查看全部" [ref=e191] [cursor=pointer]:
+              - /url: /categories/%E5%8D%9A%E5%AE%A2/
+              - text: 查看全部
+              - img [ref=e192]
+          - generic [ref=e194]:
+            - link "博客 从零开始使用Astro构建个人博客：详细步骤指南 2024-12-21" [ref=e195] [cursor=pointer]:
+              - /url: /posts/2024/12/create_blog_again/
+              - generic [ref=e196]:
+                - generic [ref=e199]: 博客
+                - generic [ref=e200]:
+                  - heading "从零开始使用Astro构建个人博客：详细步骤指南" [level=3] [ref=e201]
+                  - paragraph [ref=e202]: 2024-12-21
+            - link "博客 使用Astro为博客添加排序功能：按时间组织文章的完整指南 2024-12-19" [ref=e203] [cursor=pointer]:
+              - /url: /posts/2024/12/add_sort_func_to_blog/
+              - generic [ref=e204]:
+                - generic [ref=e207]: 博客
+                - generic [ref=e208]:
+                  - heading "使用Astro为博客添加排序功能：按时间组织文章的完整指南" [level=3] [ref=e209]
+                  - paragraph [ref=e210]: 2024-12-19
+            - link "博客 Astro搭建个人博客 2024-08-20" [ref=e211] [cursor=pointer]:
+              - /url: /posts/2024/08/create-blog/
+              - generic [ref=e212]:
+                - generic [ref=e215]: 博客
+                - generic [ref=e216]:
+                  - heading "Astro搭建个人博客" [level=3] [ref=e217]
+                  - paragraph [ref=e218]: 2024-08-20
+        - generic [ref=e219]:
+          - generic [ref=e220]:
+            - link "AI (2 篇)" [ref=e221] [cursor=pointer]:
+              - /url: /categories/AI/
+              - heading "AI" [level=2] [ref=e223]
+              - generic [ref=e224]: (2 篇)
+            - link "查看全部" [ref=e225] [cursor=pointer]:
+              - /url: /categories/AI/
+              - text: 查看全部
+              - img [ref=e226]
+          - generic [ref=e228]:
+            - link "AI 白菜价玩转顶级AI！VSCode配置Kimi K2超详细指南 2025-07-16" [ref=e229] [cursor=pointer]:
+              - /url: /posts/2025/07/kimi-k2-vscode/
+              - generic [ref=e230]:
+                - generic [ref=e233]: AI
+                - generic [ref=e234]:
+                  - heading "白菜价玩转顶级AI！VSCode配置Kimi K2超详细指南" [level=3] [ref=e235]
+                  - paragraph [ref=e236]: 2025-07-16
+            - link "AI 搭建高效本地AI开发环境：Cline、Ollama与Deepseek R1完全指南 2025-02-07" [ref=e237] [cursor=pointer]:
+              - /url: /posts/2025/02/cline_ollama_deepseek/
+              - generic [ref=e238]:
+                - generic [ref=e241]: AI
+                - generic [ref=e242]:
+                  - heading "搭建高效本地AI开发环境：Cline、Ollama与Deepseek R1完全指南" [level=3] [ref=e243]
+                  - paragraph [ref=e244]: 2025-02-07
+        - generic [ref=e245]:
+          - generic [ref=e246]:
+            - link "WebRTC (2 篇)" [ref=e247] [cursor=pointer]:
+              - /url: /categories/WebRTC/
+              - heading "WebRTC" [level=2] [ref=e249]
+              - generic [ref=e250]: (2 篇)
+            - link "查看全部" [ref=e251] [cursor=pointer]:
+              - /url: /categories/WebRTC/
+              - text: 查看全部
+              - img [ref=e252]
+          - generic [ref=e254]:
+            - link "WebRTC Android平台使用webrtc库 2025-01-03" [ref=e255] [cursor=pointer]:
+              - /url: /posts/2025/01/use_webrtc_in_android/
+              - generic [ref=e256]:
+                - generic [ref=e259]: WebRTC
+                - generic [ref=e260]:
+                  - heading "Android平台使用webrtc库" [level=3] [ref=e261]
+                  - paragraph [ref=e262]: 2025-01-03
+            - link "WebRTC 在Android平台上编译WebRTC源码：详细步骤与注意事项 2025-01-01" [ref=e263] [cursor=pointer]:
+              - /url: /posts/2025/01/compile_webrtc_for_android/
+              - generic [ref=e264]:
+                - generic [ref=e267]: WebRTC
+                - generic [ref=e268]:
+                  - heading "在Android平台上编译WebRTC源码：详细步骤与注意事项" [level=3] [ref=e269]
+                  - paragraph [ref=e270]: 2025-01-01
+  - contentinfo [ref=e271]:
+    - generic [ref=e273]:
+      - generic [ref=e274]: © 2026 程序员老孙. All rights reserved.
+      - generic [ref=e275]:
+        - link "RSS" [ref=e276] [cursor=pointer]:
+          - /url: /rss.xml
+        - link [ref=e277] [cursor=pointer]:
+          - /url: https://github.com/spmno
+          - img [ref=e278]

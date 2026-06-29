@@ -167,6 +167,38 @@ export function getArchiveGroups(): {
     }));
 }
 
+export function getFeaturedPosts(count: number = 5): PostMeta[] {
+  return getAllPostsMeta().slice(0, count);
+}
+
+export function getPostsByCategoryGrouped(): { category: string; posts: PostMeta[] }[] {
+  const posts = getAllPostsMeta();
+  const map = new Map<string, PostMeta[]>();
+  for (const p of posts) {
+    if (!map.has(p.category)) map.set(p.category, []);
+    map.get(p.category)!.push(p);
+  }
+  return Array.from(map.entries())
+    .map(([category, posts]) => ({ category, posts }))
+    .sort((a, b) => b.posts.length - a.posts.length);
+}
+
+const CATEGORY_GRADIENTS: Record<string, string> = {
+  Rust: 'from-orange-500/30 to-red-600/30',
+  AI: 'from-purple-500/30 to-violet-600/30',
+  Linux: 'from-emerald-500/30 to-green-600/30',
+  前端: 'from-blue-500/30 to-cyan-500/30',
+  设计: 'from-pink-500/30 to-rose-600/30',
+  技术: 'from-indigo-500/30 to-blue-600/30',
+  博客: 'from-teal-500/30 to-cyan-600/30',
+};
+
+const DEFAULT_GRADIENT = 'from-slate-500/30 to-gray-600/30';
+
+export function getCategoryGradient(category: string): string {
+  return CATEGORY_GRADIENTS[category] || DEFAULT_GRADIENT;
+}
+
 export function paginate<T>(items: T[], page: number, perPage: number = 10) {
   const total = items.length;
   const totalPages = Math.max(1, Math.ceil(total / perPage));

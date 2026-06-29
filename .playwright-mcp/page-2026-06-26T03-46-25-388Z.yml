@@ -1,0 +1,169 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e4]:
+        - link "LLM 101" [ref=e7] [cursor=pointer]:
+          - /url: https://llm101.ai
+        - navigation
+        - generic [ref=e8]:
+          - button "搜索本站内容" [ref=e9] [cursor=pointer]:
+            - img [ref=e10]
+          - generic [ref=e12]:
+            - link "登录" [ref=e13] [cursor=pointer]:
+              - /url: "#/portal/signin"
+            - link "订阅" [ref=e14] [cursor=pointer]:
+              - /url: "#/portal/signup"
+    - main [ref=e15]:
+      - generic [ref=e18]:
+        - heading "用产品思维和工程原则，理解 AI 产品、Agent 与 LLM 系统" [level=1] [ref=e19]
+        - button "搜索文章、标签和作者" [ref=e20] [cursor=pointer]:
+          - text: 搜索文章、标签和作者
+          - img [ref=e22]
+      - generic [ref=e26]:
+        - article [ref=e27]:
+          - link "LLM 101 Loop Engineering 为什么突然火了？ Loop Engineering 不是让 Agent 多跑几轮，而是在不确定的 Agent 之上，设计一条能够产生证据、识别进展并走向可判定终态的路径。" [ref=e28] [cursor=pointer]:
+            - /url: /loop-engineering-agent-convergence/
+            - figure [ref=e29]:
+              - img "Loop Engineering 为什么突然火了？" [ref=e30]
+            - generic [ref=e31]:
+              - generic [ref=e32]: LLM 101
+              - heading "Loop Engineering 为什么突然火了？" [level=3] [ref=e33]
+              - paragraph [ref=e34]: Loop Engineering 不是让 Agent 多跑几轮，而是在不确定的 Agent 之上，设计一条能够产生证据、识别进展并走向可判定终态的路径。
+        - article [ref=e35]:
+          - link "LLM 101 为什么 Claude Code 和 Codex 这么吃额度：从 KV Cache 到 Prompt Cache" [ref=e36] [cursor=pointer]:
+            - /url: /why-agents-need-prompt-cache/
+            - figure [ref=e37]:
+              - img "为什么 Claude Code 和 Codex 这么吃额度：从 KV Cache 到 Prompt Cache" [ref=e38]
+            - generic [ref=e39]:
+              - generic [ref=e40]: LLM 101
+              - heading "为什么 Claude Code 和 Codex 这么吃额度：从 KV Cache 到 Prompt Cache" [level=3] [ref=e41]
+        - article [ref=e42]:
+          - link "GEO GEO 到底是什么：从搜索排名到答案引用" [ref=e43] [cursor=pointer]:
+            - /url: /what-is-geo-answer-engine-optimization/
+            - figure [ref=e44]:
+              - img "GEO 到底是什么：从搜索排名到答案引用" [ref=e45]
+            - generic [ref=e46]:
+              - generic [ref=e47]: GEO
+              - heading "GEO 到底是什么：从搜索排名到答案引用" [level=3] [ref=e48]
+        - article [ref=e49]:
+          - link "GEO SEO 还重要吗：为什么 GEO 不能绕过 SEO" [ref=e50] [cursor=pointer]:
+            - /url: /seo-in-the-geo-era/
+            - figure:
+              - img "SEO 还重要吗：为什么 GEO 不能绕过 SEO"
+            - generic [ref=e51]:
+              - generic [ref=e52]: GEO
+              - heading "SEO 还重要吗：为什么 GEO 不能绕过 SEO" [level=3] [ref=e53]
+        - article [ref=e54]:
+          - link "AI 产品 Lovable 类 AI 应用生成产品，如何建立指标体系" [ref=e55] [cursor=pointer]:
+            - /url: /lovable-ai-app-builder-okr-metrics/
+            - figure:
+              - img "Lovable 类 AI 应用生成产品，如何建立指标体系"
+            - generic [ref=e56]:
+              - generic [ref=e57]: AI 产品
+              - heading "Lovable 类 AI 应用生成产品，如何建立指标体系" [level=3] [ref=e58]
+      - generic [ref=e60]:
+        - generic [ref=e61]:
+          - link "LLM 101" [ref=e62] [cursor=pointer]:
+            - /url: /tag/llm-101/
+            - heading "LLM 101" [level=2] [ref=e63]
+          - link "View all →" [ref=e64] [cursor=pointer]:
+            - /url: /tag/llm-101/
+        - generic [ref=e65]:
+          - article [ref=e66]:
+            - link "Loop Engineering 为什么突然火了？" [ref=e67] [cursor=pointer]:
+              - /url: /loop-engineering-agent-convergence/
+              - figure [ref=e68]:
+                - img "Loop Engineering 为什么突然火了？" [ref=e69]
+              - heading "Loop Engineering 为什么突然火了？" [level=3] [ref=e71]
+          - article [ref=e72]:
+            - link "为什么 Claude Code 和 Codex 这么吃额度：从 KV Cache 到 Prompt Cache" [ref=e73] [cursor=pointer]:
+              - /url: /why-agents-need-prompt-cache/
+              - figure [ref=e74]:
+                - img "为什么 Claude Code 和 Codex 这么吃额度：从 KV Cache 到 Prompt Cache" [ref=e75]
+              - heading "为什么 Claude Code 和 Codex 这么吃额度：从 KV Cache 到 Prompt Cache" [level=3] [ref=e77]
+          - article [ref=e78]:
+            - link "Pi Agent 101｜13｜The Agent Harness Map" [ref=e79] [cursor=pointer]:
+              - /url: /pi-agent-101-agent-harness-map/
+              - figure:
+                - img "Pi Agent 101｜13｜The Agent Harness Map"
+              - heading "Pi Agent 101｜13｜The Agent Harness Map" [level=3] [ref=e81]
+      - generic [ref=e83]:
+        - generic [ref=e84]:
+          - link "Agent Engineering" [ref=e85] [cursor=pointer]:
+            - /url: /tag/agent-engineering/
+            - heading "Agent Engineering" [level=2] [ref=e86]
+          - link "View all →" [ref=e87] [cursor=pointer]:
+            - /url: /tag/agent-engineering/
+        - generic [ref=e88]:
+          - article [ref=e89]:
+            - link "Loop Engineering 为什么突然火了？" [ref=e90] [cursor=pointer]:
+              - /url: /loop-engineering-agent-convergence/
+              - figure [ref=e91]:
+                - img "Loop Engineering 为什么突然火了？" [ref=e92]
+              - heading "Loop Engineering 为什么突然火了？" [level=3] [ref=e94]
+          - article [ref=e95]:
+            - link "为什么 Claude Code 和 Codex 这么吃额度：从 KV Cache 到 Prompt Cache" [ref=e96] [cursor=pointer]:
+              - /url: /why-agents-need-prompt-cache/
+              - figure [ref=e97]:
+                - img "为什么 Claude Code 和 Codex 这么吃额度：从 KV Cache 到 Prompt Cache" [ref=e98]
+              - heading "为什么 Claude Code 和 Codex 这么吃额度：从 KV Cache 到 Prompt Cache" [level=3] [ref=e100]
+          - article [ref=e101]:
+            - link "Pi Agent 101｜13｜The Agent Harness Map" [ref=e102] [cursor=pointer]:
+              - /url: /pi-agent-101-agent-harness-map/
+              - figure:
+                - img "Pi Agent 101｜13｜The Agent Harness Map"
+              - heading "Pi Agent 101｜13｜The Agent Harness Map" [level=3] [ref=e104]
+          - article [ref=e105]:
+            - link "Pi Agent 101｜12｜Observability and Sharing" [ref=e106] [cursor=pointer]:
+              - /url: /pi-agent-101-observability-sharing/
+              - figure:
+                - img "Pi Agent 101｜12｜Observability and Sharing"
+              - heading "Pi Agent 101｜12｜Observability and Sharing" [level=3] [ref=e108]
+      - generic [ref=e110]:
+        - generic [ref=e111]:
+          - link "AI Agent" [ref=e112] [cursor=pointer]:
+            - /url: /tag/ai-agent/
+            - heading "AI Agent" [level=2] [ref=e113]
+          - link "View all →" [ref=e114] [cursor=pointer]:
+            - /url: /tag/ai-agent/
+        - generic [ref=e115]:
+          - article [ref=e116]:
+            - link "LoopLens：看见 Claude Code 和 Codex 如何运行" [ref=e117] [cursor=pointer]:
+              - /url: /looplens-visual-debugger-claude-code-codex/
+              - figure:
+                - img "LoopLens：看见 Claude Code 和 Codex 如何运行"
+              - heading "LoopLens：看见 Claude Code 和 Codex 如何运行" [level=3] [ref=e119]
+          - article [ref=e120]:
+            - link "Agent Engineering 101｜00｜Reading Guide" [ref=e121] [cursor=pointer]:
+              - /url: /agent-engineering-101-harness-reading-guide/
+              - figure:
+                - img "Agent Engineering 101｜00｜Reading Guide"
+              - heading "Agent Engineering 101｜00｜Reading Guide" [level=3] [ref=e123]
+          - article [ref=e124]:
+            - link "Agent Engineering 101｜16｜Packages and SDK" [ref=e125] [cursor=pointer]:
+              - /url: /agent-engineering-101-packages-and-sdk/
+              - figure:
+                - img "Agent Engineering 101｜16｜Packages and SDK"
+              - heading "Agent Engineering 101｜16｜Packages and SDK" [level=3] [ref=e127]
+      - button "张伟@示例.com 订阅" [ref=e130] [cursor=pointer]:
+        - text: 张伟@示例.com
+        - generic [ref=e131]: 订阅
+    - contentinfo [ref=e132]:
+      - generic [ref=e133]:
+        - navigation [ref=e134]:
+          - list [ref=e135]:
+            - listitem [ref=e136]:
+              - link "All articles" [ref=e137] [cursor=pointer]:
+                - /url: https://llm101.ai/archive/
+            - listitem [ref=e138]:
+              - link "Sign up" [ref=e139] [cursor=pointer]:
+                - /url: "#/portal/"
+        - generic [ref=e140]:
+          - text: LLM 101 © 2026. 由
+          - link "Ghost" [ref=e141] [cursor=pointer]:
+            - /url: https://ghost.org/
+          - text: 强力驱动
+  - iframe [ref=e142]:
+    - generic [ref=f1e3] [cursor=pointer]:
+      - img [ref=f1e4]
+      - generic [ref=f1e8]: Subscribe

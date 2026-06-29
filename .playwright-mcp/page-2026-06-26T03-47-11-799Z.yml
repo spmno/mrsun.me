@@ -1,0 +1,252 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e4]:
+        - link "LLM 101" [ref=e7] [cursor=pointer]:
+          - /url: https://llm101.ai
+        - navigation
+        - generic [ref=e8]:
+          - button "搜索本站内容" [ref=e9] [cursor=pointer]:
+            - img [ref=e10]
+          - generic [ref=e12]:
+            - link "登录" [ref=e13] [cursor=pointer]:
+              - /url: "#/portal/signin"
+            - link "订阅" [ref=e14] [cursor=pointer]:
+              - /url: "#/portal/signup"
+    - main [ref=e15]:
+      - article [ref=e16]:
+        - generic [ref=e17]:
+          - link "LLM 101" [ref=e19] [cursor=pointer]:
+            - /url: https://llm101.ai/tag/llm-101/
+          - heading "Loop Engineering 为什么突然火了？" [level=1] [ref=e20]
+          - paragraph [ref=e21]: Loop Engineering 不是让 Agent 多跑几轮，而是在不确定的 Agent 之上，设计一条能够产生证据、识别进展并走向可判定终态的路径。
+          - figure [ref=e22]:
+            - img "Loop Engineering 为什么突然火了？" [ref=e23]
+        - generic [ref=e24]:
+          - paragraph [ref=e25]: 2026 年 6 月 7 日，Addy Osmani 写了一篇名为《Loop Engineering》的文章。四天后，Sonar 开始讨论 Loop 中最容易被低估的验证器。九天后，LangChain 又从 Agent 执行、结果验证、事件触发和系统改进几个层次重新解释了它。
+          - paragraph [ref=e26]: 一个原本散落在 Coding Agent 实践里的做法，突然有了名字。
+          - paragraph [ref=e27]:
+            - text: 但先把话说准：
+            - strong [ref=e28]: 它火的首先是概念，不代表生产实践已经成熟。
+            - text: 这几篇文章背后，很大程度上都在回应同一轮 Coding Agent 讨论。它们更能说明一件事：工程师开始需要一个词，来描述自己从“逐轮提示 Agent”的位置，移动到“设计 Agent 工作系统”的位置。
+          - paragraph [ref=e29]: 过去，工程师坐在 Claude Code、Codex 或 Cursor 面前，一轮轮输入 prompt，检查结果，再告诉它下一步做什么。结果不对，人来补上下文；测试失败，人来贴报错；方向偏了，人来拉回来；差不多完成了，人来判断能不能停。
+          - paragraph [ref=e30]:
+            - strong [ref=e31]: 人在循环里。
+          - paragraph [ref=e32]: Loop Engineering 讨论的变化，是把这部分工作系统化。系统组装上下文，调用 Agent，执行工具，读取环境反馈，验证结果，记录状态，并决定继续、重试、换策略、停止，还是把问题交还给人。
+          - paragraph [ref=e33]:
+            - strong [ref=e34]: Loop Engineering 不保证任务一定成功，但应该保证系统能够观察进展，并在有限预算内进入一个可判定终态。
+            - text: 这里讨论的“收敛”包含两层：一是结果持续接近目标，二是在无法继续改善时能够正确停止或升级给人。
+          - paragraph [ref=e35]: 无限运行不是收敛。Agent 口头宣布完成也不是收敛。预算耗尽后正确停止，未必是收敛，但至少是可控终止。
+          - paragraph [ref=e36]: 一个 Loop 最终交付的，也不应该只有结果，还应该有一份能让人快速确认结果的 Evidence Pack：为什么失败、改了什么、跑了哪些命令、哪些检查通过、还有哪些残余风险。
+          - heading "新词，但实践不新" [level=2] [ref=e37]
+          - paragraph [ref=e38]: 本文暂且把 Loop Engineering 称为“Agent 闭环工程”。这不是一个已经统一的中文译名，而是为了强调一件事：反复执行并不等于闭环。只有行动结果重新进入决策过程，循环才闭合。
+          - paragraph [ref=e39]: 它不是：
+          - code [ref=e41]: Prompt -> Answer
+          - paragraph [ref=e42]: 也不是：
+          - code [ref=e44]: 生成 -> 再生成 -> 再生成
+          - paragraph [ref=e45]: 闭环应该是：
+          - code [ref=e47]: 行动 -> 获取证据 -> 判断偏差 -> 调整下一步
+          - paragraph [ref=e48]: Loop 早就存在。ReAct 在 2022 年已经把模型放进“推理、行动、观察”的循环里。Self-Refine 和 Reflexion 在 2023 年继续研究多轮反馈、记忆和自我改进。Anthropic 在《Building Effective Agents》中把 Evaluator-Optimizer 写成一种常见工作流：一个模型或系统生成，另一个评价者给出反馈，再继续优化。
+          - paragraph [ref=e49]: Coding Agent 圈也早就有更粗糙但有效的做法。Geoffrey Huntley 的 Ralph 实践，把 Claude Code 放进极简 Bash 循环里，每一轮重新读取仓库、任务文件和 Git 状态，再继续推进。上下文可以刷新，但状态留在环境里。
+          - paragraph [ref=e50]: 这些实践的差别，不在于有没有循环，而在于循环发生在哪里。
+          - list [ref=e51]:
+            - listitem [ref=e52]: ReAct：循环发生在单次运行内部，新增的是推理、行动和观察交替。
+            - listitem [ref=e53]: Self-Refine：循环发生在多次模型调用之间，新增的是自我反馈与迭代修改。
+            - listitem [ref=e54]: Reflexion：循环发生在多次尝试之间，新增的是外部反馈与情景记忆。
+            - listitem [ref=e55]: Evaluator-Optimizer：循环发生在生成者与评价者之间，新增的是角色分离。
+            - listitem [ref=e56]: Ralph：循环发生在多次独立的 Agent 运行之间，用仓库、任务文件和 Git 状态连接不同轮次。
+            - listitem [ref=e57]: Loop Engineering：循环扩展到整个工作系统，新增的是触发、隔离、状态、验证和治理。
+          - paragraph [ref=e58]:
+            - strong [ref=e59]: 新的并不是 Loop，而是 Loop 的边界从模型内部扩展到了完整的生产系统。
+          - paragraph [ref=e60]: 到 2026 年，定时触发、长期目标、Worktree 隔离、Skills、Subagents、Hooks、MCP、后台任务和持久状态，已经分别出现在 Codex、Claude Code 等产品中。过去要靠脚本拼起来的东西，开始变成 Agent 产品的基础设施。这也解释了为什么这套做法更容易被单独命名和传播。
+          - heading "Loop 的三层结构" [level=2] [ref=e61]
+          - paragraph [ref=e62]: 现在很多讨论会把所有东西都叫 Loop，于是概念变得很宽。为了避免混在一起，可以把它拆成三层。
+          - paragraph [ref=e63]: 第一层是任务执行闭环。
+          - paragraph [ref=e64]: 这一层回答：当前任务怎么往前推进？典型顺序是 Plan / Act -> Environment -> Evidence -> Verify -> Decide。Agent 做动作，环境返回结果，系统采集证据，Verifier 判断偏差，Controller 决定下一步。
+          - paragraph [ref=e65]: 第二层是控制平面。
+          - paragraph [ref=e66]: 这一层回答：任务什么时候启动、给 Agent 什么上下文、允许它做什么、状态放在哪里、预算是多少、哪些动作必须经过人。Trigger、Context Assembly、Harness、State、Budget、Permission、Human Approval 都属于这里。
+          - paragraph [ref=e67]: 第三层是改进闭环。
+          - paragraph [ref=e68]: 这一层回答：这个系统自己怎么变好？系统分析历史 Trace 和 Eval，找到重复失败模式，再修改 Prompt、Tool、Skill、Verifier 或 Harness。LangChain 所说的 Hill-climbing Loop，重点就在这一层。
+          - figure:
+            - img "Loop 的三层结构"
+          - paragraph [ref=e69]: 这个拆分能避免一个常见误解：State 不是流水线里的第八步。State 更像所有环节共享的存储。Agent 可以忘，当前对话可以被压缩，但任务清单、进度文件、Git commit、测试结果、artifact、issue comment 和 trace 应该留在环境里。
+          - paragraph [ref=e70]: 借用 Addy Osmani 的说法：模型会忘，仓库不会。
+          - heading "为什么偏偏是现在" [level=2] [ref=e71]
+          - paragraph [ref=e72]: 第一个原因是模型能承担更长的任务了。
+          - paragraph [ref=e73]: METR 的 Task-Completion Time Horizon 研究提供了一个侧面证据：前沿 Agent 能完成的任务时间跨度在增长。这里的“时间跨度”，指的是人类专家完成同类任务通常需要的时间，而不是 Agent 实际运行了多久。
+          - paragraph [ref=e74]: 这个指标不能被理解成“Agent 已经可以稳定接管真实项目”。METR 的测试任务通常边界明确、环境相对干净，并且有可判断的成功条件。真实项目有模糊需求、历史包袱、隐藏约束和团队品位。
+          - paragraph [ref=e75]: 恰恰因为任务变长了，错误也更容易累积。状态、验证、预算和停止条件反而变得更重要。
+          - paragraph [ref=e76]: 第二个原因是编程相对更适合闭环。
+          - paragraph [ref=e77]: 代码可以运行。测试可以失败。类型检查可以报错。CI 可以阻止合并。Git diff 可以审查。线上日志可以回传。这些信号让 Agent 有机会从环境里获得反馈。没有外部反馈，模型主要依赖猜测；有了可验证的证据，它才有机会持续纠偏。
+          - paragraph [ref=e78]: 这也是 Loop Engineering 最先在 Coding Agent 圈被频繁提起的原因。不是因为 Loop 只能用于代码，而是代码更容易被环境验证。
+          - paragraph [ref=e79]: 但测试通过并不等于产品正确。代码只是拥有更多可观测、可自动执行的反馈信号，并不意味着需求、架构和用户体验都能被测试完整表达。
+          - paragraph [ref=e80]: 第三个原因是大家发现 Context 不是长期状态。
+          - paragraph [ref=e81]: 长任务里，Agent 常见两个问题：第一轮试图把所有事情一次做完；后续轮次看到已有成果后，又过早宣布完成。如果所有状态都塞在对话历史里，越跑越乱。上下文会膨胀，会混入失败尝试，会把旧目标和新目标搅在一起。
+          - paragraph [ref=e82]: 更可靠的状态应该留在环境里，而不是只放在对话里。
+          - heading "一个 CI 修复 Loop 实际跑三轮" [level=2] [ref=e83]
+          - paragraph [ref=e84]: 抽象地讲证据、验证和控制，容易变成概念清单。看一个 CI 修复任务，会更清楚 Loop 到底怎么发生。
+          - paragraph [ref=e85]: 第 1 轮，Agent 为了让 CI 通过，修改了测试。Verifier 发现测试确实绿了，但同时检测到受保护测试被修改。Controller 拒绝结果，回滚测试修改，并收紧写权限。
+          - paragraph [ref=e86]: 第 2 轮，Agent 改了业务代码，功能测试通过，但它同时重构了无关模块。Verifier 给出判断：功能通过，Diff Scope 检查失败。Controller 保留修复方向，但要求缩小修改范围。
+          - paragraph [ref=e87]: 第 3 轮，Agent 只修改必要代码，重新运行验证。测试、类型检查、安全扫描和 Diff Scope 全部通过。Controller 停止执行，生成 Evidence Pack，并创建 PR。
+          - figure:
+            - img "CI 修复 Loop：三轮如何收敛"
+          - paragraph [ref=e88]: 这个例子说明了几件事。
+          - paragraph [ref=e89]: 第一，Agent 自己说完成不算完成。它可能为了通过 CI 修改测试，也可能用过大的 diff 把问题“顺手重构”掉。
+          - paragraph [ref=e90]: 第二，Verifier 的任务不是简单说通过或失败，而是指出偏差：测试被改了，修改范围失控了，还是风险太高。
+          - paragraph [ref=e91]: 第三，Controller 才决定状态转换：拒绝、回滚、收紧权限、要求缩小范围、继续、停止或交给人。
+          - paragraph [ref=e92]: 第四，State 必须记录失败历史。否则第 2 轮和第 3 轮不知道第 1 轮为什么被拒绝，也不知道哪些路径已经试过。
+          - paragraph [ref=e93]: 第五，Evidence Pack 是交付物的一部分。没有它，人仍然要重新翻日志、看 diff、猜 Agent 做过什么。
+          - heading "Verifier 为什么是薄弱环节" [level=2] [ref=e94]
+          - paragraph [ref=e95]: 一个没有可用反馈和判定机制的循环，不是闭环，只是重复执行。
+          - paragraph [ref=e96]: 第一层是 Evidence，原始证据。测试输出、构建结果、日志、截图、Git diff、线上指标，都属于这一层。它们不负责解释，只负责把环境里可观察到的结果带回来。
+          - paragraph [ref=e97]: 第二层是 Verifier，对证据进行判断。它可以输出当前失败原因、完成度或评分、相对上一轮是否有改善、判断置信度和风险信号。功能目标是否满足、修改范围有没有失控、是否出现安全问题，都属于这一层。
+          - paragraph [ref=e98]: 第三层是 Stop Policy，结束条件。硬性检查是否全部通过？语义评分是否达到阈值？是否触发高风险规则？重试次数、运行时间和预算是否超限？
+          - paragraph [ref=e99]:
+            - strong [ref=e100]: 不要让实现 Agent 成为唯一有权宣布任务完成的角色。
+            - text: 同一个 Agent 可以自检，但不能拥有最终验收权。
+          - paragraph [ref=e101]:
+            - text: 但第二个 Agent 也不等于独立验证。Claude Code 的
+            - code [ref=e102]: /goal
+            - text: 会用一个新的小模型检查是否满足完成条件，这实现了 Maker 与 Checker 的角色分离，却不等于建立了独立证据链。如果这个 evaluator 只能读取对话里已经出现的内容，不能独立运行命令或读取文件，它仍然依赖原始执行过程提供的证据。
+          - paragraph [ref=e103]:
+            - strong [ref=e104]: 独立验证的关键不是“换一个 Agent”，而是验证者是否拥有独立的数据来源、执行路径和否决权。
+          - paragraph [ref=e105]: 更可靠的验证结构是：Agent 自检，独立模型做语义审查，干净环境重新执行测试、构建和安全检查，必要时人工审批。
+          - paragraph [ref=e106]:
+            - text: Golden tests 或隐藏测试应该放在 Agent 无法修改的环境中。证据应该包含 commit SHA、执行命令、环境版本和原始日志。不要直接相信 Agent 写入的
+            - code [ref=e107]: progress.md
+            - text: ：外部状态是可审计，不是天然正确。
+          - paragraph [ref=e108]: Verifier 本身也可能被 Agent 利用。Agent 可能修改测试，删除失败用例，mock 掉关键路径，只针对截图做像素投机，或者为了提高评分而生成审查 Agent 喜欢看的表达。Loop Engineering 不只要设计反馈，还要设计难以被投机的反馈。
+          - paragraph [ref=e109]:
+            - strong [ref=e110]: 闭环的质量取决于反馈信号，而不是循环次数。
+          - heading "Loop 如何失控，以及如何停止" [level=2] [ref=e111]
+          - paragraph [ref=e112]: 更危险的情况不是 Agent 明显报错。明显报错至少会停下来，或者留下错误信息。
+          - paragraph [ref=e113]: 更危险的是：Agent 给出一个看起来合理的结果，验证器也不够强，于是整个系统在错误方向上继续自动运行。
+          - paragraph [ref=e114]: 常见失控方式有几类。
+          - paragraph [ref=e115]: 假完成：Agent 做了一部分就宣布完成。防护方式是提前定义完成标准，并设置硬性门槛。
+          - paragraph [ref=e116]: 验证投机：Agent 为了让检查通过，修改测试、绕过检查，或者把失败路径藏起来。防护方式是限制测试文件写权限，检查测试 diff，引入独立验证。
+          - paragraph [ref=e117]: 振荡：每一轮都尝试同一种失败策略，或者在两个方案之间来回切换。防护方式是记录尝试历史，连续失败后切换策略或交给人。
+          - paragraph [ref=e118]: 目标漂移：目标在多轮执行中逐渐偏移。防护方式是把目标、任务清单和进度写进持久状态，而不是只放在对话里。
+          - paragraph [ref=e119]: 并发冲突：多个 Agent 修改同一批文件。防护方式是独立 Worktree、任务锁和清晰的合并策略。
+          - paragraph [ref=e120]: 成本失控：无限重试，子 Agent 膨胀，工具调用越来越多。防护方式是设置 token、时间、轮次和金额预算。
+          - paragraph [ref=e121]: 权限失控：Agent 删除文件、泄漏密钥、修改生产环境。防护方式是 sandbox、最小权限和人工审批。
+          - paragraph [ref=e122]: 理解债务：代码产出太快，人已经看不懂系统发生了什么。防护方式是强制审查、设计记录、阶段总结和可追溯 trace。
+          - paragraph [ref=e123]: 这些问题的共同点，是系统缺少可判定终态。Loop Engineering 不只是让 Agent 继续跑，还要明确什么时候必须停。
+          - heading "如何衡量一个 Loop" [level=2] [ref=e124]
+          - paragraph [ref=e125]: 如果 Loop Engineering 是工程，就不能只画架构图。它需要指标。
+          - paragraph [ref=e126]: Verified Completion Rate：通过验收的任务比例。这里看的是有多少任务通过了定义好的证据链，而不是 Agent 在总结里声称完成了多少。
+          - paragraph [ref=e127]: False Acceptance Rate：Verifier 判定为通过，但后续人工审查、线上运行或隐藏测试发现实际未完成的比例。这个指标能直接暴露 Verifier 的质量。
+          - paragraph [ref=e128]: Cost per Verified Task：每个有效完成任务的模型、工具和计算成本。Loop 跑得越多不一定越好，便宜地完成可验证任务才有价值。
+          - paragraph [ref=e129]: Time to Verified Completion：从触发到验证通过需要多久。这里要看端到端时间，而不是单次模型调用速度。
+          - paragraph [ref=e130]: Stall / Oscillation Rate：有多少任务在消耗多轮 Token 后，验证分数没有改善，或者反复在几个方案之间切换。它直接反映 Controller 是否能够识别无效循环。
+          - paragraph [ref=e131]: Unplanned Human Intervention Rate：有多少任务因为漂移、卡住、权限配置错误或验证失败，不得不临时找人救火。预先设计好的人工审批点不是坏事，高风险操作本来就应该由人批准。
+          - paragraph [ref=e132]: Human Review Time per Verified Task：每个验证完成任务需要人花多少时间理解和确认。Loop 真正节省的往往不是“有没有人介入”，而是人需要花多少时间重新理解 Agent 做了什么。
+          - paragraph [ref=e133]: Escaped Defect / Rollback Rate：通过 Loop 后仍然逃逸的缺陷和回滚比例。这个指标最能暴露验证器是否太弱。
+          - paragraph [ref=e134]: 这些指标必须按任务类型、难度和风险分层。否则团队很容易只挑简单任务，让 Verified Completion Rate 虚高。
+          - paragraph [ref=e135]: 更接近北极星的问法是：在固定质量和风险门槛下，每一百万 Token 能完成多少个可验证任务？
+          - heading "哪些任务不适合做 Loop" [level=2] [ref=e136]
+          - paragraph [ref=e137]: 不是所有任务都应该进入 Loop。
+          - paragraph [ref=e138]: 当目标无法被表达、结果几乎不可验证、错误代价不可逆，或者一次性任务的自动化成本高于人工执行时，不要为了 Loop 而 Loop。
+          - paragraph [ref=e139]: 例如，产品战略选择、高风险法律或医疗判断、不可逆的生产数据库操作、高度依赖审美和品位的最终决策，都不适合完全自治。它们可以使用 Agent 做辅助分析，但不应该让系统在没有人工审批的情况下闭环运行。
+          - paragraph [ref=e140]: 判断任务能不能做 Loop，不应该先问模型够不够聪明，而应该先问：系统能不能知道它做对了还是做错了？如果不能，Loop 只会把不确定性自动放大。
+          - heading "工程师换了位置" [level=2] [ref=e141]
+          - paragraph [ref=e142]: Prompt Engineering 让我们学习怎么向模型发出一次好指令。Context Engineering 让我们学习本轮应该给模型看什么。Harness Engineering 让我们学习 Agent 应该在哪个环境里工作。Verifier 决定质量边界。Loop Engineering 让我们学习如何让 Agent 在真实环境里行动、观察、验证、修正，并在正确的时候停下来。
+          - paragraph [ref=e143]: 工程师没有离开系统，只是从执行内环移到了治理外环。过去，他负责每次 Prompt、每次检查和每次纠偏；现在，他负责定义目标、设计反馈、控制权限，并决定什么情况下必须由人接管。
+          - paragraph [ref=e144]: 当模型本身仍然具有不确定性时，可靠性不能来自模型的自我声明，而要来自证据、验证、状态、控制器和人工边界。
+          - paragraph [ref=e145]:
+            - strong [ref=e146]: 模型给出能力上限，Harness 给出行动空间，Verifier 给出质量边界，Loop 决定这些能力能否持续转化为可验证结果。
+          - heading "参考资料" [level=2] [ref=e147]
+          - list [ref=e148]:
+            - listitem [ref=e149]:
+              - text: Addy Osmani, “Loop Engineering”
+              - link "https://addyosmani.com/blog/loop-engineering/" [ref=e150] [cursor=pointer]:
+                - /url: https://addyosmani.com/blog/loop-engineering/?ref=llm101.ai
+            - listitem [ref=e151]:
+              - text: LangChain, “The Art of Loop Engineering”
+              - link "https://www.langchain.com/blog/the-art-of-loop-engineering" [ref=e152] [cursor=pointer]:
+                - /url: https://www.langchain.com/blog/the-art-of-loop-engineering?ref=llm101.ai
+            - listitem [ref=e153]:
+              - text: Sonar, “Loop engineering without verification is just automation”
+              - link "https://www.sonarsource.com/blog/loop-engineering-without-verification-is-just-automation/" [ref=e154] [cursor=pointer]:
+                - /url: https://www.sonarsource.com/blog/loop-engineering-without-verification-is-just-automation/?ref=llm101.ai
+            - listitem [ref=e155]:
+              - text: Geoffrey Huntley, “Ralph Wiggum as a software engineer”
+              - link "https://ghuntley.com/ralph/" [ref=e156] [cursor=pointer]:
+                - /url: https://ghuntley.com/ralph/?ref=llm101.ai
+            - listitem [ref=e157]:
+              - text: Anthropic, “Building Effective Agents”
+              - link "https://www.anthropic.com/research/building-effective-agents" [ref=e158] [cursor=pointer]:
+                - /url: https://www.anthropic.com/research/building-effective-agents?ref=llm101.ai
+            - listitem [ref=e159]:
+              - text: Anthropic, “Demystifying evals for AI agents”
+              - link "https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents" [ref=e160] [cursor=pointer]:
+                - /url: https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents?ref=llm101.ai
+            - listitem [ref=e161]:
+              - text: METR, “Task-Completion Time Horizons of Frontier AI Models”
+              - link "https://metr.org/time-horizons/" [ref=e162] [cursor=pointer]:
+                - /url: https://metr.org/time-horizons/?ref=llm101.ai
+            - listitem [ref=e163]:
+              - text: OpenAI Developers, “Automations - Codex app”
+              - link "https://developers.openai.com/codex/app/automations" [ref=e164] [cursor=pointer]:
+                - /url: https://developers.openai.com/codex/app/automations?ref=llm101.ai
+            - listitem [ref=e165]:
+              - text: OpenAI Developers, “Agent Skills - Codex”
+              - link "https://developers.openai.com/codex/skills" [ref=e166] [cursor=pointer]:
+                - /url: https://developers.openai.com/codex/skills?ref=llm101.ai
+            - listitem [ref=e167]:
+              - text: OpenAI Developers, “Subagents - Codex”
+              - link "https://developers.openai.com/codex/subagents" [ref=e168] [cursor=pointer]:
+                - /url: https://developers.openai.com/codex/subagents?ref=llm101.ai
+            - listitem [ref=e169]:
+              - text: Claude Code Docs, “Keep Claude working toward a goal”
+              - link "https://code.claude.com/docs/en/goal" [ref=e170] [cursor=pointer]:
+                - /url: https://code.claude.com/docs/en/goal?ref=llm101.ai
+            - listitem [ref=e171]:
+              - text: Claude Code Docs, “Run prompts on a schedule”
+              - link "https://code.claude.com/docs/en/scheduled-tasks" [ref=e172] [cursor=pointer]:
+                - /url: https://code.claude.com/docs/en/scheduled-tasks?ref=llm101.ai
+            - listitem [ref=e173]:
+              - text: "Yao et al., “ReAct: Synergizing Reasoning and Acting in Language Models”"
+              - link "https://arxiv.org/abs/2210.03629" [ref=e174] [cursor=pointer]:
+                - /url: https://arxiv.org/abs/2210.03629?ref=llm101.ai
+            - listitem [ref=e175]:
+              - text: "Shinn et al., “Reflexion: Language Agents with Verbal Reinforcement Learning”"
+              - link "https://arxiv.org/abs/2303.11366" [ref=e176] [cursor=pointer]:
+                - /url: https://arxiv.org/abs/2303.11366?ref=llm101.ai
+            - listitem [ref=e177]:
+              - text: "Madaan et al., “Self-Refine: Iterative Refinement with Self-Feedback”"
+              - link "https://arxiv.org/abs/2303.17651" [ref=e178] [cursor=pointer]:
+                - /url: https://arxiv.org/abs/2303.17651?ref=llm101.ai
+            - listitem [ref=e179]:
+              - text: Kamoi et al., “When Can LLMs Actually Correct Their Own Mistakes? A Critical Survey of Self-Correction of LLMs”
+              - link "https://arxiv.org/html/2406.01297v3" [ref=e180] [cursor=pointer]:
+                - /url: https://arxiv.org/html/2406.01297v3?ref=llm101.ai
+        - link "分享" [ref=e183] [cursor=pointer]:
+          - /url: "#/share"
+          - text: 分享
+          - img [ref=e184]
+        - generic [ref=e187]:
+          - heading [level=2]
+          - iframe [ref=e189]:
+            - img [ref=f4e4]
+      - button "张伟@示例.com 订阅" [ref=e192] [cursor=pointer]:
+        - text: 张伟@示例.com
+        - generic [ref=e193]: 订阅
+    - contentinfo [ref=e194]:
+      - generic [ref=e195]:
+        - navigation [ref=e196]:
+          - list [ref=e197]:
+            - listitem [ref=e198]:
+              - link "All articles" [ref=e199] [cursor=pointer]:
+                - /url: https://llm101.ai/archive/
+            - listitem [ref=e200]:
+              - link "Sign up" [ref=e201] [cursor=pointer]:
+                - /url: "#/portal/"
+        - generic [ref=e202]:
+          - text: LLM 101 © 2026. 由
+          - link "Ghost" [ref=e203] [cursor=pointer]:
+            - /url: https://ghost.org/
+          - text: 强力驱动
+  - iframe [ref=e204]:
+    - generic [ref=f3e3] [cursor=pointer]:
+      - img [ref=f3e4]
+      - generic [ref=f3e8]: Subscribe
