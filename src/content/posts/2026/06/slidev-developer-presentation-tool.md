@@ -4,6 +4,7 @@ date: "2026-06-30"
 description: "基于 Web 的幻灯片制作工具 Slidev，专为开发者设计，用 Markdown 写幻灯片，让技术分享更高效、更优雅。"
 category: "工具推荐"
 tags: ["Slidev", "Markdown", "演示文稿", "开发者工具", "开源"]
+cover: "/images/posts/2026/06/slidev-cover.jpg"
 ---
 
 # Slidev：使用简单，效果优雅的开发者专属演示文稿神器
@@ -87,9 +88,21 @@ npm init slidev@latest
 npm run dev
 ```
 
-输入项目的信息，就能在本地生成一个默认的工程。浏览器自动打开，播放首页。打开本地目录，可以看到相关的目录结构，其中的 `slides.md` 文件就是幻灯片的内容。
+输入项目的信息，就能在本地生成一个默认的工程。浏览器自动打开，播放首页。
 
-我们对比其中一页来找找感觉 —— 原文 Markdown 编辑过程简单，展示效果也非常不错。
+![Slidev 项目初始化](/images/posts/2026/06/slidev-01.png)
+
+打开本地目录，可以看到相关的目录结构，其中的 `slides.md` 文件就是幻灯片的内容。
+
+![Slidev 目录结构](/images/posts/2026/06/slidev-02.png)
+
+我们对比其中一页来找找感觉 —— 原文 Markdown：
+
+![Markdown 编辑 vs 展示效果](/images/posts/2026/06/slidev-03.png)
+
+可以看到编辑过程简单，展示效果也非常不错。
+
+![Slidev 幻灯片展示](/images/posts/2026/06/slidev-04.png)
 
 ### 🐳 Docker 部署
 

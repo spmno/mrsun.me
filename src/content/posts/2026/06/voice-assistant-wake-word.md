@@ -4,6 +4,7 @@ date: "2026-06-30"
 description: "基于 sherpa-onnx 的 keyword spotter，为语音助手增加唤醒词功能，降低功耗的同时减少 token 消耗，实测灵敏度与准确度都不错。"
 category: "技术教程"
 tags: ["语音助手", "唤醒词", "sherpa-onnx", "Rust", "语音识别"]
+cover: "/images/posts/2026/06/wake-word-cover.jpg"
 ---
 
 # 让语音助手更实用，增加「唤醒」功能
@@ -21,6 +22,8 @@ tags: ["语音助手", "唤醒词", "sherpa-onnx", "Rust", "语音识别"]
 ```
 音频采集 → 唤醒词检测 → [唤醒成功] → 音频处理 → 语音识别 → 断句处理 → Agent 交互 → 输出
 ```
+
+![整体架构流程](/images/posts/2026/06/wake-word-01.png)
 
 ## 代码实现
 
@@ -46,6 +49,8 @@ use anyhow::Result;
 
 应用在根目录下的 `kws_keywords.txt` 中定义唤醒词：
 
+![唤醒词配置文件](/images/posts/2026/06/wake-word-04.png)
+
 ```bash
 cargo run  # 运行程序
 ```
@@ -53,6 +58,8 @@ cargo run  # 运行程序
 启动后，说了一会话，发现没有被识别。
 
 然后，说了唤醒词「你好，小猫」，唤醒词检测成功，并开始进行转换，效果不错。
+
+![唤醒词检测成功](/images/posts/2026/06/wake-word-05.png)
 
 灵敏度方面 —— 不需要太大声音即可唤醒；准确度方面 —— 比如「你好，小狗」和「你好，小花」都不会误识别。
 

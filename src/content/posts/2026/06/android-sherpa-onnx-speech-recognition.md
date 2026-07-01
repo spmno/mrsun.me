@@ -4,6 +4,7 @@ date: "2026-06-30"
 description: "在 Android 端使用 sherpa-onnx 实现离线语音识别，从工程生成到调试运行，实测在骁龙888上表现流畅、准确率高。"
 category: "技术教程"
 tags: ["Android", "语音识别", "sherpa-onnx", "NDK", "Kotlin"]
+cover: "/images/posts/2026/06/sherpa-android-cover.jpg"
 ---
 
 # 免费Android端的语音识别功能 — 基于 sherpa-onnx 实现
