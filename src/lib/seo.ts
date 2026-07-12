@@ -9,6 +9,7 @@ interface PostSEOProps {
   image?: string;
   type?: 'website' | 'article';
   publishedTime?: string;
+  modifiedTime?: string;
   tags?: string[];
 }
 
@@ -19,6 +20,7 @@ export function generateMetadata({
   image,
   type = 'website',
   publishedTime,
+  modifiedTime,
   tags,
 }: PostSEOProps): Metadata {
   const url = `${siteConfig.url}${path}`;
@@ -27,6 +29,7 @@ export function generateMetadata({
   return {
     title,
     description,
+    authors: [{ name: siteConfig.author, url: siteConfig.url }],
     openGraph: {
       title: `${title} | ${siteConfig.title}`,
       description,
@@ -35,8 +38,11 @@ export function generateMetadata({
       locale: siteConfig.locale,
       type,
       ...(publishedTime && { publishedTime }),
-      ...(type === 'article' &&
-        tags && { tags }),
+      ...(modifiedTime && { modifiedTime }),
+      ...(type === 'article' && {
+        authors: [siteConfig.author],
+        tags,
+      }),
       images: [{ url: ogImage, width: 1200, height: 630 }],
     },
     twitter: {
@@ -59,6 +65,7 @@ export function generatePostMetadata(post: PostMeta): Metadata {
     image: post.cover,
     type: 'article',
     publishedTime: post.date,
+    modifiedTime: post.date,
     tags: post.tags,
   });
 }

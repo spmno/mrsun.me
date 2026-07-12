@@ -11,6 +11,8 @@ import { AuthorBio } from '@/components/author-bio';
 import { getAllPosts, getPost, getAllPostsMeta } from '@/lib/posts';
 import { generatePostMetadata } from '@/lib/seo';
 import { extractHeadings } from '@/lib/toc';
+import { JsonLd, generateArticleSchema, generateBreadcrumbSchema } from '@/lib/json-ld';
+import { siteConfig } from '@/lib/site';
 
 export function generateStaticParams() {
   return getAllPosts().map((post) => ({
@@ -52,6 +54,23 @@ export default async function PostPage({
 
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 py-8">
+      <JsonLd
+        data={generateArticleSchema({
+          title: post.title,
+          description: post.description,
+          url: `${siteConfig.url}/posts/${post.year}/${post.month}/${post.slug}/`,
+          image: post.cover,
+          datePublished: post.date,
+          dateModified: post.date,
+        })}
+      />
+      <JsonLd
+        data={generateBreadcrumbSchema([
+          { name: '首页', url: siteConfig.url },
+          { name: post.category, url: `${siteConfig.url}/categories/${encodeURIComponent(post.category)}/` },
+          { name: post.title },
+        ])}
+      />
       <Link href="/">
         <Button variant="ghost" size="sm" className="mb-6 gap-1.5 text-muted-foreground">
           <ArrowLeft className="h-4 w-4" />
