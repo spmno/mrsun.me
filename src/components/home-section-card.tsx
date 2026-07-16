@@ -8,7 +8,7 @@ export function HomeSectionCard({ post }: { post: PostMeta }) {
 
   return (
     <Link href={href} className="group block">
-      <div className="overflow-hidden rounded-lg border border-border/40 bg-card/30 transition-all duration-300 hover:border-primary/30 hover:-translate-y-0.5">
+      <article className="overflow-hidden rounded-lg border border-border/40 bg-card/30 transition-all duration-300 hover:border-primary/30 hover:-translate-y-0.5">
         <div className="aspect-[16/9] overflow-hidden">
           {post.cover ? (
             <img
@@ -27,9 +27,11 @@ export function HomeSectionCard({ post }: { post: PostMeta }) {
           <h3 className="text-sm font-medium leading-snug line-clamp-2 group-hover:text-primary transition-colors">
             {post.title}
           </h3>
-          <p className="mt-1 text-[11px] text-muted-foreground/60">{post.date}</p>
+          <time className="mt-1 block text-[11px] text-muted-foreground/60" dateTime={post.date}>
+            {post.date}
+          </time>
         </div>
-      </div>
+      </article>
     </Link>
   );
 }

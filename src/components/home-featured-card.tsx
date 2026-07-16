@@ -9,7 +9,7 @@ export function HomeFeaturedCard({ post }: { post: PostMeta }) {
 
   return (
     <Link href={href} className="group block">
-      <div className="overflow-hidden rounded-xl border border-border/50 bg-card/40 transition-all duration-300 hover:border-primary/40 hover:-translate-y-1 hover:shadow-[0_0_30px_-8px_var(--ring)]">
+      <article className="overflow-hidden rounded-xl border border-border/50 bg-card/40 transition-all duration-300 hover:border-primary/40 hover:-translate-y-1 hover:shadow-[0_0_30px_-8px_var(--ring)]">
         <div className="aspect-[16/9] overflow-hidden">
           {post.cover ? (
             <img
@@ -29,10 +29,10 @@ export function HomeFeaturedCard({ post }: { post: PostMeta }) {
             <span className="rounded bg-primary/10 px-2 py-0.5 font-medium text-primary">
               {post.category}
             </span>
-            <span className="inline-flex items-center gap-1">
+            <time dateTime={post.date} className="inline-flex items-center gap-1">
               <Calendar className="h-3 w-3 shrink-0" />
               {post.date}
-            </span>
+            </time>
           </div>
           <h3 className="mb-2 text-lg font-semibold leading-snug group-hover:text-primary transition-colors">
             {post.title}
@@ -43,7 +43,7 @@ export function HomeFeaturedCard({ post }: { post: PostMeta }) {
             </p>
           )}
         </div>
-      </div>
+      </article>
     </Link>
   );
 }

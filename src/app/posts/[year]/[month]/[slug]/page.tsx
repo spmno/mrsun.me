@@ -11,8 +11,7 @@ import { AuthorBio } from '@/components/author-bio';
 import { getAllPosts, getPost, getAllPostsMeta } from '@/lib/posts';
 import { generatePostMetadata } from '@/lib/seo';
 import { extractHeadings } from '@/lib/toc';
-import { JsonLd, generateArticleSchema, generateBreadcrumbSchema } from '@/lib/json-ld';
-import { siteConfig } from '@/lib/site';
+import { generateArticleSchema, generateBreadcrumbSchema } from '@/lib/jsonld';
 
 export function generateStaticParams() {
   return getAllPosts().map((post) => ({
@@ -52,24 +51,18 @@ export default async function PostPage({
     )
     .slice(0, 3);
 
+  const articleSchema = generateArticleSchema(post);
+  const breadcrumbSchema = generateBreadcrumbSchema(post);
+
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 py-8">
-      <JsonLd
-        data={generateArticleSchema({
-          title: post.title,
-          description: post.description,
-          url: `${siteConfig.url}/posts/${post.year}/${post.month}/${post.slug}/`,
-          image: post.cover,
-          datePublished: post.date,
-          dateModified: post.date,
-        })}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
       />
-      <JsonLd
-        data={generateBreadcrumbSchema([
-          { name: '首页', url: siteConfig.url },
-          { name: post.category, url: `${siteConfig.url}/categories/${encodeURIComponent(post.category)}/` },
-          { name: post.title },
-        ])}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <Link href="/">
         <Button variant="ghost" size="sm" className="mb-6 gap-1.5 text-muted-foreground">
@@ -90,10 +83,10 @@ export default async function PostPage({
             <header className="mb-8">
               <h1 className="text-3xl sm:text-4xl font-bold mb-4">{post.title}</h1>
               <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
-                <span className="flex items-center gap-1.5">
+                <time dateTime={post.date} className="flex items-center gap-1.5">
                   <Calendar className="h-4 w-4" />
                   {post.date}
-                </span>
+                </time>
                 <Link href={`/categories/${encodeURIComponent(post.category)}/`}>
                   <span className="flex items-center gap-1.5 hover:text-primary transition-colors">
                     <FolderOpen className="h-4 w-4" />
