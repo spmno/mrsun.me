@@ -53,6 +53,14 @@ export function generateMetadata({
     },
     alternates: {
       canonical: url,
+      types: {
+        'application/rss+xml': [
+          {
+            url: `${siteConfig.url}/rss.xml`,
+            title: `${siteConfig.title} RSS Feed`,
+          },
+        ],
+      },
     },
   };
 }
