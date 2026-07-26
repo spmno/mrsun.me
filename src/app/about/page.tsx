@@ -33,19 +33,22 @@ export default function AboutPage() {
         </ul>
 
         <h2 className="text-xl font-semibold">联系方式</h2>
-        <div className="flex gap-4">
-          {siteConfig.social.github && (
+        <ul className="list-none space-y-2">
+          <li>📞 电话：<a href="tel:+8618640244301" className="text-primary hover:underline">+86 18640244301</a></li>
+          <li>💬 微信：zhongyichengxuyuan</li>
+          <li>✉️ 邮箱：<a href="mailto:sunqingpeng@hotmail.com" className="text-primary hover:underline">sunqingpeng@hotmail.com</a></li>
+          <li className="pt-2">
             <a
               href={siteConfig.social.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 text-primary hover:underline"
+              className="flex items-center gap-2 text-primary hover:underline w-fit"
             >
               <Code2 className="h-5 w-5" />
               GitHub
             </a>
-          )}
-        </div>
+          </li>
+        </ul>
 
         <h2 className="text-xl font-semibold">关于本站</h2>
         <p>
