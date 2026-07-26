@@ -1,7 +1,11 @@
+'use client';
+
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { HomeSectionCard } from '@/components/home-section-card';
-import type { PostMeta } from '@/lib/posts';
+import { useLocale } from '@/components/locale-provider';
+import { t, tFn } from '@/lib/i18n';
+import type { PostMeta } from '@/lib/post-types';
 
 interface CategorySectionProps {
   category: string;
@@ -12,6 +16,8 @@ interface CategorySectionProps {
 export function CategorySection({ category, posts, maxItems = 4 }: CategorySectionProps) {
   const displayPosts = posts.slice(0, maxItems);
   const categoryHref = `/categories/${encodeURIComponent(category)}/`;
+  const { locale } = useLocale();
+  const postsCountFn = tFn(locale, 'postsCount');
 
   return (
     <section>
@@ -22,14 +28,14 @@ export function CategorySection({ category, posts, maxItems = 4 }: CategorySecti
             {category}
           </h2>
           <span className="text-xs font-normal text-muted-foreground">
-            ({posts.length} 篇)
+            ({postsCountFn(posts.length)})
           </span>
         </Link>
         <Link
           href={categoryHref}
           className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-primary transition-colors"
         >
-          查看全部
+          {t(locale, 'viewAll')}
           <ArrowRight className="h-3.5 w-3.5" />
         </Link>
       </div>

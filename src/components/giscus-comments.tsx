@@ -2,16 +2,19 @@
 
 import Giscus from '@giscus/react';
 import { useTheme } from 'next-themes';
+import { useLocale } from '@/components/locale-provider';
+import { t } from '@/lib/i18n';
 import { siteConfig } from '@/lib/site';
 
 export function GiscusComments() {
   const { resolvedTheme } = useTheme();
+  const { locale } = useLocale();
 
   if (!siteConfig.giscus.repoId || !siteConfig.giscus.categoryId) {
     return (
       <div className="mt-12 border-t border-border pt-8">
         <p className="text-sm text-muted-foreground text-center">
-          评论系统配置中。请在{' '}
+          {t(locale, 'giscusConfig')}{' '}
           <a
             href="https://giscus.app"
             target="_blank"
@@ -20,7 +23,7 @@ export function GiscusComments() {
           >
             giscus.app
           </a>{' '}
-          获取配置并填写 <code className="text-xs">src/lib/site.ts</code> 中的 giscus 配置。
+          {t(locale, 'giscusGetConfig')} <code className="text-xs">src/lib/site.ts</code> {t(locale, 'giscusFillConfig')}
         </p>
       </div>
     );
@@ -37,7 +40,7 @@ export function GiscusComments() {
         reactionsEnabled={siteConfig.giscus.reactionsEnabled}
         emitMetadata={siteConfig.giscus.emitMetadata}
         theme={resolvedTheme === 'dark' ? 'dark' : 'light'}
-        lang="zh-CN"
+        lang={locale === 'zh' ? 'zh-CN' : 'en'}
         loading="lazy"
       />
     </div>

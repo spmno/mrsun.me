@@ -24,4 +24,18 @@ export const siteConfig = {
   },
 };
 
+export const siteConfigEn = {
+  ...siteConfig,
+  title: 'MrSun',
+  description: 'Exploring the beauty of technology, documenting the programming journey',
+  author: 'MrSun',
+  locale: 'en',
+  nav: [
+    { title: 'Home', href: '/' },
+    { title: 'Archive', href: '/archive' },
+    { title: 'Search', href: '/search' },
+    { title: 'About', href: '/about' },
+  ],
+};
+
 export type SiteConfig = typeof siteConfig;

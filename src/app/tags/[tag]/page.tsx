@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getPostsByTag, getAllTags } from '@/lib/posts';
-import { PostList } from '@/components/post-list';
+import { CategoryTagPage } from '@/components/category-tag-page-locale';
 import { generateMetadata as genMeta } from '@/lib/seo';
 
 export function generateStaticParams() {
@@ -36,12 +36,11 @@ export default async function TagPage({
   if (posts.length === 0) notFound();
 
   return (
-    <div className="mx-auto max-w-5xl px-4 sm:px-6 py-8">
-      <h1 className="text-3xl font-bold mb-2">
-        标签: <span className="gradient-text">{decoded}</span>
-      </h1>
-      <p className="text-muted-foreground mb-8">{posts.length} 篇文章</p>
-      <PostList posts={posts} />
-    </div>
+    <CategoryTagPage
+      title={decoded}
+      titlePrefix="tagPrefix"
+      count={posts.length}
+      posts={posts}
+    />
   );
 }

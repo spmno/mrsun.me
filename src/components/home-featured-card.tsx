@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { Calendar } from 'lucide-react';
-import type { PostMeta } from '@/lib/posts';
-import { getCategoryGradient } from '@/lib/posts';
+import type { PostMeta } from '@/lib/post-types';
+import { getCategoryGradient } from '@/lib/post-types';
 
 export function HomeFeaturedCard({ post }: { post: PostMeta }) {
   const href = `/posts/${post.year}/${post.month}/${post.slug}/`;

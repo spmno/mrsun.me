@@ -4,10 +4,13 @@ import { useMemo, useState } from 'react';
 import { Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { PostList } from '@/components/post-list';
+import { useLocale } from '@/components/locale-provider';
+import { t, tFn } from '@/lib/i18n';
 import type { PostMeta } from '@/lib/posts';
 
 export function SearchBox({ posts }: { posts: PostMeta[] }) {
   const [query, setQuery] = useState('');
+  const { locale } = useLocale();
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -21,13 +24,16 @@ export function SearchBox({ posts }: { posts: PostMeta[] }) {
     );
   }, [query, posts]);
 
+  const foundFn = tFn(locale, 'foundPosts');
+  const totalFn = tFn(locale, 'totalPosts');
+
   return (
     <div className="space-y-6">
       <div className="relative">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
         <Input
           type="text"
-          placeholder="搜索文章标题、描述、分类或标签..."
+          placeholder={t(locale, 'searchPlaceholderFull')}
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           className="pl-10 h-11"
@@ -36,10 +42,10 @@ export function SearchBox({ posts }: { posts: PostMeta[] }) {
       <div>
         <p className="text-sm text-muted-foreground mb-4">
           {filtered.length > 0
-            ? `找到 ${filtered.length} 篇文章`
+            ? foundFn(filtered.length)
             : query
-              ? '没有找到相关文章'
-              : `共 ${posts.length} 篇文章`}
+              ? t(locale, 'noResults')
+              : totalFn(posts.length)}
         </p>
         <PostList posts={filtered} />
       </div>
