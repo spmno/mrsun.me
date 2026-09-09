@@ -43,3 +43,9 @@ next-env.d.ts
 
 # playwright
 .playwright-mcp/
+
+.omo/
+logs/
+memory/
+agent.toml
+.codegraph/
