@@ -16,9 +16,8 @@ export function AboutLocaleWrapper() {
 
       <div className="prose_custom space-y-6">
         <p>
-          {t(locale, 'aboutIntro')}{' '}
-          <strong>{config.author}</strong>.
-          {t(locale, 'aboutWelcome')} {config.title}.
+          I am<strong>{config.author}</strong>.
+          {t(locale, 'aboutWelcome')} .
         </p>
         <p>
           {t(locale, 'aboutContent')}
@@ -50,10 +49,6 @@ export function AboutLocaleWrapper() {
           </li>
         </ul>
 
-        <h2 className="text-xl font-semibold">{t(locale, 'aboutSite')}</h2>
-        <p>
-          {t(locale, 'aboutSiteDesc')}
-        </p>
       </div>
     </div>
   );
