@@ -58,7 +58,7 @@ function parsePostFile(file: RawPostFile): Post | null {
       title: data.title,
       date: data.date instanceof Date ? data.date.toISOString().split('T')[0] : String(data.date),
       description: data.description || '',
-      category: data.category || '未分类',
+      category: data.category || 'Uncategorized',
       tags: Array.isArray(data.tags) ? data.tags : [],
       cover: data.cover,
       year: file.year,

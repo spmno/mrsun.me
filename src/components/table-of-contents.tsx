@@ -45,7 +45,7 @@ export function TableOfContents({ headings }: { headings: Heading[] }) {
   return (
     <nav className="text-sm">
       <h2 className="mb-3 text-xs font-semibold uppercase tracking-wider text-foreground">
-        目录
+        On This Page
       </h2>
       <ul className="space-y-0.5">
         {headings.map((heading) => (

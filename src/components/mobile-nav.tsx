@@ -8,12 +8,12 @@ import { Sheet, SheetContent, SheetTrigger, SheetTitle } from '@/components/ui/s
 import { ThemeToggle } from '@/components/theme-toggle';
 import { useLocale } from '@/components/locale-provider';
 import { t } from '@/lib/i18n';
-import { siteConfig, siteConfigEn } from '@/lib/site';
+import { siteConfig, siteConfigZh } from '@/lib/site';
 
 export function MobileNav() {
   const [open, setOpen] = useState(false);
   const { locale } = useLocale();
-  const config = locale === 'en' ? siteConfigEn : siteConfig;
+  const config = locale === 'zh' ? siteConfigZh : siteConfig;
   const navItems = config.nav;
 
   return (

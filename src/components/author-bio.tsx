@@ -4,11 +4,11 @@ import Link from 'next/link';
 import { Code2 } from 'lucide-react';
 import { useLocale } from '@/components/locale-provider';
 import { t } from '@/lib/i18n';
-import { siteConfig, siteConfigEn } from '@/lib/site';
+import { siteConfig, siteConfigZh } from '@/lib/site';
 
 export function AuthorBio() {
   const { locale } = useLocale();
-  const config = locale === 'en' ? siteConfigEn : siteConfig;
+  const config = locale === 'zh' ? siteConfigZh : siteConfig;
 
   return (
     <div className="glass-card rounded-xl p-5">

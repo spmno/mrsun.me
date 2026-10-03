@@ -18,8 +18,8 @@ export async function generateMetadata({
   const { tag } = await params;
   const decoded = decodeURIComponent(tag);
   return genMeta({
-    title: `标签: ${decoded}`,
-    description: `标签「${decoded}」下的所有文章`,
+    title: `Tag: ${decoded}`,
+    description: `All articles tagged "${decoded}"`,
     path: `/tags/${tag}/`,
   });
 }

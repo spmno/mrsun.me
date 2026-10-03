@@ -18,8 +18,8 @@ export async function generateMetadata({
   const { category } = await params;
   const decoded = decodeURIComponent(category);
   return genMeta({
-    title: `分类: ${decoded}`,
-    description: `${decoded} 分类下的所有文章`,
+    title: `Category: ${decoded}`,
+    description: `Articles in category "${decoded}"`,
     path: `/categories/${category}/`,
   });
 }

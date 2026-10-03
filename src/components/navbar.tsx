@@ -7,12 +7,12 @@ import { ThemeToggle } from '@/components/theme-toggle';
 import { LocaleSwitcher } from '@/components/locale-switcher';
 import { MobileNav } from '@/components/mobile-nav';
 import { useLocale } from '@/components/locale-provider';
-import { siteConfig, siteConfigEn } from '@/lib/site';
+import { siteConfig, siteConfigZh } from '@/lib/site';
 
 export function Navbar() {
   const pathname = usePathname();
   const { locale } = useLocale();
-  const config = locale === 'en' ? siteConfigEn : siteConfig;
+  const config = locale === 'zh' ? siteConfigZh : siteConfig;
   const navItems = config.nav;
 
   return (

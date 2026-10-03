@@ -33,12 +33,12 @@ export function PreBlock({
           {copied ? (
             <>
               <Check className="h-3 w-3" />
-              已复制
+              Copied
             </>
           ) : (
             <>
               <Copy className="h-3 w-3" />
-              复制
+              Copy
             </>
           )}
         </Button>

@@ -3,8 +3,8 @@ import { generateMetadata as genMeta } from '@/lib/seo';
 import { AboutLocaleWrapper } from '@/components/about-locale-wrapper';
 
 export const metadata: Metadata = genMeta({
-  title: '关于',
-  description: '关于本站和作者',
+  title: 'About',
+  description: 'About this site and the author',
   path: '/about/',
 });
 

@@ -1,14 +1,14 @@
 export const siteConfig = {
-  title: '程序员老孙',
-  description: '探索技术之美，记录编程之旅',
+  title: 'MrSun',
+  description: 'Exploring the beauty of technology, documenting the programming journey',
   url: 'https://mrsun.me',
-  author: '程序员老孙',
-  locale: 'zh-CN',
+  author: 'MrSun',
+  locale: 'en',
   nav: [
-    { title: '首页', href: '/' },
-    { title: '归档', href: '/archive' },
-    { title: '搜索', href: '/search' },
-    { title: '关于', href: '/about' },
+    { title: 'Home', href: '/' },
+    { title: 'Archive', href: '/archive' },
+    { title: 'Search', href: '/search' },
+    { title: 'About', href: '/about' },
   ],
   social: {
     github: 'https://github.com/spmno',
@@ -24,17 +24,17 @@ export const siteConfig = {
   },
 };
 
-export const siteConfigEn = {
+export const siteConfigZh = {
   ...siteConfig,
-  title: 'MrSun',
-  description: 'Exploring the beauty of technology, documenting the programming journey',
-  author: 'MrSun',
-  locale: 'en',
+  title: '程序员老孙',
+  description: '探索技术之美，记录编程之旅',
+  author: '程序员老孙',
+  locale: 'zh-CN',
   nav: [
-    { title: 'Home', href: '/' },
-    { title: 'Archive', href: '/archive' },
-    { title: 'Search', href: '/search' },
-    { title: 'About', href: '/about' },
+    { title: '首页', href: '/' },
+    { title: '归档', href: '/archive' },
+    { title: '搜索', href: '/search' },
+    { title: '关于', href: '/about' },
   ],
 };
 

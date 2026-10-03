@@ -4,8 +4,8 @@ import { generateMetadata as genMeta } from '@/lib/seo';
 import { SearchLocaleWrapper } from '@/components/search-locale-wrapper';
 
 export const metadata: Metadata = genMeta({
-  title: '搜索',
-  description: '搜索文章',
+  title: 'Search',
+  description: 'Search Articles',
   path: '/search/',
 });
 

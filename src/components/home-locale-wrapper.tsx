@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { Search } from 'lucide-react';
 import { useLocale } from '@/components/locale-provider';
 import { t, tFn } from '@/lib/i18n';
-import { siteConfig, siteConfigEn } from '@/lib/site';
+import { siteConfig, siteConfigZh } from '@/lib/site';
 import { HomeFeaturedCard } from '@/components/home-featured-card';
 import { CategorySection } from '@/components/category-section';
 import type { PostMeta } from '@/lib/posts';
@@ -16,7 +16,7 @@ interface HomeLocaleWrapperProps {
 
 export function HomeLocaleWrapper({ featuredPosts, categoryGroups }: HomeLocaleWrapperProps) {
   const { locale } = useLocale();
-  const config = locale === 'en' ? siteConfigEn : siteConfig;
+  const config = locale === 'zh' ? siteConfigZh : siteConfig;
 
   return (
     <div className="mx-auto max-w-6xl px-4 sm:px-6">

@@ -77,7 +77,7 @@ export function generateBreadcrumbSchema(post: PostMeta) {
       {
         '@type': 'ListItem',
         position: 1,
-        name: '首页',
+        name: 'Home',
         item: `${siteConfig.url}/`,
       },
       {

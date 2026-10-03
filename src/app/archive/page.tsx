@@ -4,8 +4,8 @@ import { generateMetadata as genMeta } from '@/lib/seo';
 import { ArchiveLocaleWrapper } from '@/components/archive-locale-wrapper';
 
 export const metadata: Metadata = genMeta({
-  title: '归档',
-  description: '所有文章按时间归档',
+  title: 'Archive',
+  description: 'All articles by date',
   path: '/archive/',
 });
 

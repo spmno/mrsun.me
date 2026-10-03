@@ -7,7 +7,7 @@ const LocaleContext = createContext<{
   locale: Locale;
   setLocale: (locale: Locale) => void;
 }>({
-  locale: 'zh',
+  locale: 'en',
   setLocale: () => {},
 });
 
@@ -16,7 +16,7 @@ export function useLocale() {
 }
 
 export function LocaleProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>('zh');
+  const [locale, setLocaleState] = useState<Locale>('en');
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -35,7 +35,7 @@ export function LocaleProvider({ children }: { children: ReactNode }) {
 
   // Prevent flash by rendering children only after mounting
   if (!mounted) {
-    return <LocaleContext.Provider value={{ locale: 'zh', setLocale }}>{children}</LocaleContext.Provider>;
+    return <LocaleContext.Provider value={{ locale: 'en', setLocale }}>{children}</LocaleContext.Provider>;
   }
 
   return (
