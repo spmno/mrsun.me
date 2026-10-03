@@ -16,7 +16,7 @@ export function AboutLocaleWrapper() {
 
       <div className="prose_custom space-y-6">
         <p>
-          I am<strong>{config.author}</strong>.
+          I am <strong>{config.author}</strong>.
           {t(locale, 'aboutWelcome')} .
         </p>
         <p>
@@ -26,7 +26,7 @@ export function AboutLocaleWrapper() {
         <h2 className="text-xl font-semibold">{t(locale, 'techStack')}</h2>
         <ul>
           <li>Frontend: Next.js 16, React 19, TypeScript, Tailwind CSS 4, shadcn/ui</li>
-          <li>Hosting: EdgeOne Pages static deployment</li>
+          <li>Hosting: Vercel </li>
           <li>Content: Markdown + gray-matter + react-markdown</li>
           <li>Comments: Giscus (GitHub Discussions)</li>
         </ul>
