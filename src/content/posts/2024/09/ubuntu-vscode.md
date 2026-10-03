@@ -1,12 +1,12 @@
 ---
-title: "在Ubuntu下安装VsCode"
+title: "Installing VS Code on Ubuntu"
 date: "2024-09-15"
-description: "解决Ubuntu系统中VsCode中文输入问题的详细指南，通过添加Microsoft官方APT源来安装完整版VsCode"
+description: "A detailed guide to fixing Chinese input issues in VS Code on Ubuntu by adding Microsoft's official APT repository to install the full version of VS Code"
 category: "Linux"
 tags: ["ubuntu", "Vscode", "apt"]
 ---
 
-Ubuntu安装完成后发现VsCode中的中文输入法不好用，查找资料发现snap中的VsCode是被裁剪过的，所以安重新安装，就可以了。步骤如下：
+Once Ubuntu was set up, I found the Chinese input method in VS Code didn't work well. After digging around online, I learned the snap version of VS Code is a trimmed-down build, so I reinstalled the full version and that fixed it. Here are the steps:
 
 ```
 wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg

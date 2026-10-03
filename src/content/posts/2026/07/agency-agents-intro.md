@@ -1,126 +1,126 @@
 ---
-title: "agency-agents，让大批专家成为你的助手"
+title: "agency-agents: Make an Army of Experts Your Assistants"
 date: "2026-07-05"
-description: "使用 agency-agents 给智能体工具导入 232 个专业 AI Agent，覆盖前后端、设计、营销、安全等 16 个领域。"
+description: "Use agency-agents to import 232 professional AI agents into your agent tool, covering 16 domains including frontend, backend, design, marketing, and security."
 category: "AI"
-tags: ["AI", "OpenCode", "Agent", "开源"]
+tags: ["AI", "OpenCode", "Agent", "open source"]
 cover: "/images/posts/2026/07/agency-agents-cover.jpg"
 ---
 
-日常用智能体的时候都是给 Prompt 给提示词，获取答案。如果感觉提示词不够好，可以先用大模型生成 Prompt，再给智能体。
+Day to day, working with agents means writing prompts and getting answers. If a prompt doesn't feel good enough, you can have an LLM generate the prompt first, then hand it to the agent.
 
-今天介绍的 **agency-agents** 这个开源项目（GitHub 127k+ Star），地址：
+Today I'm introducing **agency-agents**, an open-source project with 127k+ GitHub stars. Repo:
 
 ```
 https://github.com/msitarzewski/agency-agents
 ```
 
-它定义了 232 个专业 AI Agent，每个都有独立人格、工作流程和交付标准，覆盖前后端、设计、营销、安全等 16 个领域。
+It defines 232 professional AI agents, each with its own personality, workflow, and delivery standards, covering 16 domains including frontend, backend, design, marketing, and security.
 
-## 先看效果：同一个问题，两种回答
+## First, the Results: One Question, Two Answers
 
-假设你问 AI："设计一个用户认证 API"。
+Suppose you ask an AI: "Design a user authentication API."
 
-**通用 Prompt 的回答**（大致是这样）：
+**A generic prompt's answer** (roughly like this):
 
-> 建议使用 JWT 实现用户认证。创建一个 POST /login 接口，接收用户名和密码，验证通过后返回 Token。客户端在后续请求中携带 Token...
+> I'd suggest using JWT for user authentication. Create a POST /login endpoint that takes a username and password, verifies them, and returns a token on success. The client then includes the token in subsequent requests...
 
-**agency-agents 的 `@backend-architect` 回答**（风格是这样的）：
+**agency-agents' `@backend-architect` answer** (in this style):
 
-> 我来设计一个完整的认证方案。架构上采用 Access Token + Refresh Token 双 Token 模式：Access Token 有效期短（15分钟），用于接口鉴权；Refresh Token 有效期长（7天），用于无感刷新。数据库设计上，需要一张 refresh_tokens 表来支持 Token 撤销。具体来说...
+> Let me design a complete authentication scheme. Architecturally, I'll go with a dual-token model: an access token plus a refresh token. The access token is short-lived (15 minutes) and used for API authorization; the refresh token is long-lived (7 days) and used for seamless renewal. On the database side, you'll need a refresh_tokens table to support token revocation. Specifically...
 
-他不仅可以接入 Claude Code，它还自带转换脚本，可以直接接入 OpenCode、Kimi Code 等工具，今天我就用 OpenCode 带大家体验下它的能力。
+It doesn't just plug into Claude Code; it ships with conversion scripts so you can hook it straight into OpenCode, Kimi Code, and other tools. Today I'll use OpenCode to walk you through what it can do.
 
-![OpenCode 集成示意图](/images/posts/2026/07/agency-agents-01.png)
+![OpenCode integration diagram](/images/posts/2026/07/agency-agents-01.png)
 
-## 三步接入 OpenCode
+## Three Steps to Plug It into OpenCode
 
-### 第一步：克隆仓库
+### Step 1: Clone the repository
 
 ```bash
 git clone https://github.com/msitarzewski/agency-agents.git && cd agency-agents
 ```
 
-### 第二步：生成 OpenCode 格式的 Agent 文件
+### Step 2: Generate agent files in OpenCode format
 
 ```bash
 ./scripts/convert.sh --tool opencode
 ```
 
-这一步把 232 个 Markdown 提示词转换成 OpenCode 能识别的格式。导入的时候 OpenCode 有限制，下面踩坑指南会有具体的说明。
+This step converts the 232 Markdown prompts into a format OpenCode recognizes. OpenCode has some limits when importing; the pitfall guide below covers the details.
 
-### 第三步：选择性安装到你的项目
+### Step 3: Selectively install into your project
 
-OpenCode 目前有 Agent 数量上限（约 119 个），全量装会被静默丢弃。用 `--division` 按需选择：
+OpenCode currently caps the number of agents (around 119); installing everything will get the extras silently dropped. Use `--division` to pick what you need:
 
 ```bash
 ./scripts/install.sh --tool opencode \
   --division engineering,design,security,testing
 ```
 
-这 4 个 Division 共 61 个 Agent，覆盖前后端开发、UI 设计、安全审计、质量保障，完全够用。
+These 4 divisions total 61 agents, covering frontend and backend development, UI design, security auditing, and QA. That's more than enough.
 
-![Division 选择界面](/images/posts/2026/07/agency-agents-02.png)
+![Division selection screen](/images/posts/2026/07/agency-agents-02.png)
 
-不确定有哪些 Division？每个 Division 都有具体的说明：
+Not sure which divisions exist? Each division comes with a detailed description:
 
-![Division 说明](/images/posts/2026/07/agency-agents-03.png)
+![Division descriptions](/images/posts/2026/07/agency-agents-03.png)
 
-也可以用命令预览：
+You can also preview them with a command:
 
 ```bash
 ./scripts/install.sh --list teams
 ```
 
-## 装好之后怎么用
+## How to Use It Once Installed
 
-安装完成后，你的项目下会多出 `.opencode/agents/` 目录，里面是所有 Agent 文件。
+After installation, your project gains a `.opencode/agents/` directory containing all the agent files.
 
-![安装后的 Agent 文件](/images/posts/2026/07/agency-agents-04.png)
+![Installed agent files](/images/posts/2026/07/agency-agents-04.png)
 
-在 OpenCode 里用 `@` 加 Agent 名称调用，比如：
-
-```
-@frontend-developer 用 React 写一个带无限滚动的列表组件
-```
+In OpenCode, invoke an agent with `@` plus its name, for example:
 
 ```
-@security-architect 审查这个 API 的安全设计
+@frontend-developer Write a React list component with infinite scrolling
 ```
 
 ```
-@database-optimizer 优化这个慢查询
+@security-architect Review the security design of this API
 ```
 
-每个 Agent 会根据自己的专业领域和人格来响应，给出更具体、更可执行的回答。
+```
+@database-optimizer Optimize this slow query
+```
 
-![Agent 调用效果](/images/posts/2026/07/agency-agents-05.png)
+Each agent responds based on its domain expertise and personality, giving more specific, more actionable answers.
 
-我们让它看看这个公众号文章写的怎么样：
+![Agent invocation in action](/images/posts/2026/07/agency-agents-05.png)
 
-![AI 审阅文章](/images/posts/2026/07/agency-agents-06.png)
+I had it take a look at how well this very article is written:
 
-给的反馈如下：
+![AI reviewing the article](/images/posts/2026/07/agency-agents-06.png)
 
-![AI 反馈意见](/images/posts/2026/07/agency-agents-07.png)
+Here's the feedback it gave:
 
-给的建议基本靠谱，直接就让它给重写了一版。
+![AI feedback](/images/posts/2026/07/agency-agents-07.png)
 
-![AI 重写版本](/images/posts/2026/07/agency-agents-08.png)
+The suggestions were mostly on point, so I just had it rewrite a version.
 
-## 踩坑指南
+![AI-rewritten version](/images/posts/2026/07/agency-agents-08.png)
 
-**Q：安装时报 "registers only ~119 agents" 的警告？**
+## Pitfall Guide
 
-这是 OpenCode 的已知 Bug（上游 Issue #27988），它最多注册约 119 个 Agent。用 `--division` 控制总数即可，比如只装 `engineering` + `design` = 43 个。
+**Q: I get a "registers only ~119 agents" warning during install?**
 
-**Q：装完之后 OpenCode 没有识别到？**
+This is a known OpenCode bug (upstream issue #27988): it registers at most about 119 agents. Just use `--division` to control the total, e.g. install only `engineering` + `design` = 43 agents.
 
-确认 Agent 文件在项目根目录的 `.opencode/agents/` 下，且文件格式正确（每个文件顶部有 `---` 包裹的 YAML frontmatter）。
+**Q: OpenCode doesn't recognize the agents after installing?**
 
-**Q：想升级到最新版怎么办？**
+Make sure the agent files live under `.opencode/agents/` at the project root and the format is correct (each file starts with YAML frontmatter wrapped in `---`).
 
-重新跑一遍转换和安装即可，旧文件会被覆盖：
+**Q: How do I upgrade to the latest version?**
+
+Just re-run the conversion and install; the old files get overwritten:
 
 ```bash
 cd agency-agents && git pull
@@ -128,14 +128,14 @@ cd agency-agents && git pull
 ./scripts/install.sh --tool opencode --division engineering,design,security,testing
 ```
 
-## 最后
+## Final Thoughts
 
-agency-agents 不是什么颠覆性创新，它做了一件很朴素但很有价值的事：把 AI Agent 从"通用提示词"升级为"专业角色"，并且提供了完整的工具链，让你能快速接入到实际工作流中。
+agency-agents isn't some disruptive innovation. It does one plain but genuinely valuable thing: it upgrades AI agents from "generic prompts" to "professional roles," and ships a complete toolchain so you can wire them into your real workflow quickly.
 
-官方最后面给出中文社区维护的链接：
+At the end, the official repo also points to a Chinese-community-maintained version:
 
 ```
 https://github.com/jnMetaCode/agency-agents-zh
 ```
 
-如果有使用中有什么问题，欢迎在评论区讨论。
+If you run into any issues while using it, feel free to discuss in the comments.

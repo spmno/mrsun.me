@@ -1,43 +1,43 @@
 ---
-title: "Actix框架：从SQLite迁移到PostgreSQL的完整指南"
+title: "Actix Framework: A Complete Guide to Migrating from SQLite to PostgreSQL"
 date: "2024-12-18"
-description: "用actix框架做的服务，从sqlite迁移到postgres"
+description: "Migrating a service built with the actix framework from SQLite to Postgres"
 category: "Rust"
 tags: ["actix", "actix-web", "sqlite", "postgres"]
 ---
 
-## 背景
-用actix框架做的服务， 因为是简单的服务一直用的sqlite， 但是随着数据量的增加，和云数据库的要求，sqlite已经不能满足需求了。 所以就迁移到了postgres。
+## Background
+The service is built with the actix framework. Since it's a simple service, it had always used SQLite. But as the data volume grew and a cloud database became a requirement, SQLite could no longer meet the needs. So I migrated to Postgres.
 
 
-## 迁移
-在写actix-web的服务时，用了orm的框架， [sea-orm](https://www.sea-ql.org/)。
+## The Migration
+When writing the actix-web service, I used an ORM framework: [sea-orm](https://www.sea-ql.org/).
 
-sea-orm 支持sqlite、mysql、postgres、mssql、sqlserver。
+sea-orm supports SQLite, MySQL, Postgres, MSSQL, and SQL Server.
 
-### 修改数据库驱动
-修改cargo.toml文件
+### Change the Database Driver
+Edit the cargo.toml file:
 ```
 sea-orm ={ version = "1.1.0", features = ["sqlx-sqlite", "macros", "runtime-tokio-rustls", "with-chrono"] }
 ```
-改为
+Change it to:
 ```
 sea-orm ={ version = "1.1.0", features = ["sqlx-postgres", "macros", "runtime-tokio-rustls"] }
 ```
 
-### 修改数据库地址
+### Change the Database URL
 ```
 DATABASE_URL=sqlite://datebase.sqlite?mode=rwc
 ```
-改为
+Change it to:
 ```
 DATABASE_URL=postgres://username:password@localhost:5432/database_name
 ```
 
-### 重新生成库和相关代码
+### Regenerate the Database and Related Code
 ```
 sea-orm-cli migrate up
 sea-orm-cli generate entity -o entity/src
 ```
 
-重新启动服务，就可以了。有了ORM，迁移就是很方便。
+Restart the service and you're done. With an ORM, migrating is painless.

@@ -1,18 +1,18 @@
 ---
-title: "Next.js 16 静态导出完全指南"
+title: "The Complete Guide to Next.js 16 Static Export"
 date: "2026-06-23"
-description: "详解如何使用 Next.js 16 的静态导出功能构建一个完整的博客系统，包括动态路由、SEO 和部署配置。"
-category: "教程"
-tags: ["Next.js", "TypeScript", "前端"]
+description: "A detailed walkthrough of building a complete blog system with Next.js 16 static export, covering dynamic routes, SEO, and deployment configuration."
+category: "Tutorials"
+tags: ["Next.js", "TypeScript", "frontend"]
 ---
 
-# Next.js 16 静态导出指南
+# Next.js 16 Static Export Guide
 
-Next.js 16 的静态导出功能让我们可以在构建时生成完整的静态 HTML 文件，非常适合博客和文档站点。
+Next.js 16's static export feature lets us generate complete static HTML files at build time, which makes it a great fit for blogs and documentation sites.
 
-## 基础配置
+## Basic Configuration
 
-在 `next.config.ts` 中开启静态导出：
+Enable static export in `next.config.ts`:
 
 ```ts
 import type { NextConfig } from "next";
@@ -29,9 +29,9 @@ const nextConfig: NextConfig = {
 export default nextConfig;
 ```
 
-## 动态路由与 generateStaticParams
+## Dynamic Routes and generateStaticParams
 
-静态导出要求所有动态路由在构建时确定。使用 `generateStaticParams` 来预生成所有页面：
+Static export requires all dynamic routes to be resolved at build time. Use `generateStaticParams` to pre-generate all pages:
 
 ```tsx
 export function generateStaticParams() {
@@ -43,9 +43,9 @@ export function generateStaticParams() {
 }
 ```
 
-### Next.js 16 的重要变化
+### Important Changes in Next.js 16
 
-在 Next.js 16 中，`params` 现在是一个 Promise：
+In Next.js 16, `params` is now a Promise:
 
 ```tsx
 export default async function Page({
@@ -58,9 +58,9 @@ export default async function Page({
 }
 ```
 
-## Route Handlers 与静态生成
+## Route Handlers and Static Generation
 
-Route Handlers 可以在构建时生成静态文件。例如，生成 RSS feed：
+Route Handlers can generate static files at build time. For example, generating an RSS feed:
 
 ```ts
 export async function GET() {
@@ -72,32 +72,32 @@ export async function GET() {
 }
 ```
 
-这会在构建时生成 `/rss.xml` 静态文件。
+This generates a static `/rss.xml` file at build time.
 
-## SEO 配置
+## SEO Configuration
 
-使用 Metadata API 配置页面元数据：
+Use the Metadata API to configure page metadata:
 
 ```tsx
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: '我的博客',
-  description: '探索技术之美',
+  title: 'My Blog',
+  description: 'Exploring the beauty of technology',
   openGraph: {
-    title: '我的博客',
+    title: 'My Blog',
     type: 'website',
   },
 };
 ```
 
-## 部署注意事项
+## Deployment Notes
 
-- 禁用 `sharp`：设置 `images.unoptimized: true`
-- 所有动态路由必须提供 `generateStaticParams`
-- 不能使用 Server Actions、ISR 或需要运行时的 API 路由
-- 使用 `trailingSlash: true` 确保 URL 格式统一
+- Disable `sharp`: set `images.unoptimized: true`
+- All dynamic routes must provide `generateStaticParams`
+- Server Actions, ISR, and API routes that require a runtime are not supported
+- Use `trailingSlash: true` to keep URL format consistent
 
-## 总结
+## Summary
 
-Next.js 16 的静态导出功能非常强大，结合 App Router 可以构建出功能完整、性能优异的静态站点。
+Next.js 16's static export is really powerful. Combined with the App Router, you can build fully featured, high-performance static sites.

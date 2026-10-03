@@ -1,61 +1,61 @@
 ---
-title: "免费Android端的语音识别功能 — 基于 sherpa-onnx 实现"
+title: "Free Speech Recognition on Android: Built with sherpa-onnx"
 date: "2026-06-30"
-description: "在 Android 端使用 sherpa-onnx 实现离线语音识别，从工程生成到调试运行，实测在骁龙888上表现流畅、准确率高。"
-category: "技术教程"
-tags: ["Android", "语音识别", "sherpa-onnx", "NDK", "Kotlin"]
+description: "Implementing offline speech recognition on Android with sherpa-onnx, from generating the project to debugging and running it. Field-tested on a Snapdragon 888, where it runs smoothly with high accuracy."
+category: "Tutorials"
+tags: ["Android", "speech recognition", "sherpa-onnx", "NDK", "Kotlin"]
 cover: "/images/posts/2026/06/sherpa-android-cover.jpg"
 ---
 
-# 免费Android端的语音识别功能 — 基于 sherpa-onnx 实现
+# Free Speech Recognition on Android: Built with sherpa-onnx
 
-之前在 PC 端实现了语音识别的功能（[sherpa-onnx + Rust API，给你的 agent 加上嘴和耳朵](https://mp.weixin.qq.com/s?__biz=MzAwNzAzNTEwNw==&mid=2648367259&idx=1&sn=f499313cc32668ff2c6253106e74c7c0&scene=21#wechat_redirect)），有朋友在评论区想了解 Android 端的语音识别功能。今天带大家来实现在 Android 下使用 sherpa-onnx 实现语音识别。
+I previously implemented speech recognition on the PC ([sherpa-onnx + Rust API: giving your agent a mouth and ears](https://mp.weixin.qq.com/s?__biz=MzAwNzAzNTEwNw==&mid=2648367259&idx=1&sn=f499313cc32668ff2c6253106e74c7c0&scene=21#wechat_redirect)), and some friends in the comments wanted to know how to do it on Android. Today I'll walk you through implementing speech recognition on Android with sherpa-onnx.
 
-## 生成工程
+## Generating the Project
 
-sherpa-onnx 本来就支持 Android 端的实现，GitHub 上有相关例子的说明：
+sherpa-onnx already supports Android out of the box, and GitHub has documentation for the relevant examples:
 
 ```
 https://github.com/k2-fsa/sherpa-onnx/tree/master/android
 ```
 
-代码方面，底层用 NDK（C++），上层用 Kotlin 实现。首先下载最新代码：
+On the code side, the lower layer uses the NDK (C++) and the upper layer is implemented in Kotlin. First, download the latest code:
 
 ```bash
 git clone https://github.com/k2-fsa/sherpa-onnx.git
 ```
 
-目前使用的手机基本都是 `arm64-v8a` 架构，所以在根目录执行：
+Most phones in use today are `arm64-v8a` architecture, so run this from the root directory:
 
 ```bash
 ./build-android-arm64-v8a.sh
 ```
 
-执行前提是配置好 Android 的 SDK 与 NDK，这里就不展开了，有问题的可以私信。执行后会生成在 Android 下可使用的 sherpa-onnx 库。
+The prerequisite is having the Android SDK and NDK configured. I won't go into that here; feel free to message me if you run into issues. Once it finishes, you'll have a sherpa-onnx library ready to use on Android.
 
-## 调试过程
+## Debugging Process
 
-打开 Android Studio，打开根目录下 `android` 子目录中我们要使用的例子，选择 `SherpaOnnx`。
+Open Android Studio, then open the example we'll be using from the `android` subdirectory in the repo root and select `SherpaOnnx`.
 
-### 问题一：编译找不到对应库
+### Problem 1: Build Can't Find the Libraries
 
-连接手机调试时，发现编译工程找不到对应的库。把问题交给 Opencode，发现是工程依赖的一个库的下载链接失效了。Opencode 在一个备用链接中找到了相关库，下载后问题解决。
+When I connected my phone to debug, the build couldn't find the libraries it needed. I handed the problem to Opencode, which found that the download link for one of the project's dependencies had gone dead. Opencode tracked down the library through a backup link, and after downloading it, the problem was solved.
 
-### 问题二：缺少语音识别模型
+### Problem 2: Missing Speech Recognition Model
 
-再次调试，发现没有下载相应的语音识别模型。问题交给 Opencode，Opencode 下载了相应的模型，程序可以运行起来了。
+On the next debug run, it turned out the speech recognition model hadn't been downloaded. Again I handed it to Opencode, which downloaded the model, and the program was up and running.
 
-## 实测效果
+## Real-World Results
 
-点击 Start 开始测试。测试过程中发现：
+Click Start to begin testing. During testing I found:
 
-- 文字上屏速度很快，没有卡顿
-- 准确性也不错
+- Text appears on screen quickly, with no stuttering
+- Accuracy is quite good too
 
-测试机器：高通骁龙 888（几年前的老机型），表现流畅，实用性很强。
+Test device: Qualcomm Snapdragon 888 (a phone from a few years back). It runs smoothly and is genuinely practical.
 
-## 总结
+## Summary
 
-通过 sherpa-onnx 在 Android 下的 example，可以发现 sherpa-onnx 在安卓手机上有很好的实用性。我们可以根据这个 example 衍生出很多功能。Android 的其它例子实现过程都差不多，有问题的小伙伴欢迎在评论区一起讨论。
+Working through the sherpa-onnx Android example shows that sherpa-onnx is very practical on Android phones. We can build all sorts of features on top of this example. The other Android examples follow much the same process. If you run into problems, feel free to discuss in the comments.
 
-> 项目地址：https://github.com/k2-fsa/sherpa-onnx
+> Project repo: https://github.com/k2-fsa/sherpa-onnx

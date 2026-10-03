@@ -1,73 +1,73 @@
 ---
-title: "本地跑Ornith-1.0-35B：350亿参数能干翻3970亿的Qwen3.5?"
+title: "Running Ornith-1.0-35B Locally: Can 35B Parameters Take Down the 397B Qwen3.5?"
 date: "2026-07-12"
-description: "DeepReinforce 发布的 Ornith-1.0 系列模型本地部署实测，350亿参数在编程能力上的真实表现。"
+description: "A hands-on local deployment test of DeepReinforce's Ornith-1.0 series: how 35B parameters actually perform at coding."
 category: "AI"
-tags: ["AI", "LLM", "Ornith", "本地部署", "编程模型"]
+tags: ["AI", "LLM", "Ornith", "local deployment", "coding model"]
 cover: "/images/posts/2026/07/ornith-cover.jpg"
 ---
 
-大家好，我是老孙。
+Hi, I'm MrSun.
 
-六月底开源圈出了个新模型——DeepReinforce 发布的 Ornith-1.0 系列。主打 Agentic Coding（智能体编程），主打用强化学习的自改进框架，在同等参数量下把编程能力提升不少。
+In late June, the open-source world got a new model: DeepReinforce's Ornith-1.0 series. It's positioned for agentic coding, built on a self-improving reinforcement-learning framework that pushes coding ability up a notch at the same parameter count.
 
-这段时间也看了不少相关的文章，自己也拉个 Q8_0 的 GGUF 版本本地跑了跑，今天聊聊真实体验。
+I've read plenty of articles about it lately, and I also pulled the Q8_0 GGUF build to run locally myself. Today let's talk about how it actually went.
 
 ---
 
-## 一、模型基本情况
+## 1. The Basics
 
-国内访问：
+For access from within China:
 
 ```
 "https://hf-mirror.com/deepreinforce-ai/Ornith-1.0-35B-GGUF/resolve/main/ornith-1.0-35b-Q8_0.gguf"
 ```
 
-Ornith-1.0 不是从零训练的基座，而是在 Qwen3.5 MoE 基础上做的后训练优化，几个关键参数如下：
+Ornith-1.0 isn't a base model trained from scratch; it's a post-training optimization built on top of Qwen3.5 MoE. Key specs:
 
--   总参数 35B，MoE 结构 256 选 8，实际激活约 30B
--   上下文窗口 256K
--   原生支持工具调用，兼容 OpenAI 格式
--   MIT 许可证，商用无限制
--   GGUF 量化齐全，从 Q2_K 到 Q8_0 都有
+-   35B total parameters, MoE architecture with 8 of 256 experts active, roughly 30B actually activated
+-   256K context window
+-   Native tool-calling support, OpenAI-compatible format
+-   MIT license, no commercial restrictions
+-   Full range of GGUF quantizations, from Q2_K to Q8_0
 
-核心是它的训练方法：**Self-Scaffolding RL（自脚手架强化学习）**。
+The core is its training method: **Self-Scaffolding RL**.
 
-通俗点说，以前训练编程模型，都是人先设计好一套固定的解题流程（比如先分析需求、再写测试、再写代码），让模型在这个框架里试错。但人设计的流程不一定适配所有问题。
+In plain terms: coding models used to be trained inside a fixed, human-designed problem-solving pipeline (say, analyze the requirements first, then write the tests, then write the code), with the model left to try and fail within that frame. But a flow designed by humans doesn't necessarily fit every problem.
 
-Ornith 的思路是把"设计解题流程"这件事也交给模型自己学。做题时，它一边生成代码，一边生成针对这道题的脚手架，两者一起接受奖励信号优化。相当于模型在学解题的同时，也在学"怎么解题"。
+Ornith's idea is to hand "designing the problem-solving process" over to the model to learn itself. While working through a problem, it generates code and, at the same time, a scaffold tailored to that problem; both get optimized together by the reward signal. In effect, the model learns to solve problems while also learning how to solve them.
 
 ---
 
-## 二、跑分数据怎么看
+## 2. Reading the Benchmarks
 
-先放官方给出的基准成绩，客观列出来，大家可以看一下。
+First, the official benchmark scores, listed objectively for your reference.
 
-| 基准测试 | Ornith-1.0-35B | Qwen3.5-35B | Qwen3.6-35B |
+| Benchmark | Ornith-1.0-35B | Qwen3.5-35B | Qwen3.6-35B |
 |---------|---------------|-------------|-------------|
 | SWE-bench Verified | 75.6 | - | - |
 | Terminal-Bench 2.1 | 64.2 | 41.4 | - |
 | SWE-bench Pro | 50.4 | 44.6 | 49.5 |
 
-数据来源：官方模型卡与第三方技术整理
+Sources: official model card and third-party technical write-ups
 
-几个客观结论：
+A few objective takeaways:
 
-1.  **同尺寸对比有明显优势**。对比 Qwen3.5/3.6-35B，各项编程基准都有提升，SWE-bench Pro 上小幅领先 Qwen3.6。
-2.  **部分测试超越 397B**。这个说法主要来自 Terminal-Bench 2.1 单项（64.2 vs 53.5）。不同基准上结论不一样，不能一概而论。
-3.  **SWE-bench 分数有水分是行业常态**。独立研究显示，榜单上约两成"通过"的补丁实际存在语义问题，这是所有模型都面临的问题，不独此一家。
+1.  **A clear edge at the same size**. Against Qwen3.5/3.6-35B, every coding benchmark improves, with a small lead over Qwen3.6 on SWE-bench Pro.
+2.  **Beats the 397B on some tests**. That claim comes mainly from the Terminal-Bench 2.1 item (64.2 vs 53.5). Different benchmarks tell different stories, so don't overgeneralize.
+3.  **Inflated SWE-bench scores are an industry norm**. Independent research shows that roughly one in five "passing" patches on the leaderboard actually have semantic issues, a problem every model faces, not just this one.
 
-我的看法：这模型确实有东西，35B 档位里属于第一梯队，编程专项可优先选择。
+My take: this model is the real deal. It's first-tier in the 35B class, and a strong pick if coding is your focus.
 
 ---
 
-## 三、本地部署实测
+## 3. Local Deployment, Tested
 
-说回大家最关心的：普通显卡能不能跑？速度怎么样？
+Back to what everyone cares about most: can an ordinary GPU run it? And how fast?
 
-我测的是 `ornith-1.0-35b-Q8_0.gguf`，文件体积约 37GB。Q8_0 属于高保真量化，精度损失很小，适合追求效果的场景。
+I tested `ornith-1.0-35b-Q8_0.gguf`, about 37GB on disk. Q8_0 is a high-fidelity quantization with minimal precision loss, the right choice when you're after quality.
 
-### 下载方法
+### How to download
 
 ```
 curl -L -C - \
@@ -76,68 +76,68 @@ curl -L -C - \
   "https://hf-mirror.com/deepreinforce-ai/Ornith-1.0-35B-GGUF/resolve/main/ornith-1.0-35b-Q8_0.gguf"
 ```
 
-![下载命令示例](/images/posts/2026/07/ornith-01.png)
+![Download command example](/images/posts/2026/07/ornith-01.png)
 
-### 显存与速度
+### VRAM and speed
 
-Q8_0 版本全量加载大约需要 38-40GB 显存。如果显存不够，可以选 Q4_K_M 量化，约 20GB 就能跑
+Fully loaded, the Q8_0 build needs about 38-40GB of VRAM. If your VRAM falls short, the Q4_K_M quantization runs in about 20GB.
 
-推理速度方面，单卡消费级显卡上，Q8_0 版本在我的 GPU 跑大概在 60-70 tokens/s 区间
+On inference speed: on a single consumer GPU, the Q8_0 build runs at roughly 60-70 tokens/s on my machine.
 
-社区也有 MTP（多词元预测）嫁接的优化版本，能提速约 35%，追求速度的可以关注。
+The community also has an optimized build grafted with MTP (multi-token prediction), about 35% faster. Worth a look if speed is your priority.
 
-![速度测试结果](/images/posts/2026/07/ornith-02.png)
-
----
-
-## 四、实际使用感受
-
-用llama.cpp使用了这个模型，开始测试：
-
-**日常文学类测试**
-
-让它生成一首诗，看看效果：
-
-![诗歌生成测试](/images/posts/2026/07/ornith-03.png)
-
-感觉还行。主要惊喜还是生成的速度，可以达到72tokens/s，这是我本地部署用过最快的模型了。
-
-**编程任务**这个模型主要的改善点在编程的能力，那我们结合opencode，看一下它的能力如何。
-
-用llama.cpp server启动服务：
-
-![llama.cpp server启动](/images/posts/2026/07/ornith-04.png)
-
-在opencode中配置本地这个模型，让它生成一个坦克大战的游戏：
-
-![opencode配置](/images/posts/2026/07/ornith-05.png)
-
-![坦克大战生成过程](/images/posts/2026/07/ornith-06.png)
-
-看log，速度在70tokens/t
-
-![日志显示速度](/images/posts/2026/07/ornith-07.png)
-
-但GPU占了快100%，极限了。
-
-程序生成到一半，生成代码被截断，决定用更小块输出。
-
-最后agent决定生成了最简单的程序，过了10分钟，说是做完了。
-
-![简化程序结果](/images/posts/2026/07/ornith-08.png)
-
-最后完成效果如下：
-
-![最终游戏效果](/images/posts/2026/07/ornith-09.png)
-
-体验了一下，bug比较多，玩玩就卡死。
+![Speed test results](/images/posts/2026/07/ornith-02.png)
 
 ---
 
-## 五、总结与建议
+## 4. Real-World Impressions
 
-最后给个明确的结论，省得大家纠结。
+I loaded the model with llama.cpp and started testing:
 
-整体来说，Ornith-1.0-35B 是个本地可用的编程类模型，我觉得只能给出代码段级的程序。工程级的程序基本是不太可能。平常使用的话，还是用在线版本的GLM5.2与Kimi2.6和DeepSeekV4 Pro靠谱。这个就是玩票性质。
+**Everyday writing test**
 
-*我是程序员老孙，专注 AI 相关技术，有问题欢迎在评论区讨论。*
+I asked it to write a poem to see how it does:
+
+![Poem generation test](/images/posts/2026/07/ornith-03.png)
+
+Not bad. The main surprise was the generation speed: up to 72 tokens/s, the fastest model I've ever run locally.
+
+**Coding tasks**. The model's main improvement is coding ability, so let's pair it with opencode and see how it does.
+
+Start the service with llama.cpp server:
+
+![llama.cpp server starting up](/images/posts/2026/07/ornith-04.png)
+
+Configure the local model in opencode and ask it to build a Tank Battle game:
+
+![opencode configuration](/images/posts/2026/07/ornith-05.png)
+
+![Tank Battle generation process](/images/posts/2026/07/ornith-06.png)
+
+Per the logs, the speed was around 70 tokens/s
+
+![Logs showing the speed](/images/posts/2026/07/ornith-07.png)
+
+But GPU utilization was pushing 100%, right at the limit.
+
+Midway through generation, the code output got truncated, so it decided to write in smaller chunks.
+
+In the end, the agent settled for generating the simplest possible program, and after 10 minutes said it was done.
+
+![Simplified program result](/images/posts/2026/07/ornith-08.png)
+
+The final result:
+
+![Final game result](/images/posts/2026/07/ornith-09.png)
+
+I gave it a try: pretty buggy, and it freezes up before long.
+
+---
+
+## 5. Conclusions and Advice
+
+Let me end with a clear verdict so nobody has to agonize over it.
+
+Overall, Ornith-1.0-35B is a locally runnable coding model, but in my view it can only produce snippet-level code. Project-scale programs are basically out of the question. For everyday use, the online GLM5.2, Kimi2.6, and DeepSeek V4 Pro are still the dependable choices. This one is more of a hobbyist's toy.
+
+*I'm MrSun, focused on AI and related technology. If you have questions, let's discuss in the comments.*

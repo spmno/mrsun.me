@@ -1,228 +1,228 @@
 ---
-title: "开源版本Claude Code -- Claw Code 功能介绍及使用"
+title: "Claw Code: The Open-Source Claude Code, Features and Usage"
 date: "2026-07-15"
-description: "Claw Code 是一个可扩展、多模型、可自主运行的 AI 编程助手，执行速度快，适配多个模型。是日常好用的助手，推荐朋友们尝试一下。"
+description: "Claw Code is an extensible, multi-model, autonomous AI coding assistant: fast at execution and compatible with many models. A great daily companion, well worth a try."
 category: "AI"
 tags: ["AI", "Claude Code", "Claw Code", "Rust", "CLI"]
 cover: "/images/posts/2026/07/cover.jpg"
 ---
 
-Claude Code 是 Anthropic 官方推出的终端 AI 编程 Agent，原本是闭源商业产品。但在一次 NPM 发布时，开发团队不小心把 TypeScript 源码的 source map 一起打了进去 —— 相当于把完整源码直接送到了用户手里。
+Claude Code is Anthropic's official terminal AI coding agent, originally a closed-source commercial product. But during one NPM release, the dev team accidentally shipped the TypeScript source maps along with the package, effectively handing users the complete source code.
 
-Claw Code 是一个用 Rust 写的 AI 编程助手 CLI，参考了 Claude Code 源码，支持多模型、可扩展、可自主运行。
+Claw Code is an AI coding assistant CLI written in Rust. Built with reference to the Claude Code source, it supports multiple models, is extensible, and can run autonomously.
 
 ---
 
-## 环境安装
+## Installation
 
-先安装 Rust 的环境，然后下载代码编译工程。
+First set up the Rust environment, then pull the code and build the project.
 
 ```bash
-# 安装 rustup（官方推荐方式）
+# Install rustup (the officially recommended way)
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
-# 重载环境
+# Reload the environment
 source ~/.cargo/env
 
-# 验证安装
+# Verify the installation
 cargo --version
 
-# 克隆仓库
+# Clone the repository
 git clone https://github.com/ultraworkers/claw-code.git
 cd claw-code/rust
 
-# 编译整个工作区（debug 版，编译快）
+# Build the entire workspace (debug build, compiles fast)
 cargo build --workspace
 ```
 
-## 环境配置
+## Configuration
 
-本次实践是用在线的 DeepSeek V4 的模型，API Key 需要自行去官网申请，具体配置如下：
+For this hands-on I used the online DeepSeek V4 model. You'll need to request an API key from the official site yourself. The configuration:
 
 ```bash
-export OPENAI_API_KEY="sk-你的DeepSeek密钥"
+export OPENAI_API_KEY="sk-your-deepseek-api-key"
 export OPENAI_BASE_URL="https://api.deepseek.com"
 ```
 
-验证是否生效：
+Verify that it works:
 
 ```bash
 ./target/debug/claw doctor
 ```
 
-可以编译 Release 版本：
+You can build a release version:
 
 ```bash
 cargo build --workspace --release
 ```
 
-进入工具：
+Enter the tool:
 
 ```bash
 ./target/release/claw --model local/deepseek-v4-pro
 ```
 
-## 核心功能
+## Core Features
 
-### 1. 多模型支持
+### 1. Multi-model support
 
-| 模型 | 提供商 |
+| Model | Provider |
 |---|---|
 | Claude Opus/Sonnet/Haiku | Anthropic |
 | GPT-4.1/5.4 | OpenAI |
-| DeepSeek V4 Pro/Flash | DeepSeek (OpenAI 兼容) |
-| Qwen 系列 | 阿里 DashScope |
+| DeepSeek V4 Pro/Flash | DeepSeek (OpenAI-compatible) |
+| Qwen series | Alibaba DashScope |
 | Grok | xAI |
 | Kimi | DashScope |
-| Ollama 本地模型 | 本地运行 |
+| Ollama local models | Runs locally |
 
 ```bash
-claw --model local/deepseek-v4-pro prompt "写排序代码"
-claw --model openai/gpt-4.1-mini prompt "解释这段代码"
-claw --model local/llama3.2 prompt "summarize this"  # 本地 Ollama
+claw --model local/deepseek-v4-pro prompt "write sorting code"
+claw --model openai/gpt-4.1-mini prompt "explain this code"
+claw --model local/llama3.2 prompt "summarize this"  # local Ollama
 ```
 
-### 2. 交互式 REPL
+### 2. Interactive REPL
 
 ```bash
-claw  # 启动交互模式
-/doctor    # 健康检查
-/help      # 帮助
-/status    # 状态
-/model     # 切换模型
-/cost      # 费用统计
+claw  # start interactive mode
+/doctor    # health check
+/help      # help
+/status    # status
+/model     # switch model
+/cost      # cost stats
 ```
 
-![REPL 界面](/images/posts/2026/07/1.png)
+![REPL interface](/images/posts/2026/07/1.png)
 
-### 3. 内置工具
+### 3. Built-in tools
 
-| 工具 | 功能 |
+| Tool | Function |
 |---|---|
-| `Bash` | 执行 shell 命令 |
-| `ReadFile` | 读取文件 |
-| `WriteFile` | 写入文件 |
-| `EditFile` | 编辑文件 |
-| `GlobSearch` | 文件名搜索 |
-| `GrepSearch` | 内容搜索 |
-| `WebSearch` | 网络搜索 |
-| `WebFetch` | 获取网页 |
-| `TodoWrite` | 任务管理 |
-| `NotebookEdit` | Jupyter 编辑 |
-| `LSP` | 语言服务器 |
+| `Bash` | Run shell commands |
+| `ReadFile` | Read files |
+| `WriteFile` | Write files |
+| `EditFile` | Edit files |
+| `GlobSearch` | Filename search |
+| `GrepSearch` | Content search |
+| `WebSearch` | Web search |
+| `WebFetch` | Fetch web pages |
+| `TodoWrite` | Task management |
+| `NotebookEdit` | Jupyter editing |
+| `LSP` | Language server |
 
-### 4. 会话管理
+### 4. Session management
 
 ```bash
-claw --resume latest          # 恢复上次会话
-claw --resume latest /diff    # 恢复并查看差异
-claw prompt "继续上次的工作"    # 一次性提示
+claw --resume latest          # resume the last session
+claw --resume latest /diff    # resume and show the diff
+claw prompt "continue the previous work"  # one-shot prompt
 ```
 
-### 5. 技能系统
+### 5. Skills system
 
 ```bash
-/claw skills list              # 查看已安装技能
-/claw skills install <path>    # 安装技能
-/claw skills uninstall <name>  # 卸载技能
+/claw skills list              # list installed skills
+/claw skills install <path>    # install a skill
+/claw skills uninstall <name>  # uninstall a skill
 ```
 
-### 6. 代理（Agent）系统
+### 6. Agent system
 
 ```bash
-claw agents list               # 列出代理
-claw agents create my-agent    # 创建自定义代理
+claw agents list               # list agents
+claw agents create my-agent    # create a custom agent
 ```
 
-### 7. MCP 服务器
+### 7. MCP servers
 
 ```bash
-claw mcp                       # 查看 MCP 配置
+claw mcp                       # view MCP configuration
 ```
 
-### 8. 权限控制
+### 8. Permission control
 
 ```bash
-claw --permission-mode read-only prompt "..."       # 只读
-claw --permission-mode workspace-write prompt "..."  # 可写（默认）
-claw --dangerously-skip-permissions prompt "..."     # 完全访问
+claw --permission-mode read-only prompt "..."       # read-only
+claw --permission-mode workspace-write prompt "..."  # writable (default)
+claw --dangerously-skip-permissions prompt "..."     # full access
 ```
 
 ---
 
-## 独特能力
+## What Makes It Different
 
-### 自主运行（Clawable）
+### Autonomous running (Clawable)
 
-这个项目的核心理念是 **人定方向，AI 执行**：
+The project's core philosophy is **humans set the direction, AI executes**:
 
-- 人在 Discord 发一句话
-- AI 自动分解任务、写代码、跑测试、修复错误、提交推送
-- 不需要人盯着终端
+- A human drops a single line in Discord
+- The AI automatically breaks down the task, writes code, runs tests, fixes bugs, commits and pushes
+- No need to babysit the terminal
 
-![自主运行示意图](/images/posts/2026/07/2.png)
+![Autonomous running diagram](/images/posts/2026/07/2.png)
 
-### 并行多 Agent 协调
+### Parallel multi-agent coordination
 
-- Architect（架构师）→ Executor（执行者）→ Reviewer（审查者）
-- 自动重试、分歧解决、验证循环
+- Architect → Executor → Reviewer
+- Automatic retries, conflict resolution, verification loops
 
-### 事件驱动
+### Event-driven
 
-- 监听 git commits、tmux sessions、GitHub issues/PRs
-- 通知路由在 agent 上下文之外，不占 token
+- Listens to git commits, tmux sessions, GitHub issues/PRs
+- Notification routing happens outside the agent context, so it doesn't consume tokens
 
 ---
 
-## 适用场景
+## Use Cases
 
-| 场景 | 用法 |
+| Scenario | Usage |
 |---|---|
-| 日常编码 | `claw prompt "实现登录功能"` |
-| 代码审查 | `claw prompt "审查这个 PR"` |
-| 重构 | `/ultraplan 重构 auth 模块` |
-| 调试 | `/bughunter src/handlers` |
-| 文档生成 | `claw prompt "为这个函数写文档"` |
-| 自动化工作流 | 通过 Discord/hooks 自主运行 |
+| Daily coding | `claw prompt "implement login"` |
+| Code review | `claw prompt "review this PR"` |
+| Refactoring | `/ultraplan refactor the auth module` |
+| Debugging | `/bughunter src/handlers` |
+| Docs generation | `claw prompt "write docs for this function"` |
+| Automated workflows | Autonomous runs via Discord/hooks |
 
 ---
 
-## 与 Claude Code 的区别
+## Claw Code vs. Claude Code
 
-| 特性 | Claw Code | Claude Code |
+| Feature | Claw Code | Claude Code |
 |---|---|---|
-| 多模型 | ✅ DeepSeek/Qwen/Grok/Ollama 等 | ❌ 仅 Claude |
-| 自主运行 | ✅ 设计为核心能力 | ⚠️ 有限 |
-| 事件驱动 | ✅ Discord/GitHub 集成 | ❌ |
-| 技能系统 | ✅ 可扩展 | ⚠️ 有限 |
-| 开源 | ✅ MIT | ❌ |
+| Multi-model | ✅ DeepSeek/Qwen/Grok/Ollama, etc. | ❌ Claude only |
+| Autonomous running | ✅ Designed as a core capability | ⚠️ Limited |
+| Event-driven | ✅ Discord/GitHub integration | ❌ |
+| Skills system | ✅ Extensible | ⚠️ Limited |
+| Open source | ✅ MIT | ❌ |
 
 ---
 
-## 实操写代码、读代码
+## Hands-On: Writing and Reading Code
 
-### 1. 写一段 Python 排序的代码
+### 1. Write some Python sorting code
 
 ```bash
-./target/debug/claw --model local/deepseek-v4-pro prompt "写一个Python快速排序"
+./target/debug/claw --model local/deepseek-v4-pro prompt "write a Python quicksort"
 ```
 
-会在本地生成文件，并且测试，将输出打印出来。
+It generates the file locally, tests it, and prints the output.
 
-![写代码效果](/images/posts/2026/07/3.png)
+![Code writing in action](/images/posts/2026/07/3.png)
 
-### 2. 读一下这个工程代码
+### 2. Read the project's code
 
-大约 30 秒左右完成工作，部分输出如下：
+It finished the job in about 30 seconds. Partial output below:
 
-![读代码效果](/images/posts/2026/07/4.png)
+![Code reading in action](/images/posts/2026/07/4.png)
 
-完成以上的任务，费用如下：
+The cost of the tasks above:
 
-![费用统计](/images/posts/2026/07/5.png)
+![Cost stats](/images/posts/2026/07/5.png)
 
 ---
 
-## 总结
+## Wrap-up
 
-Claw Code 是一个可扩展、多模型、可自主运行的 AI 编程助手，执行速度快，适配多个模型。是日常好用的助手，推荐朋友们尝试一下，有问题欢迎在评论区交流。
+Claw Code is an extensible, multi-model, autonomous AI coding assistant: fast at execution and compatible with many models. It's a great daily companion, and I recommend giving it a try. If you run into problems, let's talk in the comments.

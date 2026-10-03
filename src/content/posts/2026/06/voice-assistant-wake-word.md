@@ -1,68 +1,68 @@
 ---
-title: "让语音助手更实用，增加「唤醒」功能"
+title: "Making a Voice Assistant More Practical by Adding a Wake Word"
 date: "2026-06-30"
-description: "基于 sherpa-onnx 的 keyword spotter，为语音助手增加唤醒词功能，降低功耗的同时减少 token 消耗，实测灵敏度与准确度都不错。"
-category: "技术教程"
-tags: ["语音助手", "唤醒词", "sherpa-onnx", "Rust", "语音识别"]
+description: "Add wake word support to a voice assistant with sherpa-onnx's keyword spotter. It lowers power usage and cuts token consumption, and in my testing both sensitivity and accuracy hold up well."
+category: "Tutorials"
+tags: ["voice assistant", "wake word", "sherpa-onnx", "Rust", "speech recognition"]
 cover: "/images/posts/2026/06/wake-word-cover.jpg"
 ---
 
-# 让语音助手更实用，增加「唤醒」功能
+# Making a Voice Assistant More Practical by Adding a Wake Word
 
-上篇写了 [sherpa-onnx + mic 实时收音 + 即时文字记录](https://mp.weixin.qq.com/s?__biz=MzAwNzAzNTEwNw==&mid=2648367272&idx=1&sn=c7cbb023814f72b3caf4f7a294ac409a&scene=21#wechat_redirect) 可以将实时的语音转化成文字，保存在文件中，完成了实时文字记录的功能。
+Last time I wrote about [sherpa-onnx + real-time mic capture + instant transcription](https://mp.weixin.qq.com/s?__biz=MzAwNzAzNTEwNw==&mid=2648367272&idx=1&sn=c7cbb023814f72b3caf4f7a294ac409a&scene=21#wechat_redirect), which converts live speech into text and saves it to a file, completing the real-time transcription feature.
 
-今天我们实现一个「唤醒」功能 —— 每次只有唤醒之后，才会启动语音转文字模块，再将文字给相应的 Agent，最后通过 TTS 功能播放最终的结果。
+Today we'll implement a "wake" feature. The speech-to-text module only starts after the wake word is detected, then the text is passed to the corresponding Agent, and the final result is played back through TTS.
 
-## 整体方案
+## Overall Design
 
-根据上次的架构进行了更新，增加了唤醒词功能，只有激活了唤醒词，才能进入下一步的处理。
+I updated the previous architecture to add wake word support. Only after the wake word is activated does processing move on to the next step.
 
-核心流程如下：
+The core flow:
 
 ```
-音频采集 → 唤醒词检测 → [唤醒成功] → 音频处理 → 语音识别 → 断句处理 → Agent 交互 → 输出
+Audio capture → Wake word detection → [Wake success] → Audio processing → Speech recognition → Sentence segmentation → Agent interaction → Output
 ```
 
-![整体架构流程](/images/posts/2026/06/wake-word-01.png)
+![Overall architecture flow](/images/posts/2026/06/wake-word-01.png)
 
-## 代码实现
+## Implementation
 
-程序代码 base 是上次的语音转文字工程，参考了 sherpa 的 keyword spotter 的 example，增加了关键字唤醒的功能。
+The code base is the speech-to-text project from last time. I referenced sherpa's keyword spotter example and added keyword wake functionality.
 
-还是 Vibe Coding 用 Opencode 实现，中间有几次编译问题与运行时的崩溃都用 Opencode 解决。
+Still Vibe Coding with Opencode. A few compile errors and runtime crashes along the way were all resolved with Opencode.
 
-Cargo.toml 依赖如下：
+The Cargo.toml dependencies:
 
 ```toml
 [package]
-# sherpa-onnx keyword spotter 相关依赖
+# sherpa-onnx keyword spotter related dependencies
 ```
 
-核心代码直接可用：
+The core code is ready to use as-is:
 
 ```rust
 use anyhow::Result;
-// 音频采集 → 唤醒词检测 → 语音识别 → Agent 交互
+// Audio capture → Wake word detection → Speech recognition → Agent interaction
 ```
 
-## 实测效果
+## Real-World Testing
 
-应用在根目录下的 `kws_keywords.txt` 中定义唤醒词：
+The app defines wake words in `kws_keywords.txt` in the project root:
 
-![唤醒词配置文件](/images/posts/2026/06/wake-word-04.png)
+![Wake word configuration file](/images/posts/2026/06/wake-word-04.png)
 
 ```bash
-cargo run  # 运行程序
+cargo run  # Run the program
 ```
 
-启动后，说了一会话，发现没有被识别。
+After starting it, I spoke for a while and nothing was recognized.
 
-然后，说了唤醒词「你好，小猫」，唤醒词检测成功，并开始进行转换，效果不错。
+Then I said the wake word "ni hao, xiao mao" (hello, little cat). The wake word was detected successfully and transcription started. It worked well.
 
-![唤醒词检测成功](/images/posts/2026/06/wake-word-05.png)
+![Wake word detected successfully](/images/posts/2026/06/wake-word-05.png)
 
-灵敏度方面 —— 不需要太大声音即可唤醒；准确度方面 —— 比如「你好，小狗」和「你好，小花」都不会误识别。
+On sensitivity, you don't need to speak loudly to trigger it. On accuracy, similar phrases like "ni hao, xiao gou" (hello, little dog) and "ni hao, xiao hua" (hello, little flower) didn't cause false detections.
 
-## 总结
+## Summary
 
-在语音助手加入了唤醒词功能，既降低了功耗，又不会把所有的文字都给 Agent，减少了 token 的消耗。实测下来灵敏度和准确度都不错。推荐大家有空也试试，有问题欢迎评论区交流。
+Adding wake word support to the voice assistant lowers power consumption and avoids sending every transcribed word to the Agent, which cuts token usage. In my testing, both sensitivity and accuracy are solid. I recommend giving it a try when you have time. If you hit any problems, let's talk in the comments.

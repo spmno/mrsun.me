@@ -1,22 +1,22 @@
 ---
-title: "使用Astro为博客添加排序功能：按时间组织文章的完整指南"
+title: "Adding a Sorting Feature to Your Blog with Astro: A Complete Guide to Organizing Posts by Date"
 date: "2024-12-19"
-description: "给BLOG添加排序功能，实现按照时间排序"
-category: "博客"
-tags: ["astro", "blogging", "博客", "排序", "sort"]
+description: "Adding a sorting feature to the blog so posts are listed in date order"
+category: "Blogging"
+tags: ["astro", "blogging", "blog", "sorting", "sort"]
 ---
 
-# 给BLOG添加排序功能，实现按照时间排序
-## 实现思路：
-1. 遍历posts目录下的所有md文件，获取文件的创建时间和文件名。
-2. 按照创建时间排序，获取排序后的blog列表。
+# Adding a Sorting Feature to the Blog to Sort Posts by Date
+## The Approach
+1. Walk through all the md files in the posts directory and grab each file's creation time and filename.
+2. Sort by creation time to get the ordered blog list.
 
-### 代码实现：
-将获取的allPosts按照时间排序。   
+### The Implementation
+Sort the fetched allPosts by date.   
 </br>
 ```js
 const allPosts = await getCollection("blog");
 allPosts.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
 ```  
 </br>
-仅一行代码就实现了排序功能。
+One line of code is all it takes to implement sorting.

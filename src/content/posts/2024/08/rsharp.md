@@ -1,16 +1,16 @@
 ---
-title: "Rust中r#的含义"
+title: "The Meaning of r# in Rust"
 date: "2024-08-20"
-description: "探索Rust中的r#语法：详细解析其用途与实际应用场景"
+description: "Exploring the r# syntax in Rust: a detailed look at what it's for and where it applies in practice"
 category: "Rust"
 tags: ["string", "rust"]
 cover: "/images/rust-language.png"
 ---
 
-Rust中r#的含义
+The meaning of r# in Rust
 
-# 两种情况用到r#
-1. 使用Rust关键字作为变量名、函数名、模块名等标识符，可以在关键字前面加上前缀r#，这样编译器就会将其解析为标识符而非关键字。
+# Two cases where you'd use r#
+1. To use a Rust keyword as an identifier such as a variable name, function name, or module name, you can prefix the keyword with r#, and the compiler will then parse it as an identifier rather than a keyword.
 ```
 pub struct Tool {
     /// The schema of the tool. Currently, only functions are supported.
@@ -19,7 +19,7 @@ pub struct Tool {
     function: FunctionInfo,
 }
 ```
-2. 字符串字面量中包含特殊字符，也可以在字符串前添加r#，结尾添加#.
+2. When a string literal contains special characters, you can also add r# before the string and # at the end.
 ```
 fn main(){
 

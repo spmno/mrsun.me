@@ -1,21 +1,21 @@
 ---
-title: "从零开始使用Astro构建个人博客：详细步骤指南"
+title: "Building a Personal Blog from Scratch with Astro: A Detailed Step-by-Step Guide"
 date: "2024-12-21"
-description: "通过Astro搭建个人博客，第一次不同，这次没有用模板，而是从头开始搭建。"
-category: "博客"
-tags: ["astro", "blogging", "博客"]
+description: "Building a personal blog with Astro. Unlike the first time, I skipped the template and built everything from scratch."
+category: "Blogging"
+tags: ["astro", "blogging", "blog"]
 ---
-## 背景
-使用了一段时间的Astro，感觉还是挺好用的。但是想修改一些功能，就比较麻烦了。这次从头开始搭建，记录下过程。  
+## Background
+I've been using Astro for a while now, and it works quite well. But when I wanted to modify some of the features, it got rather troublesome. So this time I built from scratch, and I'm writing down the process.  
 
-## 过程
-1. 这次从头开始搭建，参考了官方的教程的文档。  
-[搭建你的第一个 Astro 博客](https://docs.astro.build/zh-cn/tutorial)  
-使用最小化的模板，没有使用blog模板。命令如下：
+## The Process
+1. For this from-scratch build, I followed the official tutorial docs.  
+[Build your first Astro blog](https://docs.astro.build/zh-cn/tutorial)  
+I used the minimal template, not the blog template. The command:  
     </br>
     ```
     pnpm create astro@latest --template minimal
     ```
     </br>  
 
-    选择安排依赖和GIT项目的初始化。
+    Choose to install the dependencies and initialize the Git repository.

@@ -1,30 +1,30 @@
 ---
-title: "Android平台使用webrtc库"
+title: "Using the WebRTC Library on Android"
 date: "2025-01-03"
-description: "深入指南：在Android平台上集成和使用WebRTC库，包括API详解与实践案例"
+description: "An in-depth guide to integrating and using the WebRTC library on Android, with API details and practical examples"
 category: "WebRTC"
 tags: ["webrtc", "android", "aec"]
 ---
 
-## 背景
+## Background
 
-经过上一篇的webrtc库的编译，我们有了编译好的webrtc库。这里我们讲一下如何使用webrtc库。
+In the previous post we compiled the WebRTC library, so now we have the build in hand. This post covers how to actually use it.
 
-## 过程
+## The Process
 
-通过之前下面的这几个命令，我们已经得到了编译好的webrtc库。 
+With the commands below from last time, we've already got the compiled WebRTC library. 
 ```
 meson . build -Dprefix=$PWD/install --cross-file=cross_android.txt
 ninja -C build
 ninja -C build install
 ```
-在build目录下生成install目录，里面就是编译好的so文件。名称是libwebrtc-audio-processing-2.so。   
-首先建立一个Android项目，在main目录右键New-> Folder-> JNI Folder。  
-然后将libwebrtc-audio-processing-2.so文件拷贝到jniLibs目录下。  
-　<font color='red'>注意：一定要在copy之前把so后面的-2去掉，否则会报错。这个问题查了好久，才发现的。</font>
+This creates an install directory under build, and inside it is the compiled .so file, named libwebrtc-audio-processing-2.so.   
+First, create an Android project. In the main directory, right-click and choose New -> Folder -> JNI Folder.  
+Then copy the libwebrtc-audio-processing-2.so file into the jniLibs directory.  
+ <font color='red'>Note: Be sure to strip the -2 suffix from the .so file name before copying it, otherwise you'll get errors. It took me a long time of digging to track this one down.</font>
 ![alt text](/images/use_webrtc1.png)  
-然后我们发现使用库需要头文件，但是我们没有头文件。我们需要把webrtc库的文件夹直接拷贝到我们的项目中。
-编辑下CMakeLists.txt文件，添加下面的代码。增加了头文件和库文件。
+Then we find that using the library requires header files, which we don't have. We need to copy the WebRTC library's folder directly into our project.
+Edit the CMakeLists.txt file and add the code below. This brings in the header files and the library.
 ```
 set(my_lib_path ${CMAKE_SOURCE_DIR}/../jniLibs)
 add_library(webrtc-audio-processing SHARED IMPORTED)
@@ -35,12 +35,12 @@ include_directories(
         ./webrtc/
 )
 ```
-编译，正常出错，提示找不到absl库相关的文件。
-去webrtc库的文件夹中找到absl库的文件夹，然后拷贝到我们的项目中。在根目录下的subprjects文件夹中。   
-再编译，正常的话会通过。
+Build it, and sure enough it fails, complaining that it can't find files related to the absl library.
+Go to the WebRTC library folder, find the absl library folder, and copy it into our project, under the subprojects folder in the root directory.   
+Build again, and if all goes well it should pass.
   
-补充: 运行时发现找不到libwebrtc-audio-processing-2.so，原因是我们把库改名了，再复制一个库，改名为libwebrtc-audio-processing-2.so，就可以了。
-另外，还会找不到libc++_shared.so，在build.gradle文件中添加下面的代码。  
+Extra note: at runtime it turned out that libwebrtc-audio-processing-2.so couldn't be found, because we had renamed the library. Just make another copy of the library and name it libwebrtc-audio-processing-2.so, and it works.
+Also, libc++_shared.so may be missing too. Add the following code to the build.gradle file.  
 ```
         externalNativeBuild {
             cmake {
@@ -50,4 +50,4 @@ include_directories(
         }
 ```
 
-最后上链接：https://github.com/spmno/WebrtcTest
+Finally, here's the link: https://github.com/spmno/WebrtcTest

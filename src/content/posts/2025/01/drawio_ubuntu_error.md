@@ -1,37 +1,37 @@
 ---
-title: "解决DrawIO在Ubuntu系统中的运行问题：详细故障排除指南"
+title: "Fixing DrawIO Startup Issues on Ubuntu: A Detailed Troubleshooting Guide"
 date: "2025-01-20"
-description: "解决在Ubuntu上安装DrawIO deb包后无法启动的问题"
+description: "Fixing DrawIO failing to launch after installing the deb package on Ubuntu"
 category: "Linux"
 tags: ["drawio", "ubuntu", "sandbox"]
 ---
 
-## 问题描述
+## The Problem
 
-在Ubuntu系统上从GitHub下载DrawIO的deb包并安装后，启动时遇到问题无法正常运行。这是由于DrawIO的沙盒权限配置不正确导致的。
+After downloading DrawIO's deb package from GitHub and installing it on Ubuntu, it failed to launch properly. This is caused by an incorrect sandbox permission configuration in DrawIO.
 
-## 解决方案
+## The Fix
 
-1. 打开终端，进入DrawIO的安装目录：
+1. Open a terminal and go to DrawIO's installation directory:
    ```bash
    cd /opt/drawio
    ```
 
-2. 执行以下两个命令修复权限问题：
+2. Run these two commands to fix the permission issue:
    ```bash
    sudo chown root:root chrome-sandbox
    sudo chmod 4755 chrome-sandbox
    ```
 
-## 命令解释
+## What the Commands Do
 
-- `chown root:root chrome-sandbox`：将chrome-sandbox文件的所有者改为root用户
-- `chmod 4755 chrome-sandbox`：设置文件权限为4755，其中4表示设置SUID位，755表示所有者可读可写可执行，其他用户可读可执行
+- `chown root:root chrome-sandbox`: changes the owner of the chrome-sandbox file to the root user
+- `chmod 4755 chrome-sandbox`: sets the file permission to 4755, where the 4 sets the SUID bit, and 755 means the owner can read, write, and execute while everyone else can read and execute
 
-## 可能原因
+## Why This Happens
 
-这个问题通常发生在使用AppImage或deb包安装的Electron应用中，因为Linux系统的沙盒机制需要特定的文件权限设置。通过上述命令可以正确配置沙盒权限，使DrawIO能够正常运行。
+This issue typically affects Electron apps installed from AppImages or deb packages, because the Linux sandbox mechanism requires specific file permissions. The commands above set the sandbox permissions correctly so DrawIO can run normally.
 
-## 验证
+## Verification
 
-执行完上述命令后，重新启动DrawIO应用程序，应该可以正常使用了。
+After running the commands above, restart the DrawIO application and it should work normally.

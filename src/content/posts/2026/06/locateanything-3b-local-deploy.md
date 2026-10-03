@@ -1,66 +1,66 @@
 ---
-title: "实测｜本地部署 LocateAnything-3B，实现物体识别全过程"
+title: "Hands-On | Deploying LocateAnything-3B Locally for Object Detection, Start to Finish"
 date: "2026-06-30"
-description: "在 AMD GPU 上本地部署 LocateAnything-3B 模型进行物体识别，实测识别无人机效果，附详细安装与代码说明。"
-category: "技术教程"
-tags: ["AI", "物体识别", "LocateAnything", "Python", "深度学习", "本地部署"]
+description: "Deploying the LocateAnything-3B model locally on an AMD GPU for object detection, with a real-world test recognizing drones, plus detailed setup and code notes."
+category: "Tutorials"
+tags: ["AI", "object detection", "LocateAnything", "Python", "deep learning", "local deployment"]
 cover: "/images/posts/2026/06/locate-anything-cover.jpg"
 ---
 
-# 实测｜本地部署 LocateAnything-3B，实现物体识别全过程
+# Hands-On | Deploying LocateAnything-3B Locally for Object Detection, Start to Finish
 
-最近看到很多用 LocateAnything-3B 做物体识别的例子，速度要比 Qwen3.5 快，准确度要比 YOLO 系列高，并且不用训练就可直接使用。看作者名字，国人占了大部分。
+I've been seeing a lot of examples lately of LocateAnything-3B being used for object detection. It's faster than Qwen3.5, more accurate than the YOLO family, and works out of the box without any training. Judging by the author names, most of the contributors are Chinese.
 
-下面和大家分享下整体过程。
+Let me walk you through the whole process.
 
-## 安装
+## Installation
 
-安装的过程比较曲折，开始想用 Rust 的框架去实现。先后试用了 burn 与 candle 之后，发现这两个框架 LocateAnything 不支持。所以只能使用常用的 Python 大礼包解决问题。
+The installation process had its fair share of twists and turns. I originally wanted to implement it with a Rust framework, but after trying burn and then candle, it turned out neither supports LocateAnything. So I had to fall back on the usual Python goodie bag to solve the problem.
 
-手动折腾了半天，不是库安装不成功，就是库的版本号不匹配。最后无奈让 Opencode 去安装环境，Opencode 通过不断的尝试，安装成功。AI Agent 是越来越好用了。
+I spent half a day fiddling with it by hand, and it was either libraries failing to install or version numbers not matching. In the end I reluctantly handed the environment setup to Opencode, and through repeated attempts it got everything installed. AI agents really are getting more and more useful.
 
-给 Opencode 的命令如下：
+The command I gave Opencode:
 
-> 在本地使用 LocateAnything 的模型，我的 GPU 是 W7900，显卡正常安装，可以用 `amd-smi` 查看配置，Python 的环境在 `la-env` 目录。
+> Use the LocateAnything model locally. My GPU is a W7900, the graphics driver is installed and working, you can check the configuration with `amd-smi`, and the Python environment is in the `la-env` directory.
 
-Opencode 查询了当前的环境，确认后开始下载模型和搭建相关的库。在去 Hugging Face 下载失败后，竟然知道国内有相关的镜像，设置镜像后下载成功。
+Opencode queried the current environment, confirmed things, and started downloading the model and setting up the libraries. When the download from Hugging Face failed, it surprisingly knew about a mirror site in China, and after configuring the mirror, the download succeeded.
 
-![Opencode 配置环境与下载模型](/images/posts/2026/06/locate-03.png)
+![Opencode setting up the environment and downloading the model](/images/posts/2026/06/locate-03.png)
 
-安装 Python 库的过程中，发现 transformers 的库太新，不兼容 LocateAnything。当库的版本降到了 4.57，最后将所有库都安装成功。Opencode 还自己生成了一个图片，用代码进行测试通过。
+While installing the Python libraries, it found that the transformers library was too new and incompatible with LocateAnything. Once the library version was downgraded to 4.57, all the libraries finally installed successfully. Opencode even generated an image by itself and tested the code successfully.
 
-![安装成功验证](/images/posts/2026/06/locate-04.png)
+![Installation verified](/images/posts/2026/06/locate-04.png)
 
-## 实测
+## Field Test
 
-最近在做无人机相关的工作，所以想测试一下 LocateAnything 识别无人机的能力。
+I've been doing drone-related work recently, so I wanted to test LocateAnything's ability to detect drones.
 
-### 单无人机识别
+### Single Drone Detection
 
-在网上下载图片，识别正常，识别时间约 3 秒左右。
+I downloaded an image from the internet. Detection worked correctly, taking about 3 seconds.
 
-![单无人机识别结果](/images/posts/2026/06/locate-06.png)
+![Single drone detection result](/images/posts/2026/06/locate-06.png)
 
-### 多无人机识别
+### Multiple Drone Detection
 
-使用包含多架无人机的图片进行测试，图中的无人机全部被标注了出来，效果符合预期。
+Testing with an image containing multiple drones, every drone in the picture was labeled. The results matched expectations.
 
-![多无人机识别结果](/images/posts/2026/06/locate-07.png)
+![Multiple drone detection results](/images/posts/2026/06/locate-07.png)
 
-## 代码示例
+## Code Example
 
-核心识别代码参考如下（复制可用）：
+The core detection code for reference (ready to copy):
 
 ```python
 #!/usr/bin/env python3
-# 加载模型并执行推理
-# 完整代码请参考 LocateAnything 官方仓库
+# Load the model and run inference
+# See the official LocateAnything repo for the full code
 ```
 
-## 总结
+## Summary
 
-用 AMD GPU 在本地部署 LocateAnything-3B，进行了无人机的识别，效果达到了预期，识别时间在 3-5 秒左右。由于我的显卡原因，识别的速度不太理想，有时间在 N 卡上再试试。
+I deployed LocateAnything-3B locally on an AMD GPU and ran drone detection. The results met expectations, with detection times around 3-5 seconds. Due to my graphics card, the speed isn't ideal; when I have time I'll give it another try on an NVIDIA card.
 
-总之，LocateAnything-3B 识别物体的能力还不错，建议大家尝试一下。有问题欢迎在评论区交流。
+All in all, LocateAnything-3B's object detection capability is pretty good, and I recommend giving it a try. If you have any questions, let's chat in the comments.
 
-> 项目地址：https://github.com/IDEA-Research/LocateAnything
+> Project repo: https://github.com/IDEA-Research/LocateAnything

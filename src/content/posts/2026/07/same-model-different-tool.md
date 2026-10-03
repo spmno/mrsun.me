@@ -1,62 +1,62 @@
 ---
-title: "同样的AI模型，换个工具，效果为啥天差地别？"
+title: "Same AI Model, Different Tool: Why Is the Result Night and Day?"
 date: "2026-07-16"
-description: "不要一味看模型不好用、不稳定。用现在主流的模型工作，大多数场景下，不是模型能力不行，是你用的调工具有没有强大的工程能力。选对工具、用对方法，普通免费模型，也能跑出专业级的稳定效果。"
+description: "Don't be quick to blame the model for being weak or unstable. With today's mainstream models, in most cases it isn't the model that falls short; it's whether the tool orchestrating it has serious engineering behind it. Pick the right tool, use it the right way, and even an ordinary free model can deliver professional-grade, stable results."
 category: "AI"
-tags: ["AI", "OpenCode", "工具", "模型"]
+tags: ["AI", "OpenCode", "tools", "models"]
 cover: "/images/posts/2026/07/same-model-cover.jpg"
 ---
 
-> 原文发表于微信公众号「程序员老孙」，[原文链接](https://mp.weixin.qq.com/s/5xQo3Qk-WNsBqYcJxLuQIA)。
+> Originally published on MrSun's WeChat Official Account. [Read the original article](https://mp.weixin.qq.com/s/5xQo3Qk-WNsBqYcJxLuQIA).
 
-大家好，我是老孙。
+Hi, I'm MrSun.
 
-昨天用 deepseek 调通了 claw-code 工具。 [开源版本Claude Code -- Claw Code 功能介绍及使用](https://mp.weixin.qq.com/s?__biz=MzAwNzAzNTEwNw==&mid=2648367407&idx=1&sn=bbcf60dd115e6e3957ff09ed6d8e7f1b&scene=21#wechat_redirect)虽然费用不多，但还可以用openrouter的免费模型，我接入了腾讯混元 HY3。之前用opencode也用了腾讯混元 HY3 模型，就想比较一下，不同工具，同一模型的效果。 抖音关注的晓辉老师总说，AI 模型本身的能力，从来不是决定产出质量的唯一关键。很多时候，拉开差距的，是Agent的能力。 今天就用我复刻坦克大战的实战经历，跟大家聊聊这件事。
+Yesterday I got the claw-code tool working with DeepSeek. [Claw Code: the open-source Claude Code, features and usage](https://mp.weixin.qq.com/s?__biz=MzAwNzAzNTEwNw==&mid=2648367407&idx=1&sn=bbcf60dd115e6e3957ff09ed6d8e7f1b&scene=21#wechat_redirect). The cost was modest, but you can also use OpenRouter's free models, so I wired in Tencent Hunyuan HY3. I'd already used Tencent Hunyuan HY3 with opencode, so I wanted to compare: same model, different tools. Teacher Xiaohui, whom I follow on Douyin, always says the model's raw capability is never the only thing that decides output quality; very often, what separates the results is the agent's capability. Today I'll use my hands-on experience rebuilding Tank Battle to talk about exactly that.
 
-TL；DR：OpenCode好用。
+TL;DR: OpenCode works better.
 
-## 一模一样的模型，截然不同的效果
+## Identical Model, Radically Different Results
 
-本次测试全程只用一个模型：腾讯混元 HY3，claw-code用 OpenRouter 调用，opencode用内置模型。 前后两次做同一个需求：编写一个完整单文件HTML坦克大战游戏。
+The whole test used one model only: Tencent Hunyuan HY3 (claw-code called it via OpenRouter, opencode used its built-in integration). Both runs tackled the same requirement: build a complete single-file HTML Tank Battle game.
 
-第一次用 OpenCode ：一次成型，直接可玩，逻辑、交互、布局全部达标，体验很稳定。
+First run, OpenCode: one shot, playable immediately; logic, interactions, and layout all up to standard. Very stable.
 
 ![](/images/posts/2026/07/same-model-01.png)
 
-第二次换 claw-code 调度：连续调整了三次，反复修正才能正常运行。 同一个模型、同一个需求、同一套网络环境，结果却不一样。
+Second run, orchestrated by claw-code: three rounds of adjustments and repeated fixes before it would run properly. Same model, same requirement, same network. Different outcomes.
 
-## 翻车实录，都是典型细节问题
+## The Failures, Documented: All Classic Detail Problems
 
-我全程没有修改需求，只是更换调度工具，翻车原因都非常典型，也是AI编程的常见短板。
+I never changed the requirement; I only swapped the orchestrating tool. The failure modes were all textbook: the usual weak spots of AI coding.
 
-第一次翻车：核心布局逻辑失效
+First failure: core layout logic broken
 
-模型生成代码后，直接提示完成。打开页面发现，基地老鹰和玩家坦克变成一个东西了，游戏开始后坦克生成在基地，基本没办法玩。
+The model generated the code and promptly declared the job done. Opening the page, I found the base eagle and the player's tank had merged into one thing: once the game started, the tank spawned inside the base. Basically unplayable.
 
 ![](/images/posts/2026/07/same-model-02.png)
 
-第二次翻车：功能能用，坦克卡住不走。
+Second failure: it worked, but the tanks froze in place.
 
-最终解决：再次告诉 claw-code 坦克无法移动后，工具优化了移动函数，修正按键映射。 最终成品功能完整，包含敌人AI、墙体、特效等，但相比OpenCode的一次成型，足足多了两轮迭代成本。
+Final fix: after I told claw-code once more that the tanks couldn't move, the tool improved the movement function and fixed the key mapping. The finished product was feature-complete (enemy AI, walls, effects and all), but compared with OpenCode's one-shot success, it cost two extra rounds of iteration.
 
 ![](/images/posts/2026/07/same-model-03.png)
 
-## 查看源码找真相：差的不是模型，是兜底机制
+## Digging into the Source for the Truth: It's Not the Model, It's the Safety Net
 
-为了搞懂差距，我用opencode分析 Claw Code 核心源码，包括 prompt 组装、会话管理、能力配置模块，定位到核心原因：模型只负责生成内容，调度外壳负责兜底校验。生成靠AI，稳定靠工程。 Claw Code 和 OpenCode 的核心差距，集中在4个工程设计细节上。
+To understand the gap, I used opencode to analyze Claw Code's core source (prompt assembly, session management, capability configuration) and pinned down the root cause: the model only generates content; the orchestration shell is responsible for verification as the safety net. Generation is the AI's job; stability is engineering's. The core gap between Claw Code and OpenCode comes down to four engineering design details.
 
-1、模型定位只是普通助理，而非验收式编程Agent
+1. The model is positioned as a generic assistant, not an acceptance-testing coding agent
 
-Claw Code 对接第三方模型时，默认身份定义是**通用AI助手**，没有专属编程验收约束。 虽然内置规范要求「验证失败或未验证需如实说明」，但全程是靠模型自觉，没有任何强制校验流程，就会直接跳过自检、谎报完成，这也是翻车的核心原因。
+When Claw Code connects to a third-party model, the default identity is a **general-purpose AI assistant** with no coding-specific acceptance constraints. Its built-in spec does say "report honestly if verification fails or hasn't been done," but everything relies on the model's own conscientiousness; there is no enforced verification flow. So it skips self-checks and falsely reports completion, which is exactly why things went wrong.
 
-2、缺失核心验证工具，无法闭环验收
+2. Missing core verification tools: no closed acceptance loop
 
-Claw Code 内置工具仅支持文件读写、命令行、搜索等基础能力，没有浏览器调用、页面预览、交互校验能力。 简单说：它能写HTML代码、能读代码文件，但没办法运行页面、试玩功能、验证交互逻辑。 反观表现稳定的 OpenCode，搭载了 oh-my-opencode 强化调度插件。自带完整的 生成-运行-预览-校验-修正 工程闭环：内置 Playwright 浏览器自动化能力，写完HTML页面会自动拉起浏览器试玩、校验布局、检测交互卡顿、判定功能完整性，发现问题立即迭代修复，从根源上杜绝「布局错误、无法控制」这类低级交付问题。
+Claw Code's built-in tools only cover the basics (file I/O, shell commands, search), with no browser control, page preview, or interaction verification. Simply put: it can write HTML and read code files, but it can't run the page, play the game, or validate interaction logic. OpenCode, by contrast (stable throughout), runs the oh-my-opencode orchestration plugin. It ships a complete generate-run-preview-verify-fix engineering loop: with Playwright browser automation built in, once an HTML page is written it automatically launches a browser to play it, verify the layout, detect interaction jank, and judge feature completeness, then iterates and fixes issues immediately. That's how it eliminates low-level delivery failures like "broken layout, uncontrollable" at the root.
 
-3、对弱模型的容错补偿能力不足
+3. Insufficient fault-tolerance compensation for weaker models
 
-客观来说，免费版混元在空间布局、细节自纠、逻辑严谨性上，确实不如付费顶级模型。 优质的调度外壳，会通过工程机制弥补模型短板；而 Claw Code 过度依赖模型自主纠错，没有任何兜底补偿，导致需要多次沟通才能完成任务。
+To be fair, the free Hunyuan really is weaker than paid top-tier models at spatial layout, detail self-correction, and logical rigor. A quality orchestration shell compensates for a model's weaknesses through engineering mechanisms; Claw Code leans entirely on the model to self-correct, with no fallback compensation, so it takes multiple rounds of back-and-forth to get the task done.
 
-## 04 总结
+## 04 Summary
 
-这次测试给我的启发很大：不要一味看模型不好用、不稳定。用现在主流的模型工作，大多数场景下，不是模型能力不行，是你用的调工具有没有强大的工程能力。选对工具、用对方法，普通免费模型，也能跑出专业级的稳定效果。大家有什么经验，欢迎在评论区讨论。
+This test was a big eye-opener for me: don't be quick to blame the model for being weak or unstable. With today's mainstream models, in most cases it isn't the model that falls short; it's whether the tool orchestrating it has serious engineering behind it. Pick the right tool, use it the right way, and even an ordinary free model can deliver professional-grade, stable results. If you have experiences of your own, I'd love to hear them in the comments.

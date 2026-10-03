@@ -1,56 +1,56 @@
 ---
-title: "白菜价玩转顶级AI！VSCode配置Kimi K2超详细指南"
+title: "Top-Tier AI for Pocket Change! A Super-Detailed Guide to Configuring Kimi K2 in VSCode"
 date: "2025-07-16"
-description: "手把手教你如何在VSCode中配置Kimi K2模型，实现白菜价享用顶级AI能力"
+description: "A step-by-step guide to configuring the Kimi K2 model in VSCode, so you can enjoy top-tier AI capabilities for next to nothing"
 category: "AI"
-tags: ["AI开发", "Kimi K2", "VSCode配置", "大模型", "编程效率"]
+tags: ["AI development", "Kimi K2", "VSCode configuration", "LLM", "coding productivity"]
 ---
 
-# 白菜价玩转顶级AI！VSCode配置Kimi K2超详细指南
+# Top-Tier AI for Pocket Change! A Super-Detailed Guide to Configuring Kimi K2 in VSCode
 
-朋友们，AI界又炸锅了！月之暗面(Moonshot)最新推出的**Kimi K2模型**不仅性能直逼Claude Sonnet 4，价格更是亲民到离谱！今天手把手教你如何在VSCode中配置Kimi K2，实现**每天不到3毛钱**的顶级AI开发体验！
+Friends, the AI world just blew up again! The **Kimi K2 model** newly released by Moonshot AI not only performs neck and neck with Claude Sonnet 4, it's also absurdly affordable! Today I'll walk you through configuring Kimi K2 in VSCode for a top-tier AI development experience that costs **less than ¥0.3 a day**!
 
-## 🔥 Kimi K2三大核弹级优势
+## 🔥 Three Killer Advantages of Kimi K2
 
-1. **性能怪兽**：
-   - 代码能力稳居第一梯队，接近Claude Sonnet 3.7~4水平
-   - 支持**128K超长上下文**，复杂项目游刃有余
-   - Agent表现惊艳，堪称"数字员工"级生产力
+1. **Performance beast**:
+   - Coding ability firmly in the top tier, on par with Claude Sonnet 3.7~4
+   - **128K long context** support, handles complex projects with ease
+   - Stunning agent performance, real "digital employee" level productivity
 
-2. **价格屠夫**：
-   | 计费项 | 价格 |
+2. **Price slasher**:
+   | Billing item | Price |
    |---|---|
-   | 输入Token | 4元/百万 |
-   | 输出Token | 16元/百万 |
-   （与DeepSeek-VL完全一致！）
+   | Input tokens | ¥4/million |
+   | Output tokens | ¥16/million |
+   (Exactly the same as DeepSeek-VL!)
 
-3. **无限畅用**：
-   彻底告别Copilot的"高级次数焦虑"，真正的按量付费！
+3. **Unlimited usage**:
+   Say goodbye to Copilot's "premium request anxiety" for good, with true pay-as-you-go!
 
-> 💡 **实测成本**：开发一个贪吃蛇游戏仅需**6厘钱**（0.006元）！月均成本轻松控制在10元以内！
+> 💡 **Real-world cost**: Building a Snake game cost just **¥0.006**! Monthly spend stays comfortably under ¥10!
 
-## ⚡️ VSCode配置三步曲
+## ⚡️ VSCode Setup in Three Steps
 
-### 第一步：获取Kimi API密钥
-1. 访问 [Moonshot开放平台](https://platform.moonshot.cn/console)
-2. 注册/登录后进入控制台
-3. 点击"创建API Key"生成专属密钥
+### Step 1: Get Your Kimi API Key
+1. Visit the [Moonshot open platform](https://platform.moonshot.cn/console)
+2. Register or log in, then head to the console
+3. Click "Create API Key" to generate your own key
 
-### 第二步：安装Cline扩展
-在VSCode扩展商店搜索安装 **[Cline](https://marketplace.visualstudio.com/items?itemName=bytemate.cline)** - 这是接入自定义模型的绝佳桥梁
+### Step 2: Install the Cline Extension
+Search the VSCode extension marketplace and install **[Cline](https://marketplace.visualstudio.com/items?itemName=bytemate.cline)**, the perfect bridge for plugging in custom models
 
-### 第三步：配置连接Kimi K2
+### Step 3: Configure the Kimi K2 Connection
 ```js
-// 在Cline设置中选择Custom Provider
+// In Cline's settings, choose Custom Provider
 {
-  "API Key": "你的Kimi平台密钥",
-  "Model Name": "随便选一个吧",
+  "API Key": "your Kimi platform key",
+  "Model Name": "pick whatever you like",
   "Custom URL": "https://api.moonshot.cn/anthropic",
-  "Disable Browser Requests": true // 关键设置！
+  "Disable Browser Requests": true // Critical setting!
 }
 ```
 ![alt text](/images/vscode-k2.jpg)
 
-最后简单的测试了一个，包含前端后端一个简单的后台，大约用了1小时左右，花费6块钱。
+Finally I ran a quick test: a simple admin panel covering both frontend and backend, which took about an hour and cost ¥6.
 
-更新：目前新版本的cline已经支持moonshot的k2模型了。直接选择使用就可以了。
+Update: the latest version of Cline now supports Moonshot's K2 model. Just pick it from the list and you're good to go.

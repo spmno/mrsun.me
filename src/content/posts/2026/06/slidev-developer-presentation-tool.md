@@ -1,135 +1,135 @@
 ---
-title: "Slidev：使用简单，效果优雅的开发者专属演示文稿神器"
+title: "Slidev: A Simple, Elegant Presentation Tool Built for Developers"
 date: "2026-06-30"
-description: "基于 Web 的幻灯片制作工具 Slidev，专为开发者设计，用 Markdown 写幻灯片，让技术分享更高效、更优雅。"
-category: "工具推荐"
-tags: ["Slidev", "Markdown", "演示文稿", "开发者工具", "开源"]
+description: "Slidev is a web-based slide tool designed for developers. Write slides in Markdown and make technical talks more efficient and elegant."
+category: "Tools"
+tags: ["Slidev", "Markdown", "presentations", "developer tools", "open source"]
 cover: "/images/posts/2026/06/slidev-cover.jpg"
 ---
 
-# Slidev：使用简单，效果优雅的开发者专属演示文稿神器
+# Slidev: A Simple, Elegant Presentation Tool Built for Developers
 
-> 用 Markdown 写幻灯片，让技术分享更高效、更优雅
+> Write slides in Markdown and make technical talks more efficient and elegant
 
-作为开发者，我们经常需要做技术分享或会议报告。传统的演示工具（如 PowerPoint、Keynote）虽然功能强大，但对于开发者来说，肯定没有 Markdown 熟悉。今天给大家推荐一款专为开发者打造的演示工具 —— **Slidev**。
+As developers, we often need to give technical talks or conference presentations. Traditional presentation tools like PowerPoint and Keynote are powerful, but they're never as familiar to developers as Markdown. Today I'd like to recommend a presentation tool built specifically for developers: **Slidev**.
 
-**Slidev**（Slide + dev，读作 /slaɪdɪv/）是一个基于 Web 的幻灯片制作和演示工具，专为开发者设计，让你专注于用 Markdown 编写内容。项目地址：
+**Slidev** (Slide + dev, pronounced /slaɪdɪv/) is a web-based tool for creating and presenting slides, designed for developers so you can focus on writing content in Markdown. Project URL:
 
 `https://github.com/slidevjs/slidev`
 
-该项目目前在 GitHub 上已获得超过 **44K Star**，社区活跃度非常高，是技术演讲者的首选工具之一。
+The project currently has over **44K stars** on GitHub and a very active community, making it one of the go-to tools for technical speakers.
 
-## 为什么选择 Slidev？
+## Why Slidev?
 
-Slidev 结合了 Markdown 的简洁性和现代 Web 技术的强大功能，让你能够：
+Slidev combines the simplicity of Markdown with the power of modern web technology, letting you:
 
-- 🎯 **专注于内容**：用 Markdown 编写，无需纠结样式调整，让我们关注于内容本身
-- 💻 **代码友好**：内置语法高亮、实时编码、终端模拟，可以优雅地展示代码
-- 🚀 **极速迭代**：基于 Vite 的热重载，每次保存即时预览，提高效率
-- 🎨 **主题丰富**：官方和社区主题随心切换，支持 UnoCSS 原子化样式快速定制
-- 🤹 **交互式组件**：还可以嵌入 Vue 组件，让幻灯片动起来，演示更生动
-- 📤 **多格式导出**：一键导出 PDF、PPTX、PNG 或部署为单页应用，适配多场景
+- 🎯 **Focus on content**: write in Markdown, skip the fiddling with styles, and concentrate on the content itself
+- 💻 **Code friendly**: built-in syntax highlighting, live coding, and terminal emulation let you show code elegantly
+- 🚀 **Fast iteration**: Vite-powered hot reloading gives you an instant preview on every save
+- 🎨 **Rich themes**: switch freely between official and community themes, and customize quickly with atomic styles via UnoCSS
+- 🤹 **Interactive components**: embed Vue components to bring slides to life and make presentations more vivid
+- 📤 **Multi-format export**: export to PDF, PPTX, or PNG in one click, or deploy as a single-page app for any scenario
 
-## 核心特性详解
+## Core Features in Depth
 
-### 📝 Markdown 驱动
+### 📝 Markdown Driven
 
-用 Markdown 语法编写幻灯片，纯文本编辑，支持 Git 版本控制。用 `---` 分隔每一页幻灯片，格式如下：
+Write slides in Markdown, edit as plain text, and keep everything under Git version control. Separate each slide with `---`, like this:
 
 ```markdown
-# 第1页标题
+# Slide 1 Title
 
-第一页内容
+Content of slide 1
 
 ---
 
-# 第2页标题
+# Slide 2 Title
 
-第二页内容
+Content of slide 2
 ```
 
-### 🧑‍💻 开发者友好功能
+### 🧑‍💻 Developer-Friendly Features
 
-Slidev 提供一流的代码片段支持，还可以有动画的配合，详细的使用方式在默认例子中均有覆盖，其中包括：
+Slidev offers first-class code snippet support, with animations to match. The default example covers all the usage details, including:
 
-- **Shiki 语法高亮**：与 VS Code 同源的精准着色
-- **Shiki Magic Move**：代码差异动画展示
-- **Monaco Editor**：演示中实时编辑运行代码
-- **TwoSlash 集成**：TypeScript 类型悬停提示
+- **Shiki syntax highlighting**: precise coloring, same engine as VS Code
+- **Shiki Magic Move**: animated code diff presentations
+- **Monaco Editor**: edit and run code live during the presentation
+- **TwoSlash integration**: TypeScript type hover hints
 
-### 📚 技术文档友好
+### 📚 Friendly to Technical Documentation
 
-对于学术和技术分享场景，Slidev 支持多种格式的图表与公式：
+For academic and technical talks, Slidev supports diagrams and formulas in multiple formats:
 
-- **LaTeX 支持**：完美的数学公式渲染
-- **Mermaid 图表**：文本描述生成流程图、时序图
-- **Iconify 图标**：数千个图标直接调用
+- **LaTeX support**: beautiful math formula rendering
+- **Mermaid diagrams**: generate flowcharts and sequence diagrams from text
+- **Iconify icons**: thousands of icons ready to use
 
-## 快速开始
+## Quick Start
 
-Slidev 提供了多种使用方式，可以在线体验，也可以本地安装。
+Slidev offers several ways to get started: try it online, or install it locally.
 
-### 🌐 在线体验（零安装）
+### 🌐 Try It Online (Zero Install)
 
-无需安装任何软件，直接在浏览器中编写和预览：**sli.dev/new**
+No software installation needed. Write and preview directly in your browser: **sli.dev/new**
 
-### 🖥️ 本地安装
+### 🖥️ Local Installation
 
-确保已安装 Node.js（>= 20.12.0），然后运行以下命令：
+Make sure Node.js (>= 20.12.0) is installed, then run the following commands:
 
 ```bash
-# 使用 pnpm 创建项目（推荐）
+# Create a project with pnpm (recommended)
 pnpm create slidev
 
-# 或使用 npm
+# Or with npm
 npm init slidev@latest
 
-# 启动开发服务器
+# Start the dev server
 npm run dev
 ```
 
-输入项目的信息，就能在本地生成一个默认的工程。浏览器自动打开，播放首页。
+Enter your project info and a default project is generated locally. The browser opens automatically and plays the first slide.
 
-![Slidev 项目初始化](/images/posts/2026/06/slidev-01.png)
+![Slidev project initialization](/images/posts/2026/06/slidev-01.png)
 
-打开本地目录，可以看到相关的目录结构，其中的 `slides.md` 文件就是幻灯片的内容。
+Open the local directory and you'll see the project structure. The `slides.md` file is where the slide content lives.
 
-![Slidev 目录结构](/images/posts/2026/06/slidev-02.png)
+![Slidev directory structure](/images/posts/2026/06/slidev-02.png)
 
-我们对比其中一页来找找感觉 —— 原文 Markdown：
+Let's look at one of the slides to get a feel for it. The original Markdown:
 
-![Markdown 编辑 vs 展示效果](/images/posts/2026/06/slidev-03.png)
+![Markdown editing vs presentation result](/images/posts/2026/06/slidev-03.png)
 
-可以看到编辑过程简单，展示效果也非常不错。
+As you can see, editing is simple and the rendered result looks great.
 
-![Slidev 幻灯片展示](/images/posts/2026/06/slidev-04.png)
+![Slidev presentation](/images/posts/2026/06/slidev-04.png)
 
-### 🐳 Docker 部署
+### 🐳 Docker Deployment
 
-如果需要快速在容器上部署演示文稿，也可以使用社区维护的 Docker 镜像，具体方法与效果与本地一致：
+If you need to quickly deploy a presentation in a container, you can also use the community-maintained Docker image. The steps and results are the same as running locally:
 
 ```bash
 docker run -p 3030:3030 tangramor/slidev:latest
 ```
 
-## 适用场景
+## Use Cases
 
-Slidev 特别适合以下场景：
+Slidev is a great fit for these scenarios:
 
-- **技术大会演讲**：代码展示，排版优良
-- **团队内部分享**：Markdown 版本控制，协作方便高效
-- **项目进度汇报**：快速制作，专注内容而非排版
+- **Conference talks**: excellent code display and clean typography
+- **Team knowledge sharing**: Markdown version control makes collaboration easy and efficient
+- **Project progress reports**: quick to build, so you focus on content instead of layout
 
-## 写在最后
+## Final Thoughts
 
-我们可以从简单开始，用 Markdown 快速创建基础幻灯片；专注于内容，让工具处理样式和布局问题；优雅演示，享受流畅的演示体验和专业的外观。
+We can start simple: quickly create basic slides in Markdown, focus on content while the tool handles styling and layout, then present elegantly and enjoy a smooth experience with a professional look.
 
-无论你是需要做一次技术分享，还是想要创建教学材料，Slidev 都能提供卓越的体验。作为开发者，我非常推荐大家使用大模型（豆包，DeepSeek等）生成 Markdown 的文件，再用 Slidev 生成演示文档。如果使用中遇到什么问题，欢迎在评论区讨论。
+Whether you're giving a technical talk or creating teaching materials, Slidev delivers an excellent experience. As a developer, I highly recommend generating the Markdown file with an LLM (Doubao, DeepSeek, etc.) first, then turning it into a presentation with Slidev. If you run into any issues, feel free to discuss in the comments.
 
-> 项目地址：https://github.com/slidevjs/slidev
+> Project URL: https://github.com/slidevjs/slidev
 >
-> 在线体验：https://sli.dev/new
+> Try it online: https://sli.dev/new
 >
-> 官方文档：https://sli.dev/guide/
+> Official docs: https://sli.dev/guide/
 >
-> 中文文档：https://cn.sli.dev/
+> Chinese docs: https://cn.sli.dev/

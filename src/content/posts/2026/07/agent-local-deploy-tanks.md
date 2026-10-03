@@ -1,102 +1,102 @@
 ---
-title: "Agent使用本地部署折腾小记，消费级显卡是否能撑起日常编程任务？让我们从坦克大战说起"
+title: "A Local-Deployment Tinkering Log for Code Agents: Can a Consumer GPU Handle Everyday Coding? Let's Start with Tank Battle"
 date: "2026-07-12"
-description: "本地调整参数，看是否可以改变本地模型支撑code agent的性能"
+description: "Tuning local parameters to see whether it changes how well a local model can support a code agent."
 category: "AI"
-tags: ["AI", "LLM", "本地部署", "编程模型", "Ornith", "Qwen"]
+tags: ["AI", "LLM", "local deployment", "coding model", "Ornith", "Qwen"]
 cover: "/images/posts/2026/07/agent-local-cover.jpg"
 ---
 
-大家好，我是老孙。
+Hi, I'm MrSun.
 
-上次写了[本地跑Ornith-1.0-35B：350亿参数能干翻3970亿的Qwen3.5?](/posts/2026/07/ornith-1-0-local-deploy/) 当时看了其它博主的文章，燃起了我对本地模型可以日常coding的希望，但结果不太满意。当时是缓存一直不够，所以这两天一直在想，如果把缓存调整好了，是不是能行？
+Last time I wrote about [running Ornith-1.0-35B locally: can 35B parameters take down the 397B Qwen3.5?](/posts/2026/07/ornith-1-0-local-deploy/). Reading other bloggers' posts had lit a fire under my hope that a local model could handle day-to-day coding, but the result was disappointing. The cache kept running out, so these past couple of days I've been wondering: if I get the cache sorted out, could it actually work?
 
-TL;DR：用多个策略调整，还是没成功。
+TL;DR: I tried multiple tuning strategies. Still no success.
 
-下面还是看具体的操作吧。
+Let's walk through what I did.
 
-## 1. 把上下文缓存调整到32k，cache type调整到q8_0
+## 1. Bump the context cache to 32k and the cache type to q8_0
 
-显存使用明显下降：
+VRAM usage dropped noticeably:
 
-![32k缓存显存使用](/images/posts/2026/07/agent-local-01.png)
+![VRAM usage with the 32k cache](/images/posts/2026/07/agent-local-01.png)
 
-生成代码到一半，就截断了。
+Halfway through generating code, it got cut off.
 
-![代码生成截断](/images/posts/2026/07/agent-local-02.png)
+![Code generation truncated](/images/posts/2026/07/agent-local-02.png)
 
-opencode决定用分多个步骤来生成代码
+opencode decided to split code generation into multiple steps
 
-![分步骤生成](/images/posts/2026/07/agent-local-03.png)
+![Step-by-step generation](/images/posts/2026/07/agent-local-03.png)
 
-生成了能有20多分钟，说任务完成了，但只生成出来一个主页，无法进入游戏
+It generated for a good 20-plus minutes, then declared the task complete, but all it had produced was a home screen, with no way to enter the game
 
-## 2. 扩大上下文，到64k和128k
+## 2. Scale up the context to 64k and 128k
 
-既然用q8_0精度的上下文，显存用的不多，那就继续扩大上下文的大小。我又分别实验了64k与128k大小的上下文
+Since the q8_0-precision context didn't use much VRAM, I kept scaling the context up. I tried 64k and 128k contexts next.
 
-提示都差不多，还是说文件太大，无法创建，然后分成几步去创建
+The responses were about the same: the file was too large to create in one go, so it split the work into several steps.
 
-![64k上下文尝试](/images/posts/2026/07/agent-local-04.png)
+![64k context attempt](/images/posts/2026/07/agent-local-04.png)
 
-![128k上下文尝试](/images/posts/2026/07/agent-local-05.png)
+![128k context attempt](/images/posts/2026/07/agent-local-05.png)
 
-分块写入，如下图，是写的第三块
+Writing in chunks: the screenshot below shows the third chunk being written:
 
-![分块写入](/images/posts/2026/07/agent-local-06.png)
+![Chunked writing](/images/posts/2026/07/agent-local-06.png)
 
-缓存大一些，生成的程序能比之前的好一些，可以从主页进入到游戏中。不过进入游戏后，游戏框中什么也没有。
+With a larger cache, the generated program came out a bit better than before: I could get from the home screen into the game. But once inside, the game window was completely empty.
 
-![游戏进入但空白](/images/posts/2026/07/agent-local-07.png)
+![Game entered but blank](/images/posts/2026/07/agent-local-07.png)
 
-![空白游戏界面](/images/posts/2026/07/agent-local-08.png)
+![Blank game screen](/images/posts/2026/07/agent-local-08.png)
 
-## 3. 换模型
+## 3. Swap the model
 
-这时候，我开始怀疑，是不是这个模型的问题。因为之前用过Qwen3.5和Qwen3.6，生成单个程序（python脚本）能力还可以[实测｜Qwen3.6-27B 上手体验，本地日常部署最优选择](/posts/2026/07/qwen36-27b-local-deploy/)，所以就换了Qwen3.6的本地模型看一看效果。没有控制其它参数，可以看到启用的上下文是18k左右。
+At this point I started to suspect the model itself. I'd used Qwen3.5 and Qwen3.6 before, and they were decent at generating standalone programs (Python scripts), see [hands-on with Qwen3.6-27B: the best pick for everyday local deployment](/posts/2026/07/qwen36-27b-local-deploy/), so I switched to a local Qwen3.6 model to see how it would do. I didn't control the other parameters; the active context was around 18k.
 
-![换用Qwen3.6](/images/posts/2026/07/agent-local-09.png)
+![Switching to Qwen3.6](/images/posts/2026/07/agent-local-09.png)
 
-显存基本也是占满的状态
+VRAM was again nearly maxed out
 
-![显存占满](/images/posts/2026/07/agent-local-10.png)
+![VRAM maxed out](/images/posts/2026/07/agent-local-10.png)
 
-输出的速度要和 ornith 1.0 35B 差很多，只有15tokens/s左右
+Output speed was much worse than Ornith 1.0 35B: only around 15 tokens/s
 
-实际测试下来生成的代码也不完整。并且再次生成时，工具就一直转个不停。
+In actual testing, the generated code was incomplete again. And on the next generation attempt, the tool just kept spinning forever.
 
-![工具一直转动](/images/posts/2026/07/agent-local-11.png)
+![The tool spinning endlessly](/images/posts/2026/07/agent-local-11.png)
 
-但是，看llama.cpp server的后台，其实已经没有任务
+But checking the llama.cpp server backend, there was actually no task running at all
 
-![后台无任务](/images/posts/2026/07/agent-local-12.png)
+![No tasks in the backend](/images/posts/2026/07/agent-local-12.png)
 
-换模型也失败，看来本地48G显卡，想用loop跑编程任务，不大可能。
+Switching models failed too. Looks like running coding tasks in a loop on a local 48GB GPU just isn't in the cards.
 
-## 4. 还是回到在线模型
+## 4. Back to online models
 
-目前，在opencode模型中, deepseek v4 flash与腾讯的hy3 都在免费。有点好奇，反正也免费，让我们看看他们两个模型的效果。
+Right now, in opencode, both DeepSeek V4 Flash and Tencent's HY3 are free. I was curious (free anyway), so let's see how these two models do.
 
-首先是deepseek v4 flash，中间有一次生成中断，继续任务后，最后生成游戏可玩，主页面与游戏页面如下：
+First up, DeepSeek V4 Flash. Generation interrupted once midway; after resuming the task, the final game was playable. Home screen and game screen below:
 
-![DeepSeek V4 Flash 主页](/images/posts/2026/07/agent-local-13.png)
+![DeepSeek V4 Flash home screen](/images/posts/2026/07/agent-local-13.png)
 
-![DeepSeek V4 Flash 游戏](/images/posts/2026/07/agent-local-14.png)
+![DeepSeek V4 Flash game](/images/posts/2026/07/agent-local-14.png)
 
-然后是腾讯的hy3，姚顺雨来了之后，腾讯的大模型能力肉眼提升，主页与游戏页如下，整体完整度与可玩性要比deepseek v4 flash要好：
+Then Tencent's HY3. Since Shunyu Yao joined, Tencent's LLM capabilities have visibly improved. Home screen and game page below. Overall completeness and playability beat DeepSeek V4 Flash:
 
-![腾讯HY3 主页](/images/posts/2026/07/agent-local-15.png)
+![Tencent HY3 home screen](/images/posts/2026/07/agent-local-15.png)
 
-![腾讯HY3 游戏](/images/posts/2026/07/agent-local-16.png)
+![Tencent HY3 game](/images/posts/2026/07/agent-local-16.png)
 
-![腾讯HY3 完整效果](/images/posts/2026/07/agent-local-17.png)
+![Tencent HY3 full result](/images/posts/2026/07/agent-local-17.png)
 
-![最终对比](/images/posts/2026/07/agent-local-18.png)
+![Final comparison](/images/posts/2026/07/agent-local-18.png)
 
-## 总结
+## Wrap-up
 
-经过一下午的折腾，费了一度电，价格比用deepseek v4 token还贵
+After an afternoon of tinkering, I burned one kilowatt-hour of electricity, which cost more than the DeepSeek V4 tokens would have
 
-![折腾成本](/images/posts/2026/07/agent-local-19.jpg)
+![The cost of tinkering](/images/posts/2026/07/agent-local-19.jpg)
 
-目前看来，还是在线的大参数模型与agent配合比较靠谱，消费级显卡生成代码段还可以，但完成项目级别的工程还是有能力有限。不知道大家有没有做过相关的实践，欢迎在评论区交流。
+For now, pairing an agent with a large online model remains the reliable path. A consumer GPU is fine for generating code snippets, but it's simply out of its depth for project-scale engineering. If you've run similar experiments, I'd love to hear about them in the comments.

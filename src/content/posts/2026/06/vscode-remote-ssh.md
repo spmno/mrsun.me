@@ -1,50 +1,50 @@
 ---
-title: "VSCode Remote-SSH 插件：本地编辑远程文件，远程开发神器"
+title: "VSCode Remote-SSH: Edit Remote Files Locally, a Remote Development Powerhouse"
 date: "2026-06-30"
-description: "使用 VSCode 的 Remote-SSH 插件在 MacBook 上远程编辑 Ubuntu 服务器代码，免去同步烦恼，直接利用服务器资源编译运行。"
-category: "工具推荐"
-tags: ["VSCode", "SSH", "远程开发", "效率工具"]
+description: "Use VSCode's Remote-SSH extension to edit code on an Ubuntu server right from a MacBook. No more sync headaches, and you compile and run directly with the server's resources."
+category: "Tools"
+tags: ["VSCode", "SSH", "remote development", "productivity tools"]
 cover: "/images/posts/2026/06/vscode-remote-ssh-cover.jpg"
 ---
 
-# VSCode Remote-SSH 插件：本地编辑远程文件，远程开发神器
+# VSCode Remote-SSH: Edit Remote Files Locally, a Remote Development Powerhouse
 
-在家里一直用 MacBook Air 写代码，通过内网 Git 服务同步到家里的服务器上。最近突然想起之前在 Windows 下使用 WSL 的时候，可以在 Windows 下的 VSCode 操作 WSL 目录下的代码。这样的话，是不是在 MacBook 上也可以远程 Ubuntu？查了下资料，还真可以。下面就介绍一下整体过程。
+At home I've always written code on a MacBook Air and synced it to my home server through a Git service on the LAN. Recently it hit me that back when I used WSL on Windows, VSCode on Windows could work directly with code in the WSL directory. So could I remote into Ubuntu from my MacBook too? I looked it up, and yes, it works. Here's the whole process.
 
-## 安装与配置
+## Installation and Configuration
 
-在 VSCode 的插件面板中，搜索 `remote`，选中 **Remote - SSH** 的 Install 按钮进行安装。
+In VSCode's extension panel, search for `remote`, then hit the Install button on **Remote - SSH**.
 
-![安装 Remote-SSH 插件](/images/posts/2026/06/vscode-01.png)
+![Installing the Remote-SSH extension](/images/posts/2026/06/vscode-01.png)
 
-安装成功后会在左边的菜单栏中出现小电脑图标，点击后进入远程相关设置。
+After installation, a small computer icon shows up in the left activity bar. Click it to open the remote settings.
 
-![远程连接设置面板](/images/posts/2026/06/vscode-02.png)
+![Remote connection settings panel](/images/posts/2026/06/vscode-02.png)
 
-进入设置页，点击 SSH 行右边的 **+** 号，右上角会出现输入框，提示输入远程连接的用户名和 IP 地址：
+On the settings page, click the **+** button at the right of the SSH row. An input box appears in the top right corner, prompting for the username and IP address of the remote connection:
 
-![输入 SSH 连接信息](/images/posts/2026/06/vscode-03.png)
+![Entering SSH connection info](/images/posts/2026/06/vscode-03.png)
 
 ```
 sunqp@192.168.2.17
 ```
 
-输入服务器的用户名和 IP 地址，然后回车。
+Enter the server's username and IP address, then press Enter.
 
-下一步会提示选择 SSH 配置文件，选第一个配置文件。回车后会在 SSH 下面出现远程电脑的配置。
+Next it prompts you to choose an SSH configuration file. Pick the first one. After pressing Enter, the remote machine's config shows up under SSH.
 
-![SSH 配置选择](/images/posts/2026/06/vscode-04.png)
+![SSH configuration selection](/images/posts/2026/06/vscode-04.png)
 
-## 连接与使用
+## Connecting and Using
 
-点击远程电脑，会提示输入密码。输入成功后，选择相关的目录，剩下的操作与本地就没有什么区别了。
+Click the remote machine and you'll be prompted for the password. Once you're in, pick a directory and everything else works just like local development.
 
-![连接到远程服务器](/images/posts/2026/06/vscode-05.png)
+![Connected to the remote server](/images/posts/2026/06/vscode-05.png)
 
-也可以新建终端，并在终端中操作，非常方便。
+You can also open a new terminal and work in it directly. Super convenient.
 
-![远程终端操作](/images/posts/2026/06/vscode-08.png)
+![Working in the remote terminal](/images/posts/2026/06/vscode-08.png)
 
-## 总结
+## Summary
 
-通过 Remote-SSH 远程插件，可以直接用 VSCode 编辑服务器的代码。既能直观编辑代码，又能利用服务器的资源对代码进行快速编译。推荐有这个场景的小伙伴也试试。有什么问题，欢迎在评论区交流。
+With the Remote-SSH extension, you can edit server code directly in VSCode. You get a visual editor plus the server's resources for fast compiles. If this fits your workflow, give it a try. Any questions, welcome in the comments.

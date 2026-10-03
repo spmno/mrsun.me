@@ -1,19 +1,19 @@
 ---
-title: "在Ubuntu上安装rtl8812ac驱动并使用Wireshark进行网络分析"
+title: "Installing the rtl8812ac Driver on Ubuntu and Analyzing Network Traffic with Wireshark"
 date: "2025-04-10"
-description: "详细步骤介绍如何在Ubuntu系统上安装rtl8812ac无线网卡驱动，并使用Wireshark进行网络数据包捕获和分析"
+description: "Detailed steps for installing the rtl8812ac wireless driver on Ubuntu and using Wireshark to capture and analyze network packets"
 category: "Linux"
-tags: ["ubuntu", "rtl8812ac", "wireshark", "网络分析"]
+tags: ["ubuntu", "rtl8812ac", "wireshark", "network analysis"]
 ---
 
-## 安装rtl8812ac驱动
+## Installing the rtl8812ac Driver
 
-1. 更新系统软件包
+1. Update system packages
 ```
 sudo apt update && sudo apt upgrade -y
 ```
 
-2. 安装必要的依赖
+2. Install the required dependencies
 ```
 // PC
 sudo apt install linux-headers-$(uname -r) build-essential git
@@ -21,13 +21,13 @@ sudo apt install linux-headers-$(uname -r) build-essential git
 sudo apt install -y raspberrypi-kernel-headers build-essential git
 ```
 
-3. 克隆rtl8812ac驱动仓库
+3. Clone the rtl8812ac driver repository
 ```
 git clone https://github.com/lwfinger/rtw88
 ```
 
-4. 编译并安装驱动
-先用了dkms的方式，没弄明白。用直接make并且安装的方式。
+4. Build and install the driver
+I tried the DKMS approach first but couldn't figure it out, so I went with a direct make and install instead.
 ```
 cd rtl8812au
 make
@@ -35,26 +35,26 @@ sudo make install
 sudo make install_fw
 ```
 
-## 使用Wireshark进行网络分析
+## Network Analysis with Wireshark
 
-1. 安装Wireshark
+1. Install Wireshark
 ```
 sudo apt install wireshark
 ```
 
-2. 添加当前用户到wireshark用户组
+2. Add your current user to the wireshark group
 ```
 sudo usermod -aG wireshark $USER
 ```
-重启下电脑
-3. 启动Wireshark
+Then reboot your computer.
+3. Launch Wireshark
 ```
 wireshark
 ```
 
-4. 选择要捕获的网络接口并开始捕获数据包。
+4. Select the network interface you want to capture on and start capturing packets.
 
-## 常见问题及解决方法
+## Common Issues and Fixes
 
-- 如果遇到权限问题，请确保当前用户已添加到wireshark用户组，并重新登录。
-- 如果驱动安装失败，请检查内核版本是否兼容，并尝试更新内核。
+- If you run into permission issues, make sure your current user has been added to the wireshark group, then log in again.
+- If the driver installation fails, check whether your kernel version is compatible and try updating the kernel.

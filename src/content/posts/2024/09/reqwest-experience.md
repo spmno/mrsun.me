@@ -1,12 +1,12 @@
 ---
-title: "使用Reqwest库的最佳实践与解决方案：提升Rust HTTP请求效率"
+title: "Best Practices and Solutions for the Reqwest Library: Improving HTTP Request Efficiency in Rust"
 date: "2024-09-23"
-description: "使用reqwest库的最佳实践与常见问题解决方案，提升Rust HTTP请求处理效率"
+description: "Best practices and solutions to common problems with the reqwest library, for more efficient HTTP request handling in Rust"
 category: "Rust"
-tags: ["reqwest", "rust", "博客", "https证书"]
+tags: ["reqwest", "rust", "blogging", "https certificate"]
 ---
 
-不用验证SSL本地的证书
+Skipping verification of local SSL certificates
 
 ```
   use reqwest::{Client, Result};
@@ -28,6 +28,6 @@ async fn main() -> Result<()> {
 }
 ```
 
-打出更多的信息用 Debug Trait
+Print more information with the Debug trait
 
 Debug output ("{:?}") may show more. Chasing .source() recursively may show more.

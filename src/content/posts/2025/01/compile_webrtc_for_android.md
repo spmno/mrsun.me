@@ -1,40 +1,40 @@
 ---
-title: "在Android平台上编译WebRTC源码：详细步骤与注意事项"
+title: "Compiling WebRTC Source Code for Android: Detailed Steps and Notes"
 date: "2025-01-01"
-description: "Android平台编译webrtc源码，记录下过程。"
+description: "Compiling the WebRTC source code for Android, with a record of the process."
 category: "WebRTC"
 tags: ["webrtc", "android", "aec"]
 ---
 
-## 背景
+## Background
 
-公司有个项目需要使用webrtc，但是webrtc的源码是c++的，所以需要编译成so文件，然后在android平台上使用。
-主要是用webrtc的aec模块，做回声消除的功能。
+A project at work needed to use WebRTC, but the WebRTC source is C++, so it has to be compiled into .so files before it can be used on Android.
+We mainly wanted WebRTC's AEC module for echo cancellation.
 
-## 过程
+## The Process
 
-看了声网和其它的文档，试了一下，都是在depot_tools的过程中失败的，主要是声网的版本低，和本地的pyhton版本不匹配。具体可以看下面的链接。
-https://zhuanlan.zhihu.com/p/82559314， https://webrtc.org.cn/mirror/   
+I read the Agora docs and various others and gave them a try, but they all failed at the depot_tools step, mostly because Agora's version was old and didn't match my local Python version. See the links below for details.
+https://zhuanlan.zhihu.com/p/82559314, https://webrtc.org.cn/mirror/   
 
-最后试了下，直接在google的网站下吧，
+In the end I just tried downloading straight from Google's site,
 ```
 git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
 ```   
-成功了，然后把depot_tools加入到环境变量中。
+That worked, so I added depot_tools to my PATH.
 ```
 export WORKSPACE=$(pwd)
 export PATH=$WORKSPACE/depot_tools:$PATH
-export DEPOT_TOOLS_UPDATE=0  // 关闭自动更新
+export DEPOT_TOOLS_UPDATE=0  // disable auto-update
 date; gclient sync; date
 ```   
-出了一个warning， 在网上查了下，说是不用管它。那就继续下webrtc的源码吧。
+There was one warning; I looked it up online and people said it's fine to ignore. So on to fetching the WebRTC source.
 ```
 gclient config --name src https://chromium.googlesource.com/external/webrtc.git
 date; gclient sync; date
 ```
-这个时间比较长， 不过命令行一直有时间的提示。
-如果有问题，就重复上面的命令。  
-尝试编译，提示不支持24.04.
+This takes quite a while, though the command line keeps printing timestamps so you can track progress.
+If anything goes wrong, just rerun the commands above.  
+I tried to build, and it said 24.04 isn't supported.
 ```
 The only supported distros are
  	Ubuntu 16.04 LTS (xenial with EoL April 2024)
@@ -42,14 +42,14 @@ The only supported distros are
  	Ubuntu 20.04 LTS (focal with EoL April 2030)
  	Ubuntu 22.04 LTS (jammy with EoL April 2032)
 ```
-又发现一个git  
+Then I came across another git repo  
 https://gitlab.freedesktop.org/pulseaudio/webrtc-audio-processing   
-这个库把webrtc中audio processing的代码都放到了这个库中。   
-需要将安装meson， ninja。
+This library collects all of WebRTC's audio processing code in one place.   
+You'll need to install meson and ninja.
 ```
 pip3 install meson ninja
 ```
-配置跨平台编译。在根目录建立cross_android.txt文件。  
+Configure the cross-compilation setup. Create a cross_android.txt file in the root directory.  
 ```
 [binaries]
 c = '/home/sunqp/Android/Sdk/ndk/26.1.10909125//toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android29-clang'
@@ -66,11 +66,11 @@ cpu_family = 'aarch64'
 cpu = 'armv8-a'
 endian = 'little'
 ```
-分别执行以下命令。  
+Run the following commands in order.  
 ```
 meson . build -Dprefix=$PWD/install --cross-file=cross_android.txt
 ninja -C build
 ninja -C build install
 ```
-会在build目录下生成install目录，里面就是编译好的so文件。  
-Done。
+This generates an install directory under build, containing the compiled .so files.  
+Done.

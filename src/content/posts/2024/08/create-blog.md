@@ -1,17 +1,17 @@
 ---
-title: "Astro搭建个人博客"
+title: "Building a Personal Blog with Astro"
 date: "2024-08-20"
-description: "使用Astro框架快速搭建个人博客，包含详细步骤指南和Vercel部署说明"
-category: "博客"
-tags: ["astro", "blogging", "博客"]
+description: "Quickly set up a personal blog with the Astro framework, with a detailed step-by-step guide and Vercel deployment instructions"
+category: "Blogging"
+tags: ["astro", "blogging"]
 ---
 
 # Hi there!
 
-之前用HOPE搭建的BLOG用了几次就没怎么用了。这次又看到了Astro这个工具，几分钟就能建立个BLOG。而且还挺好用，记录下吧。
+I built a blog with HOPE a while back, but after a few uses I more or less stopped touching it. This time I came across Astro, a tool that gets a blog up and running in minutes. It's actually quite nice to use, so I figured I'd write it down.
 
-### 两种方式创建：
-1. 官方的命令，之后选择blog项目。
+### Two ways to create one:
+1. The official command, then pick the blog project.
 
 ```
 # npm
@@ -25,28 +25,28 @@ pnpm create astro@latest
 
 ```
 
-2. 直接clone相关主题的git库。
+2. Directly clone the git repo of a theme.
 ```
 git clone --depth=1 https://github.com/ixartz/Astro-boilerplate
 ```
-### 运行：
+### Run:
 ```
 npm run dev
 ```
-### BLOG目录：
+### Blog directory:
 ```
 src/pages/posts/***.md
 ```
 
-# 使用vercel布置
+# Deploying with Vercel
 
-### 注册账号
-[vercel.com](https://vercel.com) 按照步骤来就可以
-### 导入Github上的Blog工程
+### Sign up for an account
+[vercel.com](https://vercel.com), just follow the steps
+### Import the blog project from GitHub
 ![alt text](/images/import_github.png)
-### 布置
-点击布置Button
-### 配置域名
+### Deploy
+Click the Deploy button
+### Configure the domain
 project -> setting -> domains<br />
-vercel为你提供了免费的域名，修改即可。<br />
-如果想用自己的域名，需要去右上角Accout Settings去添加自己的域名，添加之后回project去选择就可以了。
+Vercel gives you a free domain, just change it.<br />
+If you want to use your own domain, go to Account Settings in the top-right corner to add it, then come back to the project and select it.
