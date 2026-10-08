@@ -46,6 +46,23 @@ function discoverPostFiles(dir: string, base: string = ''): RawPostFile[] {
   return results;
 }
 
+function excerptFromContent(content: string, max = 155): string {
+  const text = content
+    .replace(/```[\s\S]*?```/g, ' ')
+    .replace(/!\[[^\]]*\]\([^)]*\)/g, ' ')
+    .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')
+    .replace(/^#{1,6}\s+.*$/gm, ' ')
+    .replace(/^[>\-*+]\s+/gm, '')
+    .replace(/[`*_~]/g, '')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+  if (text.length <= max) return text;
+  const slice = text.slice(0, max);
+  const cut = slice.lastIndexOf(' ');
+  return `${(cut > max * 0.6 ? slice.slice(0, cut) : slice).trim()}…`;
+}
+
 function parsePostFile(file: RawPostFile): Post | null {
   try {
     const raw = fs.readFileSync(file.filePath, 'utf-8');
@@ -57,7 +74,10 @@ function parsePostFile(file: RawPostFile): Post | null {
       slug: file.slug,
       title: data.title,
       date: data.date instanceof Date ? data.date.toISOString().split('T')[0] : String(data.date),
-      description: data.description || '',
+      description:
+        typeof data.description === 'string' && data.description.trim()
+          ? data.description.trim()
+          : excerptFromContent(content),
       category: data.category || 'Uncategorized',
       tags: Array.isArray(data.tags) ? data.tags : [],
       cover: data.cover,

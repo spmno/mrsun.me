@@ -2,6 +2,7 @@
 title: "Hands-On with Qwen3.8-27B: A Night of Watching the Typewriter, 4 kWh Burned, and Finally Some Hope for Consumer GPUs"
 author: "MrSun"
 date: "2026-08-21 00:14"
+description: "A hands-on local deployment test of Qwen3.8-27B with llama.cpp and Unsloth's Q8_K_XL GGUF quant on an AMD GPU — speed, thinking time, and output quality on consumer GPUs."
 source: "https://mp.weixin.qq.com/s/5jcRt-3MVo5CebNkofNULg"
 cover: "/images/posts/2026/08/17.png"
 ---

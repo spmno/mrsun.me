@@ -17,9 +17,10 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { category } = await params;
   const decoded = decodeURIComponent(category);
+  const count = getPostsByCategory(category).length;
   return genMeta({
-    title: `Category: ${decoded}`,
-    description: `Articles in category "${decoded}"`,
+    title: `All ${count} ${decoded} Article${count === 1 ? '' : 's'} and Tutorials`,
+    description: `Browse all ${count} ${decoded} articles on MrSun — tutorials, solutions, and hands-on engineering notes, sorted newest first.`,
     path: `/categories/${category}/`,
   });
 }

@@ -4,8 +4,9 @@ import { generateMetadata as genMeta } from '@/lib/seo';
 import { SearchLocaleWrapper } from '@/components/search-locale-wrapper';
 
 export const metadata: Metadata = genMeta({
-  title: 'Search',
-  description: 'Search Articles',
+  title: 'Search — Find Articles by Keyword',
+  description:
+    'Search every article on MrSun by keyword — find posts on Rust, AI, local LLM deployment, Linux, frontend, and more.',
   path: '/search/',
 });
 

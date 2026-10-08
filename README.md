@@ -97,6 +97,7 @@ nav: [
 - [x] RSS 订阅 `/rss.xml`
 - [x] 站点地图 `/sitemap.xml`
 - [x] robots.txt
+- [x] IndexNow URL 主动推送
 - [x] 代码语法高亮 + 复制按钮
 - [x] 深色/浅色/自动主题切换
 - [x] 响应式设计（移动端汉堡菜单）
@@ -110,6 +111,20 @@ nav: [
 3. 构建命令：`npm run build`
 4. 输出目录：`dist`
 5. 配置自定义域名 `mrsun.me`
+
+## SEO 与 IndexNow
+
+站点内置 [IndexNow](https://www.indexnow.org/) 支持（Bing、Yandex、Naver、Seznam 等引擎的主动推送协议，Google 不支持，需在 Search Console 提交 sitemap）：
+
+- 密钥文件 `public/<key>.txt`（文件名即密钥），部署后位于站点根目录，IndexNow 抓取它验证站点所有权
+- URL 列表来自构建产物 `dist/sitemap.xml`
+
+每次部署生效后执行（先确认 `https://mrsun.me/<key>.txt` 已可访问）：
+
+```bash
+npm run indexnow                # 提交 sitemap 中全部 URL
+npm run indexnow -- --dry-run   # 只打印，不提交
+```
 
 ## 项目结构
 

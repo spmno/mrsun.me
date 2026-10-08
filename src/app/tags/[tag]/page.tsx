@@ -17,9 +17,10 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { tag } = await params;
   const decoded = decodeURIComponent(tag);
+  const count = getPostsByTag(tag).length;
   return genMeta({
-    title: `Tag: ${decoded}`,
-    description: `All articles tagged "${decoded}"`,
+    title: `All ${count} Article${count === 1 ? '' : 's'} Tagged ${decoded}`,
+    description: `Browse ${count} articles tagged ${decoded} on MrSun — practical write-ups, guides, and lessons learned from real projects, sorted newest first.`,
     path: `/tags/${tag}/`,
   });
 }
